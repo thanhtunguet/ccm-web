@@ -1,11 +1,10 @@
-import React from "react";
+import { SmileOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, notification, Row } from "antd";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AppRoute } from "src/config/app-route";
 import { Customer } from "src/models/Customer";
 import { customerRepository } from "src/repositories/customer-repository";
-import { useMaster } from "src/services/use-master";
-import { SmileOutlined } from "@ant-design/icons";
 
 const CustomerDetail = () => {
   // Form initialization
