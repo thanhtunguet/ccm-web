@@ -1,13 +1,13 @@
-import { defineConfig } from 'vite';
-import babel from 'vite-plugin-babel';
-import path from 'path';
-import tsNameof from 'vite-plugin-ts-nameof';
+import { defineConfig } from "vite";
+import babel from "vite-plugin-babel";
+import path from "path";
+import tsNameof from "vite-plugin-ts-nameof";
 
 export default defineConfig({
   resolve: {
     alias: {
-      'src': path.resolve(__dirname, 'src'),
-      'package.json': path.resolve(__dirname, 'package.json'),
+      "src": path.resolve(__dirname, "src"),
+      "package.json": path.resolve(__dirname, "package.json"),
     },
   },
   plugins: [
@@ -16,10 +16,10 @@ export default defineConfig({
       babelConfig: {
         babelrc: false,
         configFile: false,
-        presets: ['@babel/preset-typescript', '@babel/preset-react'],
+        presets: ["@babel/preset-typescript", "@babel/preset-react"],
         plugins: [
           [
-            '@babel/plugin-proposal-decorators',
+            "@babel/plugin-proposal-decorators",
             {
               loose: true,
               decoratorsBeforeExport: true,
@@ -29,4 +29,13 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      // Using the proxy instance
+      "/api": {
+        target: "https://ccm-dev.thanhtunguet.info",
+        changeOrigin: true,
+      },
+    },
+  },
 });

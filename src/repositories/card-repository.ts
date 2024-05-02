@@ -1,11 +1,11 @@
-import {BaseRepository} from "src/core/base-repository.ts";
-import {Bank} from "src/models";
+import { BaseRepository } from "src/core/base-repository.ts";
+import { Card } from "src/models";
 
-export class BankRepository extends BaseRepository<Bank> {
+export class CardRepository extends BaseRepository<Card> {
   constructor() {
-    super(Bank);
-    this.baseURL = `${super.baseURL}/api/bank`;
+    super(Card);
+    this.baseURL = `${super.baseURL}/api/card`;
   }
 }
 
-export const bankRepository = new BankRepository();
+export const cardRepository = new CardRepository();

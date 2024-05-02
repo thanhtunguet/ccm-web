@@ -1,0 +1,12 @@
+.ant-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .ant-layout-content {
+    padding: 1rem 1rem;
+    overflow-y: auto;
+  }
+}
