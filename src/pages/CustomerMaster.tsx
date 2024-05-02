@@ -5,6 +5,9 @@ import { Table } from "antd";
 import { useMaster } from "src/services/use-master.ts";
 import { customerRepository } from "src/repositories/customer-repository.ts";
 import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { useNavigate } from "react-router-dom";
+import { AppRoute } from "src/config/app-route";
 
 const columns: ColumnProps<Customer>[] = [
   {
@@ -53,14 +56,23 @@ export const CustomerMaster: FC = () => {
     customerRepository.count,
   );
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Table showHeader={true}
-             loading={isLoading}
-             columns={columns}
-             dataSource={customers}
-             rowKey="id"
-             footer={() => FooterCount({ counts })}
+        loading={isLoading}
+        columns={columns}
+        dataSource={customers}
+        rowKey="id"
+        title={() => (
+          <TableHeader
+            onAdd={() => {
+              navigate(AppRoute.CUSTOMER_CREATE);
+            }}
+          />
+        )}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );

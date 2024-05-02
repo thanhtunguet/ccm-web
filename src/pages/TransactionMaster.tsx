@@ -62,18 +62,18 @@ export const TransactionMaster: FC = () => {
   return (
     <>
       <Table showHeader={true}
-             loading={isLoading}
-             columns={columns}
-             dataSource={transactions}
-             rowKey="id"
-             title={() => (
-               <TableHeader
-                 onAdd={() => {
-                   navigate(AppRoute.TRANSACTION_CREATE);
-                 }}
-               />
-             )}
-             footer={() => FooterCount({ counts })}
+        loading={isLoading}
+        columns={columns}
+        dataSource={transactions}
+        rowKey="id"
+        title={() => (
+          <TableHeader
+            onAdd={() => {
+              navigate(AppRoute.TRANSACTION_CREATE);
+            }}
+          />
+        )}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { Button, Form, Input, notification, Select } from "antd";
+import { Button, Col, Form, Input, notification, Row, Select } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AppRoute } from "src/config/app-route";
@@ -42,6 +42,7 @@ const TransactionDetail = () => {
   const onFinish = (values: Transaction) => {
     setIsLoading(true);
     transactionRepository.create(values)
+      .pipe()
       .subscribe({
         next() {
           navigate(AppRoute.TRANSACTION);
@@ -57,49 +58,67 @@ const TransactionDetail = () => {
       onFinish={onFinish}
     >
       {contextHolder}
-      <Form.Item
-        name="code"
-        label="Code"
-        rules={[{ required: true, message: "Please enter the code" }]}
-      >
-        <Input />
-      </Form.Item>
+      <Row gutter={12}>
+        <Col span={12}>
+          <Form.Item
+            name="code"
+            label="Code"
+            rules={[{ required: true, message: "Please enter the code" }]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
 
-      <Form.Item
-        name="cardId"
-        label="Card ID"
-        rules={[{ required: true, message: "Please select the card ID" }]}
-      >
-        <Select>
-          {cards.map((card) => (<Option key={card.id} value={card.id}>{card.name}</Option>))}
-        </Select>
-      </Form.Item>
+        </Col>
+      </Row>
+      <Row gutter={12}>
+        <Col span={12}>
+          <Form.Item
+            name="storeId"
+            label="Store"
+            rules={[{ required: true, message: "Please select the store" }]}
+          >
+            <Select>
+              {stores.map((store) => (<Option key={store.id} value={store.id}>{store.name}</Option>))}
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name="cardId"
+            label="Card ID"
+            rules={[{ required: true, message: "Please select the card ID" }]}
+          >
+            <Select>
+              {cards.map((card) => (<Option key={card.id} value={card.id}>{card.name}</Option>))}
+            </Select>
+          </Form.Item>
+        </Col>
+      </Row>
 
-      <Form.Item
-        name="storeId"
-        label="Store"
-        rules={[{ required: true, message: "Please select the store" }]}
-      >
-        <Select>
-          {stores.map((store) => (<Option key={store.id} value={store.id}>{store.name}</Option>))}
-        </Select>
-      </Form.Item>
+      <Row gutter={12}>
+        <Col span={12}>
+          <Form.Item
+            name="amount"
+            label="Amount"
+            rules={[{ required: true, message: "Please enter the amount" }]}
+          >
+            <Input type="number" step="0.01" />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name="fee"
+            label="Fee"
+            rules={[{ required: true, message: "Please enter the fee" }]}
+          >
+            <Input type="number" step="0.01" />
+          </Form.Item>
+        </Col>
+      </Row>
 
-      <Form.Item
-        name="amount"
-        label="Amount"
-        rules={[{ required: true, message: "Please enter the amount" }]}
-      >
-        <Input type="number" step="0.01" />
-      </Form.Item>
 
-      <Form.Item
-        name="fee"
-        label="Fee"
-        rules={[{ required: true, message: "Please enter the fee" }]}
-      >
-        <Input type="number" step="0.01" />
-      </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
@@ -111,4 +130,3 @@ const TransactionDetail = () => {
 };
 
 export default TransactionDetail;
-

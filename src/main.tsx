@@ -13,6 +13,8 @@ import CardMaster from "src/pages/CardMaster.tsx";
 import StoreMaster from "src/pages/StoreMaster.tsx";
 import TransactionMaster from "src/pages/TransactionMaster.tsx";
 import TransactionDetail from "src/pages/TransactionDetail.tsx";
+import StoreDetail from "./pages/StoreDetail.tsx";
+import CustomerDetail from "./pages/CustomerDetail.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -32,12 +34,20 @@ export const routes: RouteObject[] = [
         element: <CustomerMaster />,
       },
       {
+        path: AppRoute.CUSTOMER_CREATE,
+        element: <CustomerDetail />,
+      },
+      {
         path: AppRoute.CARD,
         element: <CardMaster />,
       },
       {
         path: AppRoute.STORE,
         element: <StoreMaster />,
+      },
+      {
+        path: AppRoute.STORE_CREATE,
+        element: <StoreDetail />,
       },
       {
         path: AppRoute.TRANSACTION,

@@ -5,6 +5,9 @@ import { Table } from "antd";
 import { useMaster } from "src/services/use-master.ts";
 import { storeRepository } from "src/repositories/store-repository.ts";
 import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import { useNavigate } from "react-router-dom";
 
 const columns: ColumnProps<Store>[] = [
   {
@@ -38,14 +41,23 @@ export const StoreMaster: FC = () => {
     storeRepository.count,
   );
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Table showHeader={true}
-             loading={isLoading}
-             columns={columns}
-             dataSource={stores}
-             rowKey="id"
-             footer={() => FooterCount({ counts })}
+        loading={isLoading}
+        columns={columns}
+        dataSource={stores}
+        rowKey="id"
+        title={() => (
+          <TableHeader
+            onAdd={() => {
+              navigate(AppRoute.STORE_CREATE);
+            }}
+          />
+        )}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );
