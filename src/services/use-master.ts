@@ -1,5 +1,5 @@
-import {Model} from "react3l";
-import {finalize, Observable, zip} from "rxjs";
+import { Model } from "react3l";
+import { finalize, Observable, zip } from "rxjs";
 import React from "react";
 
 export function useMaster<T extends Model>(

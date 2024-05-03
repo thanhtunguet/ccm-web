@@ -1,8 +1,8 @@
-import {Field, Model, MomentField} from 'react3l';
+import { Field, Model, MomentField } from "react3l";
 
-import type {Moment} from 'moment';
+import type { Moment } from "moment";
 
-import {Bank} from 'src/models/Bank';
+import { Bank } from "src/models/Bank";
 
 export class CardClass extends Model {
   @Field(Number)
@@ -24,6 +24,9 @@ export class CardClass extends Model {
   public freePeriod?: number;
 
   @Field(String)
+  public bin?: string;
+
+  @Field(String)
   public color?: string;
 
   @MomentField()
@@ -41,15 +44,5 @@ export class CardClass extends Model {
   @Field(String)
   public sampleLink?: string;
 
-  @Field(Number)
-  public interest?: number;
-
-  @Field(String)
-  public bankShortName?: string;
-
-  @Field(String)
-  public bankName?: string;
-
   public bank?: Bank;
-
 }

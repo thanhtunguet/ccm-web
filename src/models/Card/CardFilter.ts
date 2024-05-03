@@ -1,4 +1,4 @@
-import {DateFilter, IdFilter, ModelFilter, NumberFilter, ObjectField, StringFilter} from 'react3l';
+import { DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter } from "react3l";
 
 export class CardFilter extends ModelFilter {
   @ObjectField(IdFilter)
@@ -11,28 +11,16 @@ export class CardFilter extends ModelFilter {
   public name?: StringFilter = new StringFilter();
 
   @ObjectField(StringFilter)
-  public cardName?: StringFilter = new StringFilter();
-
-  @ObjectField(StringFilter)
   public sampleLink?: StringFilter = new StringFilter();
 
   @ObjectField(StringFilter)
   public benefits?: StringFilter = new StringFilter();
-
-  @ObjectField(NumberFilter)
-  public interest?: NumberFilter = new NumberFilter();
 
   @ObjectField(StringFilter)
   public description?: StringFilter = new StringFilter();
 
   @ObjectField(StringFilter)
   public bin?: StringFilter = new StringFilter();
-
-  @ObjectField(NumberFilter)
-  public dueDate?: NumberFilter = new NumberFilter();
-
-  @ObjectField(NumberFilter)
-  public statementDate?: NumberFilter = new NumberFilter();
 
   @ObjectField(IdFilter)
   public bankId?: IdFilter = new IdFilter();

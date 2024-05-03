@@ -1,10 +1,10 @@
-import {Field, Model, MomentField} from 'react3l';
+import { Field, Model, MomentField } from "react3l";
 
-import type {Moment} from 'moment';
+import type { Moment } from "moment";
 
-import {TransactionStatus} from 'src/models/TransactionStatus';
+import { TransactionStatus } from "src/models/TransactionStatus";
 
-import {Store} from 'src/models/Store';
+import { Store } from "src/models/Store";
 
 export class Transaction extends Model {
   @Field(Number)
@@ -40,5 +40,4 @@ export class Transaction extends Model {
   public status?: TransactionStatus;
 
   public store?: Store;
-
 }

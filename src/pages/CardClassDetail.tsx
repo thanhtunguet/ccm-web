@@ -60,7 +60,7 @@ const CardClassDetail = () => {
             label="Name"
             rules={[{ required: true, message: "Please enter the name" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
         </Col>
       </Row>

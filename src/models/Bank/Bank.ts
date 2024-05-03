@@ -6,23 +6,11 @@ export class Bank extends Model {
   @Field(Number)
   public id?: number;
 
-  @Field(Number)
-  public shortId?: number;
-
   @Field(String)
   public code?: string;
 
-  @Field(String)
-  public shortCode?: string;
-
-  @Field(String)
-  public tpBankIdCode?: string;
-
   @Field(Boolean)
   public napasSupported?: boolean;
-
-  @Field(String)
-  public dataType?: string;
 
   @Field(String)
   public name?: string;

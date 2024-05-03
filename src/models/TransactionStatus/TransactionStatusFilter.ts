@@ -1,4 +1,4 @@
-import {IdFilter, ModelFilter, ObjectField, StringFilter} from 'react3l';
+import { IdFilter, ModelFilter, ObjectField, StringFilter } from "react3l";
 
 export class TransactionStatusFilter extends ModelFilter {
   @ObjectField(IdFilter)
@@ -14,5 +14,4 @@ export class TransactionStatusFilter extends ModelFilter {
   public color?: StringFilter = new StringFilter();
 
   public search?: string;
-
 }

@@ -21,9 +21,9 @@ const StoreDetail = () => {
       icon: <SmileOutlined style={{ color: "#108ee9" }} />,
     });
   }, [api]);
-    // Navigation hook
+  // Navigation hook
   const navigate = useNavigate();
-  
+
   // Form submit handler
   const onFinish = (values: Store) => {
     setIsLoading(true);
@@ -32,7 +32,7 @@ const StoreDetail = () => {
       .subscribe({
         next() {
           navigate(AppRoute.STORE);
-          openNotification('Store created');
+          openNotification("Store created");
         },
       });
   };
@@ -77,7 +77,7 @@ const StoreDetail = () => {
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+          Submit
         </Button>
       </Form.Item>
     </Form>

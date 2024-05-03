@@ -1,5 +1,5 @@
-export * from './Bank';
+export * from "./Bank";
 
-export * from './BankFilter';
-  
-  
+export * from "./BankFilter";
+
+

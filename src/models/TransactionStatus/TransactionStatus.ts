@@ -1,4 +1,4 @@
-import {Field, Model} from 'react3l';
+import { Field, Model } from "react3l";
 
 export class TransactionStatus extends Model {
   @Field(Number)
@@ -12,5 +12,4 @@ export class TransactionStatus extends Model {
 
   @Field(String)
   public color?: string;
-
 }

@@ -1,20 +1,11 @@
-import {DateFilter, IdFilter, ModelFilter, NumberFilter, ObjectField, StringFilter} from 'react3l';
+import { DateFilter, IdFilter, ModelFilter, NumberFilter, ObjectField, StringFilter } from "react3l";
 
 export class BankFilter extends ModelFilter {
   @ObjectField(IdFilter)
   public id?: IdFilter = new IdFilter();
 
-  @ObjectField(IdFilter)
-  public shortId?: IdFilter = new IdFilter();
-
   @ObjectField(StringFilter)
   public code?: StringFilter = new StringFilter();
-
-  @ObjectField(StringFilter)
-  public shortCode?: StringFilter = new StringFilter();
-
-  @ObjectField(StringFilter)
-  public tpBankIdCode?: StringFilter = new StringFilter();
 
   @ObjectField(StringFilter)
   public dataType?: StringFilter = new StringFilter();
@@ -41,5 +32,4 @@ export class BankFilter extends ModelFilter {
   public updatedAt?: DateFilter = new DateFilter();
 
   public search?: string;
-
 }

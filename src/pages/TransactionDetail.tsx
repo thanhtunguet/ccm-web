@@ -46,7 +46,7 @@ const TransactionDetail = () => {
       .subscribe({
         next() {
           navigate(AppRoute.TRANSACTION);
-          openNotification('Transaction created');
+          openNotification("Transaction created");
         },
       });
   };
@@ -109,7 +109,7 @@ const TransactionDetail = () => {
         </Col>
         <Col span={12}>
           <Form.Item
-            name="fee"
+            name={nameof(Transaction.prototype.transactionFee)}
             label="Fee"
             rules={[{ required: true, message: "Please enter the fee" }]}
           >
@@ -117,9 +117,6 @@ const TransactionDetail = () => {
           </Form.Item>
         </Col>
       </Row>
-
-
-
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
           Submit

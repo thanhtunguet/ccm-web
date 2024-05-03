@@ -51,11 +51,6 @@ export const BankMaster: FC = () => {
       key: nameof(Bank.prototype.englishName),
     },
     {
-      title: "BIN",
-      dataIndex: nameof(Bank.prototype.bin),
-      key: nameof(Bank.prototype.bin),
-    },
-    {
       title: "Độ dài số thẻ",
       dataIndex: nameof(Bank.prototype.cardLength),
       key: nameof(Bank.prototype.cardLength),

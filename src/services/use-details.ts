@@ -45,7 +45,7 @@ export function useDetails<T extends Model>(
 
   const handleCreate = React.useCallback((values: T) => {
     setIsLoading(true);
-    (typeof id === 'number' ? doUpdate({...values, id}) : doCreate(values))
+    (typeof id === "number" ? doUpdate({ ...values, id }) : doCreate(values))
       .pipe(
         finalize(() => {
           setIsLoading(false);
@@ -57,7 +57,7 @@ export function useDetails<T extends Model>(
           navigate(routeGoBack);
         },
       });
-  },[id, doUpdate, doCreate, form, navigate, routeGoBack]);
+  }, [id, doUpdate, doCreate, form, navigate, routeGoBack]);
 
   return [
     form,

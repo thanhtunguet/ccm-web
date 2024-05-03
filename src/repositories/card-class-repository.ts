@@ -1,6 +1,6 @@
 // card-class-repository.ts
-import {BaseRepository} from "src/core/base-repository.ts";
-import {CardClass} from "src/models";
+import { BaseRepository } from "src/core/base-repository.ts";
+import { CardClass } from "src/models";
 
 export class CardClassRepository extends BaseRepository<CardClass> {
   constructor() {

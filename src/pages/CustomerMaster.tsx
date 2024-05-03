@@ -35,29 +35,19 @@ export const CustomerMaster: FC = () => {
       key: "displayName",
     },
     {
-      title: "Tên",
-      dataIndex: nameof(Customer.prototype.firstName),
-      key: "firstName",
-    },
-    {
-      title: "Họ",
-      dataIndex: nameof(Customer.prototype.lastName),
-      key: "lastName",
-    },
-    {
       title: "Email",
       dataIndex: nameof(Customer.prototype.email),
       key: "email",
     },
     {
-      title: "Địa chỉ",
-      dataIndex: nameof(Customer.prototype.address),
-      key: "address",
-    },
-    {
       title: "SĐT",
       dataIndex: nameof(Customer.prototype.phoneNumber),
       key: "phoneNumber",
+    },
+    {
+      title: "Địa chỉ",
+      dataIndex: nameof(Customer.prototype.address),
+      key: "address",
     },
     {
       title: "Actions",

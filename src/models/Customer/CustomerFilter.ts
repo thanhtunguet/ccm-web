@@ -1,4 +1,4 @@
-import {DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter} from 'react3l';
+import { DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter } from "react3l";
 
 export class CustomerFilter extends ModelFilter {
   @ObjectField(IdFilter)
@@ -6,12 +6,6 @@ export class CustomerFilter extends ModelFilter {
 
   @ObjectField(StringFilter)
   public displayName?: StringFilter = new StringFilter();
-
-  @ObjectField(StringFilter)
-  public firstName?: StringFilter = new StringFilter();
-
-  @ObjectField(StringFilter)
-  public lastName?: StringFilter = new StringFilter();
 
   @ObjectField(StringFilter)
   public email?: StringFilter = new StringFilter();
@@ -29,5 +23,4 @@ export class CustomerFilter extends ModelFilter {
   public updatedAt?: DateFilter = new DateFilter();
 
   public search?: string;
-
 }

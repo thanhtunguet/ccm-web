@@ -1,5 +1,3 @@
-export * from './Store';
+export * from "./Store";
 
-export * from './StoreFilter';
-  
-  
+export * from "./StoreFilter";

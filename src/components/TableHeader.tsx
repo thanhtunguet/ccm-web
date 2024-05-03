@@ -4,7 +4,7 @@ import { FC } from "react";
 
 export interface TableHeaderProps {
   onAdd(): void;
-};
+}
 
 export const TableHeader: FC<TableHeaderProps> = (props: TableHeaderProps) => {
   const {

@@ -39,11 +39,6 @@ export const CardMaster: FC = () => {
       key: "name",
     },
     {
-      title: "Interest",
-      dataIndex: "interest",
-      key: "interest",
-    },
-    {
       title: "Mô tả",
       dataIndex: "description",
       key: "description",

@@ -1,6 +1,6 @@
-import {Field, Model, MomentField} from 'react3l';
+import { Field, Model, MomentField } from "react3l";
 
-import type {Moment} from 'moment';
+import type { Moment } from "moment";
 
 export class Store extends Model {
   @Field(Number)
@@ -17,9 +17,6 @@ export class Store extends Model {
 
   @MomentField()
   public updatedAt?: Moment;
-
-  @MomentField()
-  public deletedAt?: Moment;
 
   @Field(String)
   public address?: string;

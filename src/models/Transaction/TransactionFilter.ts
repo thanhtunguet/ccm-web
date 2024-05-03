@@ -1,4 +1,4 @@
-import {DateFilter, IdFilter, ModelFilter, NumberFilter, ObjectField, StringFilter} from 'react3l';
+import { DateFilter, IdFilter, ModelFilter, NumberFilter, ObjectField, StringFilter } from "react3l";
 
 export class TransactionFilter extends ModelFilter {
   @ObjectField(IdFilter)

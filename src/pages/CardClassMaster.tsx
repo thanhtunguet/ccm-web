@@ -10,6 +10,7 @@ import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 import { useMaster } from "src/services/use-master.ts";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useDelete } from "src/services/use-delete.ts";
+import { getNextDate } from "src/helpers/date.ts";
 
 export const CardClassMaster: FC = () => {
   const [banks, counts, isLoading] = useMaster<CardClass>(
@@ -39,16 +40,27 @@ export const CardClassMaster: FC = () => {
       title: "Ngày thanh toán",
       dataIndex: "dueDate",
       key: "dueDate",
+      render(date) {
+        return getNextDate(date).format('DD/MM/YYYY');
+      },
     },
     {
       title: "Ngày sao kê",
       dataIndex: "statementDate",
       key: "statementDate",
+      render(date) {
+        return getNextDate(date).format('DD/MM/YYYY');
+      },
     },
     {
       title: "Miễn lãi",
       dataIndex: "freePeriod",
       key: "freePeriod",
+    },
+    {
+      title: "BIN",
+      dataIndex: nameof(CardClass.prototype.bin),
+      key: nameof(CardClass.prototype.bin),
     },
     {
       title: "Actions",

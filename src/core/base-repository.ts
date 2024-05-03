@@ -8,13 +8,13 @@ export abstract class BaseRepository<T extends Model> extends Repository {
   }
 
   public readonly list: () => Observable<T[]> = () => {
-    return this.http.get('/list').pipe(
+    return this.http.get("/list").pipe(
       Repository.responseMapToList<T>(this.TClass),
     );
   };
 
   public readonly count: () => Observable<number> = () => {
-    return this.http.get('/count').pipe(
+    return this.http.get("/count").pipe(
       Repository.responseDataMapper<number>(),
     );
   };
@@ -30,19 +30,19 @@ export abstract class BaseRepository<T extends Model> extends Repository {
   };
 
   public readonly create: (model: T) => Observable<T> = (model: T) => {
-    return this.http.post('/create', model).pipe(
+    return this.http.post("/create", model).pipe(
       Repository.responseMapToModel<T>(this.TClass),
     );
   };
 
   public readonly update: (model: T) => Observable<T> = (model: T) => {
-    return this.http.put('/update', model).pipe(
+    return this.http.put("/update", model).pipe(
       Repository.responseMapToModel<T>(this.TClass),
     );
   };
 
   public readonly delete: (model: T) => Observable<T> = (model: T) => {
-    return this.http.delete('/delete', {
+    return this.http.delete("/delete", {
       params: {
         id: model.id,
       },

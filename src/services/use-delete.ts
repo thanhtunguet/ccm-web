@@ -14,7 +14,7 @@ export function useDelete<T extends Model>(
           window.location.reload();
         },
       });
-  },[getDelete]);
+  }, [getDelete]);
 
   return [handleDelete];
 }
