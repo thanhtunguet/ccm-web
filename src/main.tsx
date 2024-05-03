@@ -1,20 +1,20 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "src/models";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 import { AppRoute } from "src/config/app-route.ts";
-import "bootstrap/dist/css/bootstrap.min.css";
 import BankMaster from "src/pages/BankMaster.tsx";
-import "./main.scss";
 import CardClassMaster from "src/pages/CardClassMaster.tsx";
-import CustomerMaster from "src/pages/CustomerMaster.tsx";
 import CardMaster from "src/pages/CardMaster.tsx";
+import CustomerMaster from "src/pages/CustomerMaster.tsx";
 import StoreMaster from "src/pages/StoreMaster.tsx";
-import TransactionMaster from "src/pages/TransactionMaster.tsx";
 import TransactionDetail from "src/pages/TransactionDetail.tsx";
-import StoreDetail from "./pages/StoreDetail.tsx";
+import TransactionMaster from "src/pages/TransactionMaster.tsx";
+import App from "./App.tsx";
+import "./main.scss";
+import CardDetail from "./pages/CardDetail.tsx";
 import CustomerDetail from "./pages/CustomerDetail.tsx";
+import StoreDetail from "./pages/StoreDetail.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -40,6 +40,10 @@ export const routes: RouteObject[] = [
       {
         path: AppRoute.CARD,
         element: <CardMaster />,
+      },
+      {
+        path: AppRoute.CARD_CREATE,
+        element: <CardDetail />,
       },
       {
         path: AppRoute.STORE,

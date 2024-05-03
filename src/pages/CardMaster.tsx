@@ -1,10 +1,13 @@
-import { FC } from "react";
-import { ColumnProps } from "antd/lib/table";
-import { Card } from "src/models";
 import { Table } from "antd";
-import { useMaster } from "src/services/use-master.ts";
-import { cardRepository } from "src/repositories/card-repository.ts";
+import { ColumnProps } from "antd/lib/table";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import { Card } from "src/models";
+import { cardRepository } from "src/repositories/card-repository.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 const columns: ColumnProps<Card>[] = [
   {
@@ -43,14 +46,23 @@ export const CardMaster: FC = () => {
     cardRepository.count,
   );
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Table showHeader={true}
-             loading={isLoading}
-             columns={columns}
-             dataSource={cards}
-             rowKey="id"
-             footer={() => FooterCount({ counts })}
+        loading={isLoading}
+        columns={columns}
+        dataSource={cards}
+        rowKey="id"
+        title={() => (
+          <TableHeader
+            onAdd={() => {
+              navigate(AppRoute.CARD_CREATE);
+            }}
+          />
+        )}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );

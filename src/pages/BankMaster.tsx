@@ -6,6 +6,9 @@ import { useMaster } from "src/services/use-master.ts";
 import { bankRepository } from "src/repositories/bank-repository.ts";
 import { FooterCount } from "src/components/FooterCount.tsx";
 import {PlusOutlined} from '@ant-design/icons';
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import { useNavigate } from "react-router-dom";
 
 const columns: ColumnProps<Bank>[] = [
   {
@@ -54,19 +57,23 @@ export const BankMaster: FC = () => {
     bankRepository.count,
   );
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Table showHeader={true}
-             loading={isLoading}
-             columns={columns}
-             dataSource={banks}
-             rowKey="id"
-             title={() => (
-               <Button type="primary" icon={<PlusOutlined />}>
-                 Create
-               </Button>
-             )}
-             footer={() => FooterCount({ counts })}
+        loading={isLoading}
+        columns={columns}
+        dataSource={banks}
+        rowKey="id"
+        title={() => (
+          <TableHeader
+            onAdd={() => {
+              navigate(AppRoute.BANK_CREATE);
+            }}
+          />
+        )}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );

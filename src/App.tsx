@@ -2,12 +2,19 @@ import { Layout, Menu } from "antd";
 import React from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { menu } from "./config/menu";
+import { AppRoute } from "./config/app-route";
 
 const { Header, Content, Footer } = Layout;
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    if (pathname === "/") {
+      window.location.href = AppRoute.TRANSACTION;
+    }
+  }, [pathname]);
 
   return (
     <Layout>

@@ -5,6 +5,9 @@ import { Table } from "antd";
 import { useMaster } from "src/services/use-master.ts";
 import { FooterCount } from "src/components/FooterCount.tsx";
 import { cardClassRepository } from "src/repositories/card-class-repository.ts";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import { useNavigate } from "react-router-dom";
 
 const columns: ColumnProps<CardClass>[] = [
   {
@@ -53,14 +56,23 @@ export const CardClassMaster: FC = () => {
     cardClassRepository.count,
   );
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Table showHeader={true}
-             loading={isLoading}
-             columns={columns}
-             dataSource={banks}
-             rowKey="id"
-             footer={() => FooterCount({ counts })}
+        loading={isLoading}
+        columns={columns}
+        dataSource={banks}
+        rowKey="id"
+        title={() => (
+          <TableHeader
+            onAdd={() => {
+              navigate(AppRoute.CARD_CLASS_CREATE);
+            }}
+          />
+        )}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );
