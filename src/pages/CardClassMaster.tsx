@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { ColumnProps } from "antd/lib/table";
-import { CardClass } from "src/models";
 import { Table } from "antd";
-import { useMaster } from "src/services/use-master.ts";
+import { ColumnProps } from "antd/lib/table";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { FooterCount } from "src/components/FooterCount.tsx";
-import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 import { TableHeader } from "src/components/TableHeader";
 import { AppRoute } from "src/config/app-route";
-import { useNavigate } from "react-router-dom";
+import { CardClass } from "src/models";
+import { cardClassRepository } from "src/repositories/card-class-repository.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 const columns: ColumnProps<CardClass>[] = [
   {

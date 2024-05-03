@@ -1,14 +1,13 @@
-import { FC } from "react";
+import { Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
-import { Bank } from "src/models";
-import { Button, Table } from "antd";
-import { useMaster } from "src/services/use-master.ts";
-import { bankRepository } from "src/repositories/bank-repository.ts";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { FooterCount } from "src/components/FooterCount.tsx";
-import {PlusOutlined} from '@ant-design/icons';
 import { TableHeader } from "src/components/TableHeader";
 import { AppRoute } from "src/config/app-route";
-import { useNavigate } from "react-router-dom";
+import { Bank } from "src/models";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 const columns: ColumnProps<Bank>[] = [
   {
