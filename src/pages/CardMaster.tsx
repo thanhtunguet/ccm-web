@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Button, Popconfirm, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,37 +8,8 @@ import { AppRoute } from "src/config/app-route";
 import { Card } from "src/models";
 import { cardRepository } from "src/repositories/card-repository.ts";
 import { useMaster } from "src/services/use-master.ts";
-
-const columns: ColumnProps<Card>[] = [
-  {
-    title: "STT",
-    dataIndex: "id",
-    key: "id",
-    render(...[, , index]: [number, Card, number]) {
-      return index + 1;
-    },
-  },
-  {
-    title: "Số thẻ",
-    dataIndex: "cardNumber",
-    key: "cardNumber",
-  },
-  {
-    title: "Tên thẻ",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Interest",
-    dataIndex: "interest",
-    key: "interest",
-  },
-  {
-    title: "Mô tả",
-    dataIndex: "description",
-    key: "description",
-  },
-];
+import { useDelete } from "src/services/use-delete.ts";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 export const CardMaster: FC = () => {
   const [cards, counts, isLoading] = useMaster<Card>(
@@ -47,6 +18,66 @@ export const CardMaster: FC = () => {
   );
 
   const navigate = useNavigate();
+  const [handleDelete] = useDelete<Card>(cardRepository.delete);
+  const columns: ColumnProps<Card>[] = [
+    {
+      title: "STT",
+      dataIndex: "id",
+      key: "id",
+      render(...[, , index]: [number, Card, number]) {
+        return index + 1;
+      },
+    },
+    {
+      title: "Số thẻ",
+      dataIndex: "cardNumber",
+      key: "cardNumber",
+    },
+    {
+      title: "Tên thẻ",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Interest",
+      dataIndex: "interest",
+      key: "interest",
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: "Actions",
+      dataIndex: nameof(Card.prototype.id),
+      key: "actions",
+      render(id, record) {
+        return <>
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
+            navigate({
+              pathname: AppRoute.CARD_CREATE,
+              search: `?id=${id}`,
+            });
+          }} />
+          <Popconfirm
+            title="Delete this?"
+            description="Are you sure to delete this?"
+            onConfirm={() => {
+              handleDelete(record)();
+            }}
+            onCancel={() => {
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
+          </Popconfirm>
+
+        </>;
+      },
+    },
+  ];
 
   return (
     <>

@@ -33,7 +33,8 @@ export default defineConfig({
     proxy: {
       // Using the proxy instance
       "/api": {
-        target: "https://ccm-dev.thanhtunguet.info",
+        target: "http://localhost:3000",
+        // target: "https://ccm-dev.thanhtunguet.info",
         changeOrigin: true,
       },
     },

@@ -1,48 +1,23 @@
-import { SmileOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, notification, Row } from "antd";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Button, Col, Form, Input, Row } from "antd";
 import { AppRoute } from "src/config/app-route";
 import { Customer } from "src/models/Customer";
 import { customerRepository } from "src/repositories/customer-repository";
+import { useDetails } from "src/services/use-details.ts";
 
 const CustomerDetail = () => {
-  // Form initialization
-  const [form] = Form.useForm<Customer>();
-  // State for loading spinner
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  // Notification hook
-  const [api, contextHolder] = notification.useNotification();
-  // Function to display notification
-  const openNotification = React.useCallback((message: string) => {
-    api.open({
-      message: "Notification",
-      description: message,
-      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
-    });
-  }, [api]);
-  // Navigation hook
-  const navigate = useNavigate();
-  // Form submit handler
-  const onFinish = (values: Customer) => {
-    setIsLoading(true);
-    customerRepository.create(values)
-      .pipe()
-      .subscribe({
-        next() {
-          navigate(AppRoute.CUSTOMER);
-          openNotification('Customer created');
-        },
-      });
-  };
+  const [form, isLoading, handleCreate] = useDetails<Customer>(
+    customerRepository.get,
+    customerRepository.create,
+    customerRepository.update,
+    AppRoute.CUSTOMER,
+  );
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={onFinish}
+      onFinish={handleCreate}
     >
-      {contextHolder}
       <Row gutter={12}>
         <Col span={8}>
           {/* Display name field */}

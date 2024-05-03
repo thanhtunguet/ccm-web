@@ -1,6 +1,6 @@
-import {Field, Model, MomentField} from 'react3l';
+import { Field, Model, MomentField } from "react3l";
 
-import type {Moment} from 'moment';
+import type { Moment } from "moment";
 
 export class Bank extends Model {
   @Field(Number)
@@ -47,5 +47,4 @@ export class Bank extends Model {
 
   @MomentField()
   public deletedAt?: Moment;
-
 }

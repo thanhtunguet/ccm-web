@@ -15,6 +15,8 @@ import "./main.scss";
 import CardDetail from "./pages/CardDetail.tsx";
 import CustomerDetail from "./pages/CustomerDetail.tsx";
 import StoreDetail from "./pages/StoreDetail.tsx";
+import BankDetail from "src/pages/BankDetail.tsx";
+import CardClassDetail from "src/pages/CardClassDetail.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -26,8 +28,16 @@ export const routes: RouteObject[] = [
         element: <BankMaster />,
       },
       {
+        path: AppRoute.BANK_CREATE,
+        element: <BankDetail />,
+      },
+      {
         path: AppRoute.CARD_CLASSES,
         element: <CardClassMaster />,
+      },
+      {
+        path: AppRoute.CARD_CLASS_CREATE,
+        element: <CardClassDetail />,
       },
       {
         path: AppRoute.CUSTOMER,

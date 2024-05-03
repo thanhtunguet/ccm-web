@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Button, Popconfirm, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,47 +8,8 @@ import { AppRoute } from "src/config/app-route";
 import { CardClass } from "src/models";
 import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 import { useMaster } from "src/services/use-master.ts";
-
-const columns: ColumnProps<CardClass>[] = [
-  {
-    title: "STT",
-    dataIndex: "id",
-    key: "id",
-    render(...[, , index]: [number, CardClass, number]) {
-      return index + 1;
-    },
-  },
-  {
-    title: "Tên",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Ngày thanh toán",
-    dataIndex: "dueDate",
-    key: "dueDate",
-  },
-  {
-    title: "Ngày sao kê",
-    dataIndex: "statementDate",
-    key: "statementDate",
-  },
-  {
-    title: "Miễn lãi",
-    dataIndex: "freePeriod",
-    key: "freePeriod",
-  },
-  {
-    title: "Ngân hàng",
-    dataIndex: "bankShortName",
-    key: "bankShortName",
-  },
-  {
-    title: "Tên ngân hàng",
-    dataIndex: "bankName",
-    key: "bankName",
-  },
-];
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useDelete } from "src/services/use-delete.ts";
 
 export const CardClassMaster: FC = () => {
   const [banks, counts, isLoading] = useMaster<CardClass>(
@@ -57,6 +18,68 @@ export const CardClassMaster: FC = () => {
   );
 
   const navigate = useNavigate();
+
+  const [handleDelete] = useDelete<CardClass>(cardClassRepository.delete);
+
+  const columns: ColumnProps<CardClass>[] = [
+    {
+      title: "STT",
+      dataIndex: "id",
+      key: "id",
+      render(...[, , index]: [number, CardClass, number]) {
+        return index + 1;
+      },
+    },
+    {
+      title: "Tên",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Ngày thanh toán",
+      dataIndex: "dueDate",
+      key: "dueDate",
+    },
+    {
+      title: "Ngày sao kê",
+      dataIndex: "statementDate",
+      key: "statementDate",
+    },
+    {
+      title: "Miễn lãi",
+      dataIndex: "freePeriod",
+      key: "freePeriod",
+    },
+    {
+      title: "Actions",
+      dataIndex: nameof(CardClass.prototype.id),
+      key: "actions",
+      render(id, record) {
+        return <>
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
+            navigate({
+              pathname: AppRoute.CARD_CLASS_CREATE,
+              search: `?id=${id}`,
+            });
+          }} />
+          <Popconfirm
+            title="Delete this?"
+            description="Are you sure to delete this?"
+            onConfirm={() => {
+              handleDelete(record)();
+            }}
+            onCancel={() => {
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
+          </Popconfirm>
+
+        </>;
+      },
+    },
+  ];
 
   return (
     <>

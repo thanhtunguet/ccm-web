@@ -1,54 +1,30 @@
-import { SmileOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, notification, Row, Select } from "antd";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Button, Col, Form, Input, Row, Select } from "antd";
 import { AppRoute } from "src/config/app-route";
-import { Bank, CardClass, Customer } from "src/models";
 import { Card } from "src/models/Card";
-import { bankRepository } from "src/repositories/bank-repository";
-import { cardClassRepository } from "src/repositories/card-class-repository";
 import { cardRepository } from "src/repositories/card-repository";
-import { customerRepository } from "src/repositories/customer-repository";
-import { useMaster } from "src/services/use-master";
+import { useDetails } from "src/services/use-details.ts";
+import { useMaster } from "src/services/use-master.ts";
+import { Bank, CardClass, Customer } from "src/models";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { customerRepository } from "src/repositories/customer-repository.ts";
+import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 
 const CardDetail = () => {
-  // Form initialization
-  const [form] = Form.useForm<Card>();
-  // State for loading spinner
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  // Notification hook
-  const [api, contextHolder] = notification.useNotification();
-  // Function to display notification
-  const openNotification = React.useCallback((message: string) => {
-    api.open({
-      message: "Notification",
-      description: message,
-      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
-    });
-  }, [api]);
-  // Navigation hook
-  const navigate = useNavigate();
-  // Form submit handler
-  const onFinish = (values: Card) => {
-    setIsLoading(true);
-    cardRepository.create(values)
-      .pipe()
-      .subscribe({
-        next() {
-          navigate(AppRoute.CARD);
-          openNotification('Card created');
-        },
-      });
-  };
-
-  const [customers] = useMaster<Customer>(
-    customerRepository.list,
-    customerRepository.count,
+  const [form, isLoading, handleCreate] = useDetails<Card>(
+    cardRepository.get,
+    cardRepository.create,
+    cardRepository.update,
+    AppRoute.CARD,
   );
 
   const [banks] = useMaster<Bank>(
     bankRepository.list,
     bankRepository.count,
+  );
+
+  const [customers] = useMaster<Customer>(
+    customerRepository.list,
+    customerRepository.count,
   );
 
   const [cardClasses] = useMaster<CardClass>(
@@ -60,9 +36,8 @@ const CardDetail = () => {
     <Form
       form={form}
       layout="vertical"
-      onFinish={onFinish}
+      onFinish={handleCreate}
     >
-      {contextHolder}
       <Row gutter={12}>
         <Col span={8}>
           {/* Card Number field */}
@@ -85,18 +60,6 @@ const CardDetail = () => {
           </Form.Item>
         </Col>
         <Col span={8}>
-          {/* Card Name field */}
-          <Form.Item
-            name="cardName"
-            label="Card Name"
-            rules={[{ required: true, message: "Please enter the card name" }]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={12}>
-        <Col span={8}>
           {/* Sample Link field */}
           <Form.Item
             name="sampleLink"
@@ -106,44 +69,14 @@ const CardDetail = () => {
             <Input />
           </Form.Item>
         </Col>
+      </Row>
+      <Row gutter={12}>
         <Col span={8}>
           {/* Benefits field */}
           <Form.Item
             name="benefits"
             label="Benefits"
             rules={[{ required: true, message: "Please enter the benefits" }]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          {/* Interest field */}
-          <Form.Item
-            name="interest"
-            label="Interest"
-            rules={[{ required: true, message: "Please enter the interest" }]}
-          >
-            <Input type="number" />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={12}>
-        <Col span={8}>
-          {/* Description field */}
-          <Form.Item
-            name="description"
-            label="Description"
-            rules={[{ required: true, message: "Please enter the description" }]}
-          >
-            <Input.TextArea />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          {/* BIN field */}
-          <Form.Item
-            name="bin"
-            label="BIN"
-            rules={[{ required: true, message: "Please enter the BIN" }]}
           >
             <Input />
           </Form.Item>
@@ -158,8 +91,6 @@ const CardDetail = () => {
             <Input type="number" />
           </Form.Item>
         </Col>
-      </Row>
-      <Row gutter={12}>
         <Col span={8}>
           {/* Statement Date field */}
           <Form.Item
@@ -170,6 +101,9 @@ const CardDetail = () => {
             <Input type="number" />
           </Form.Item>
         </Col>
+      </Row>
+
+      <Row gutter={12}>
         <Col span={8}>
           {/* Bank ID field */}
           <Form.Item
@@ -202,21 +136,37 @@ const CardDetail = () => {
             </Select>
           </Form.Item>
         </Col>
+        <Col span={8}>
+          {/* Customer ID field */}
+          <Form.Item
+            name="customerId"
+            label="Customer"
+            rules={[{ required: true, message: "Please enter the customer ID" }]}
+          >
+            <Select>
+              {customers.map((customer) => (
+                <Select.Option key={customer.id} value={customer.id}>
+                  {customer.displayName}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </Col>
       </Row>
-      {/* Customer ID field */}
-      <Form.Item
-        name="customerId"
-        label="Customer"
-        rules={[{ required: true, message: "Please enter the customer ID" }]}
-      >
-        <Select>
-          {customers.map((customer) => (
-            <Select.Option key={customer.id} value={customer.id}>
-              {customer.displayName}
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
+
+      <Row gutter={12}>
+        <Col span={8}>
+          {/* Description field */}
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[{ required: true, message: "Please enter the description" }]}
+          >
+            <Input.TextArea />
+          </Form.Item>
+        </Col>
+
+      </Row>
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
