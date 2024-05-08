@@ -29,26 +29,7 @@ const CustomerDetail = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
-          {/* First name field */}
-          <Form.Item
-            name="firstName"
-            label="First Name"
-            rules={[{ required: true, message: "Please enter the first name" }]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          {/* Last name field */}
-          <Form.Item
-            name="lastName"
-            label="Last Name"
-            rules={[{ required: true, message: "Please enter the last name" }]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
+
       </Row>
       <Row gutter={12}>
         <Col span={8}>

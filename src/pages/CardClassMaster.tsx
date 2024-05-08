@@ -56,6 +56,11 @@ export const CardClassMaster: FC = () => {
       title: "Miễn lãi",
       dataIndex: "freePeriod",
       key: "freePeriod",
+      render(freePeriod) {
+        return (
+          <span>{freePeriod} days</span>
+        );
+      },
     },
     {
       title: "BIN",

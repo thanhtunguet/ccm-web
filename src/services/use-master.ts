@@ -9,12 +9,13 @@ export function useMaster<T extends Model>(
   T[],
   number,
   boolean,
+  () => void | Promise<void>,
 ] {
   const [list, setList] = React.useState<T[]>([]);
   const [count, setCount] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  React.useEffect(() => {
+  const handleRefresh = React.useCallback(() => {
     setIsLoading(true);
     zip([
       getList(),
@@ -31,11 +32,16 @@ export function useMaster<T extends Model>(
           setCount(values[1]);
         },
       });
-  }, [getCount, getList]);
+  },[getCount, getList]);
+
+  React.useEffect(() => {
+    handleRefresh();
+  }, [getCount, getList, handleRefresh]);
 
   return [
     list,
     count,
     isLoading,
+    handleRefresh,
   ];
 }

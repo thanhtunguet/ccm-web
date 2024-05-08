@@ -1,11 +1,12 @@
-import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
-import { AppRoute } from "src/config/app-route";
-import { CardClass } from "src/models/CardClass";
-import { useDetails } from "src/services/use-details.ts";
-import { cardClassRepository } from "src/repositories/card-class-repository.ts";
-import { useMaster } from "src/services/use-master.ts";
-import { Bank } from "src/models";
-import { bankRepository } from "src/repositories/bank-repository.ts";
+import {Button, Col, Form, Input, InputNumber, Row, Select} from "antd";
+import {AppRoute} from "src/config/app-route";
+import {CardClass} from "src/models/CardClass";
+import {useDetails} from "src/services/use-details.ts";
+import {cardClassRepository} from "src/repositories/card-class-repository.ts";
+import {useMaster} from "src/services/use-master.ts";
+import {Bank} from "src/models";
+import {bankRepository} from "src/repositories/bank-repository.ts";
+import {filterFunc} from "src/helpers/select.ts";
 
 const CardClassDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<CardClass>(
@@ -32,11 +33,11 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.bankId)}
             label="Bank"
-            rules={[{ required: true, message: "Please select the bank" }]}
+            rules={[{required: true, message: "Please select the bank"}]}
           >
-            <Select>
+            <Select showSearch={true} filterOption={filterFunc} placeholder="Search by short name">
               {banks.map((bank) => (
-                <Select.Option key={bank.id} value={bank.id}>
+                <Select.Option key={bank.id} value={bank.id} searchValue={bank.shortName}>
                   {bank.shortName} - {bank.name}
                 </Select.Option>
               ))}
@@ -48,9 +49,9 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.code)}
             label="CardClass code"
-            rules={[{ required: true, message: "Please enter the cardClass code" }]}
+            rules={[{required: true, message: "Please enter the cardClass code"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -58,9 +59,9 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.name)}
             label="Name"
-            rules={[{ required: true, message: "Please enter the name" }]}
+            rules={[{required: true, message: "Please enter the name"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
       </Row>
@@ -70,9 +71,9 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.statementDate)}
             label="Statement Date"
-            rules={[{ required: true, message: "Please enter the statement date" }]}
+            rules={[{required: true, message: "Please enter the statement date"}]}
           >
-            <InputNumber className="w-100" />
+            <InputNumber className="w-100"/>
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -80,26 +81,26 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.dueDate)}
             label="Due date"
-            rules={[{ required: true, message: "Please enter the due date" }]}
+            rules={[{required: true, message: "Please enter the due date"}]}
           >
-            <InputNumber className="w-100" />
+            <InputNumber className="w-100"/>
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.freePeriod)}
             label="Free period (days)"
-            rules={[{ required: true, message: "Please enter the free period" }]}
+            rules={[{required: true, message: "Please enter the free period"}]}
             initialValue={45}
           >
-            <InputNumber className="w-100" />
+            <InputNumber className="w-100"/>
           </Form.Item>
         </Col>
       </Row>
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+                    Submit
         </Button>
       </Form.Item>
     </Form>
