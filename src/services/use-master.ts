@@ -27,7 +27,7 @@ export function useMaster<T extends Model>(
         }),
       )
       .subscribe({
-        next: (values) => {
+        next: (values: [T[], number]) => {
           setList(values[0]);
           setCount(values[1]);
         },

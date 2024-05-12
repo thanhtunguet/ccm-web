@@ -36,7 +36,7 @@ export function useDetails<T extends Model>(
           }),
         )
         .subscribe({
-          next(values) {
+          next(values: any) {
             form.setFieldsValue(values);
           },
         });
@@ -52,7 +52,7 @@ export function useDetails<T extends Model>(
         }),
       )
       .subscribe({
-        next(values) {
+        next(values: any) {
           form.setFieldsValue(values);
           navigate(routeGoBack);
         },

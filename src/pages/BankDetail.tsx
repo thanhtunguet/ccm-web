@@ -1,4 +1,4 @@
-import {Button, Col, Form, Input, InputNumber, Row} from "antd";
+import {Button, Col, Form, Input, Row} from "antd";
 import {AppRoute} from "src/config/app-route";
 import {Bank} from "src/models/Bank";
 import {bankRepository} from "src/repositories/bank-repository";
@@ -29,6 +29,19 @@ const BankDetail = () => {
             <Input/>
           </Form.Item>
         </Col>
+
+      </Row>
+      <Row gutter={12}>
+        <Col span={8}>
+          {/* Email field */}
+          <Form.Item
+            name={nameof(Bank.prototype.shortName)}
+            label="Short name"
+            rules={[{required: true, message: "Please enter the short name"}]}
+          >
+            <Input type="text"/>
+          </Form.Item>
+        </Col>
         <Col span={8}>
           {/* First name field */}
           <Form.Item
@@ -50,32 +63,10 @@ const BankDetail = () => {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={12}>
-        <Col span={8}>
-          {/* Email field */}
-          <Form.Item
-            name={nameof(Bank.prototype.shortName)}
-            label="Short name"
-            rules={[{required: true, message: "Please enter the short name"}]}
-          >
-            <Input type="text"/>
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name={nameof(Bank.prototype.cardLength)}
-            label="Card length"
-            rules={[{required: true, message: "Please enter the card length"}]}
-            initialValue={16}
-          >
-            <InputNumber max={30} className="w-100"/>
-          </Form.Item>
-        </Col>
-      </Row>
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+                    Submit
         </Button>
       </Form.Item>
     </Form>

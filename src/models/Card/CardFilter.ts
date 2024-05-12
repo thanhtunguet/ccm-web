@@ -38,5 +38,5 @@ export class CardFilter extends ModelFilter {
   @ObjectField(DateFilter)
   public updatedAt?: DateFilter = new DateFilter();
 
-  public search?: string;
+  
 }

@@ -3,6 +3,12 @@ import path from "path";
 import ts from "vite-plugin-ts";
 import tsNameof from "vite-plugin-ts-nameof";
 
+const proxyConfig = {
+  target: "http://localhost:5231",
+  // target: "https://ccm-dev.thanhtunguet.info",
+  changeOrigin: true,
+};
+
 export default defineConfig({
   resolve: {
     alias: {
@@ -16,17 +22,8 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      // Using the proxy instance
-      "/api": {
-        // target: "http://localhost:3000",
-        target: "https://ccm-dev.thanhtunguet.info",
-        changeOrigin: true,
-      },
-      "/swagger": {
-        // target: "http://localhost:3000",
-        target: "https://ccm-dev.thanhtunguet.info",
-        changeOrigin: true,
-      },
+      "/api": proxyConfig,
+      "/swagger": proxyConfig,
     },
   },
 });

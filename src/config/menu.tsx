@@ -1,8 +1,8 @@
 import {AppRoute} from "./app-route";
 
 export const menu: Array<{
-  label: string;
-  key: string;
+    label: string;
+    key: string;
 }> = [
   {
     key: AppRoute.BANK,

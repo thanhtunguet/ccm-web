@@ -35,6 +35,7 @@ export const routes: RouteObject[] = [
         path: AppRoute.CARD_CLASSES,
         element: <CardClassMaster/>,
       },
+
       {
         path: AppRoute.CARD_CLASS_CREATE,
         element: <CardClassDetail/>,

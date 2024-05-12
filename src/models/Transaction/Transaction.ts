@@ -18,7 +18,7 @@ export class Transaction extends Model {
   public amount?: number;
 
   @Field(Number)
-  public transactionFee?: number;
+  public fee?: number;
 
   @Field(Number)
   public statusId?: number;

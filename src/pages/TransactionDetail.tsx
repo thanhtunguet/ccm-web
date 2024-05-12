@@ -1,33 +1,22 @@
-import {Button, Col, Form, Input, notification, Row, Select} from "antd";
-import React from "react";
-import {useNavigate} from "react-router-dom";
+import {Button, Col, Form, Input, Row, Select} from "antd";
 import {AppRoute} from "src/config/app-route";
-import {Card} from "src/models/Card";
-import {Store} from "src/models/Store";
 import {Transaction} from "src/models/Transaction";
-import {cardRepository} from "src/repositories/card-repository";
-import {storeRepository} from "src/repositories/store-repository";
 import {transactionRepository} from "src/repositories/transaction-repository";
+import {useDetails} from "src/services/use-details.ts";
 import {useMaster} from "src/services/use-master.ts";
-import {SmileOutlined} from "@ant-design/icons";
+import {Card, Store} from "src/models";
+import {cardRepository} from "src/repositories/card-repository.ts";
+import {storeRepository} from "src/repositories/store-repository.ts";
 
 const {Option} = Select;
 
 const TransactionDetail = () => {
-  const [form] = Form.useForm<Transaction>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotification = React.useCallback((message: string) => {
-    api.open({
-      message: "Notification",
-      description: message,
-      icon: <SmileOutlined style={{color: "#108ee9"}}/>,
-    });
-  }, [api]);
+  const [form, isLoading, handleCreate] = useDetails<Transaction>(
+    transactionRepository.get,
+    transactionRepository.create,
+    transactionRepository.update,
+    AppRoute.TRANSACTION,
+  );
 
   const [cards] = useMaster<Card>(
     cardRepository.list,
@@ -39,25 +28,12 @@ const TransactionDetail = () => {
     storeRepository.count,
   );
 
-  const onFinish = (values: Transaction) => {
-    setIsLoading(true);
-    transactionRepository.create(values)
-      .pipe()
-      .subscribe({
-        next() {
-          navigate(AppRoute.TRANSACTION);
-          openNotification("Transaction created");
-        },
-      });
-  };
-
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={onFinish}
+      onFinish={handleCreate}
     >
-      {contextHolder}
       <Row gutter={12}>
         <Col span={12}>
           <Form.Item
@@ -109,7 +85,7 @@ const TransactionDetail = () => {
         </Col>
         <Col span={12}>
           <Form.Item
-            name={nameof(Transaction.prototype.transactionFee)}
+            name={nameof(Transaction.prototype.fee)}
             label="Fee"
             rules={[{required: true, message: "Please enter the fee"}]}
           >
@@ -119,7 +95,7 @@ const TransactionDetail = () => {
       </Row>
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+                    Submit
         </Button>
       </Form.Item>
     </Form>

@@ -1,49 +1,23 @@
-import {SmileOutlined} from "@ant-design/icons";
-import {Button, Col, Form, Input, notification, Row} from "antd";
-import React from "react";
-import {useNavigate} from "react-router-dom";
+import {Button, Col, Form, Input, Row} from "antd";
 import {AppRoute} from "src/config/app-route";
-import {Store} from "src/models/Store";
-import {storeRepository} from "src/repositories/store-repository";
+import {useDetails} from "src/services/use-details.ts";
+import {Store} from "src/models";
+import {storeRepository} from "src/repositories/store-repository.ts";
 
 const StoreDetail = () => {
-  // Form initialization
-  const [form] = Form.useForm<Store>();
-  // State for loading spinner
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  // Notification hook
-  const [api, contextHolder] = notification.useNotification();
-  // Function to display notification
-  const openNotification = React.useCallback((message: string) => {
-    api.open({
-      message: "Notification",
-      description: message,
-      icon: <SmileOutlined style={{color: "#108ee9"}}/>,
-    });
-  }, [api]);
-  // Navigation hook
-  const navigate = useNavigate();
-
-  // Form submit handler
-  const onFinish = (values: Store) => {
-    setIsLoading(true);
-    storeRepository.create(values)
-      .pipe()
-      .subscribe({
-        next() {
-          navigate(AppRoute.STORE);
-          openNotification("Store created");
-        },
-      });
-  };
+  const [form, isLoading, handleCreate] = useDetails<Store>(
+    storeRepository.get,
+    storeRepository.create,
+    storeRepository.update,
+    AppRoute.STORE,
+  );
 
   return (
     <Form
       form={form}
       layout="vertical"
-      onFinish={onFinish}
+      onFinish={handleCreate}
     >
-      {contextHolder}
       <Row gutter={12}>
         <Col span={12}>
           {/* Code field */}
@@ -77,7 +51,7 @@ const StoreDetail = () => {
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+                    Submit
         </Button>
       </Form.Item>
     </Form>

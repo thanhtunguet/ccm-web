@@ -5,7 +5,7 @@ import {CardClass} from "src/models";
 export class CardClassRepository extends BaseRepository<CardClass> {
   constructor() {
     super(CardClass);
-    this.baseURL = `${super.baseURL}/api/cardclass`;
+    this.baseURL = `${super.baseURL}/api/card-class`;
   }
 }
 

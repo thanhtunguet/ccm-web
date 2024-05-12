@@ -115,7 +115,7 @@ const CardDetail = () => {
         <Col span={8}>
           {/* Card Class ID field */}
           <Form.Item
-            name="cardClassId"
+            name={nameof(Card.prototype.cardClassId)}
             label="Card Class"
             rules={[{required: true, message: "Please enter the card class ID"}]}
           >
@@ -135,13 +135,6 @@ const CardDetail = () => {
             label="Customer"
 
           >
-            {/*<Select>*/}
-            {/*  {customers.map((customer) => (*/}
-            {/*    <Select.Option key={customer.id} value={customer.id}>*/}
-            {/*      {customer.displayName}*/}
-            {/*    </Select.Option>*/}
-            {/*  ))}*/}
-            {/*</Select>*/}
             <Select
               placeholder="Select or create new customer"
               dropdownRender={(menu) => (
@@ -158,8 +151,9 @@ const CardDetail = () => {
                       }}
                       onKeyDown={(e) => e.stopPropagation()}
                     />
-                    <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCustomer}>Add
-                      customer</Button>
+                    <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCustomer}>
+                                            Add customer
+                    </Button>
                   </Space>
                 </>
               )}
@@ -177,9 +171,8 @@ const CardDetail = () => {
         <Col span={8}>
           {/* Description field */}
           <Form.Item
-            name="description"
+            name={nameof(Card.prototype.description)}
             label="Description"
-            rules={[{required: true, message: "Please enter the description"}]}
           >
             <Input.TextArea/>
           </Form.Item>
@@ -189,7 +182,7 @@ const CardDetail = () => {
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+                    Submit
         </Button>
       </Form.Item>
     </Form>

@@ -1,7 +1,7 @@
 import {Model, Repository} from "react3l";
 import {Observable} from "rxjs";
 
-export abstract class BaseRepository<T extends Model> extends Repository {
+export abstract class BaseRepository<T extends Model & {id?: number;}> extends Repository {
   protected constructor(private TClass: typeof Model) {
     super({});
     this.baseURL = window.location.origin;
@@ -20,7 +20,7 @@ export abstract class BaseRepository<T extends Model> extends Repository {
   };
 
   public readonly get: (id: number) => Observable<T> = (id: number) => {
-    return this.http.post(`/get/${id}`).pipe(
+    return this.http.post(`/${id}`).pipe(
       Repository.responseMapToModel<T>(this.TClass),
     );
   };

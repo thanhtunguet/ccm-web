@@ -29,6 +29,5 @@ export class TransactionFilter extends ModelFilter {
   @ObjectField(IdFilter)
   public storeId?: IdFilter = new IdFilter();
 
-  public search?: string;
-
+  
 }

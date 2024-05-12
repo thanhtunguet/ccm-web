@@ -14,5 +14,5 @@ export class TransactionStatusFilter extends ModelFilter {
   @ObjectField(StringFilter)
   public color?: StringFilter = new StringFilter();
 
-  public search?: string;
+  
 }

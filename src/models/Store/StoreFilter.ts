@@ -20,5 +20,5 @@ export class StoreFilter extends ModelFilter {
   @ObjectField(StringFilter)
   public address?: StringFilter = new StringFilter();
 
-  public search?: string;
+  
 }
