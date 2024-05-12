@@ -1,4 +1,4 @@
-import { AppRoute } from "./app-route";
+import {AppRoute} from "./app-route";
 
 export const menu: Array<{
   label: string;

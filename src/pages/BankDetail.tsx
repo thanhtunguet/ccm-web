@@ -1,8 +1,8 @@
-import { Button, Col, Form, Input, InputNumber, Row } from "antd";
-import { AppRoute } from "src/config/app-route";
-import { Bank } from "src/models/Bank";
-import { bankRepository } from "src/repositories/bank-repository";
-import { useDetails } from "src/services/use-details.ts";
+import {Button, Col, Form, Input, InputNumber, Row} from "antd";
+import {AppRoute} from "src/config/app-route";
+import {Bank} from "src/models/Bank";
+import {bankRepository} from "src/repositories/bank-repository";
+import {useDetails} from "src/services/use-details.ts";
 
 const BankDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<Bank>(
@@ -24,9 +24,9 @@ const BankDetail = () => {
           <Form.Item
             name={nameof(Bank.prototype.code)}
             label="Bank code"
-            rules={[{ required: true, message: "Please enter the bank code" }]}
+            rules={[{required: true, message: "Please enter the bank code"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -34,9 +34,9 @@ const BankDetail = () => {
           <Form.Item
             name={nameof(Bank.prototype.name)}
             label="Bank Name"
-            rules={[{ required: true, message: "Please enter the bank name" }]}
+            rules={[{required: true, message: "Please enter the bank name"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -44,9 +44,9 @@ const BankDetail = () => {
           <Form.Item
             name={nameof(Bank.prototype.englishName)}
             label="English Name"
-            rules={[{ required: true, message: "Please enter the English name" }]}
+            rules={[{required: true, message: "Please enter the English name"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
       </Row>
@@ -56,19 +56,19 @@ const BankDetail = () => {
           <Form.Item
             name={nameof(Bank.prototype.shortName)}
             label="Short name"
-            rules={[{ required: true, message: "Please enter the short name" }]}
+            rules={[{required: true, message: "Please enter the short name"}]}
           >
-            <Input type="text" />
+            <Input type="text"/>
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             name={nameof(Bank.prototype.cardLength)}
             label="Card length"
-            rules={[{ required: true, message: "Please enter the card length" }]}
+            rules={[{required: true, message: "Please enter the card length"}]}
             initialValue={16}
           >
-            <InputNumber max={30} className="w-100" />
+            <InputNumber max={30} className="w-100"/>
           </Form.Item>
         </Col>
       </Row>

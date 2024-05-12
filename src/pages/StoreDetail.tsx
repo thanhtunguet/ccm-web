@@ -1,10 +1,10 @@
-import { SmileOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, notification, Row } from "antd";
+import {SmileOutlined} from "@ant-design/icons";
+import {Button, Col, Form, Input, notification, Row} from "antd";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { AppRoute } from "src/config/app-route";
-import { Store } from "src/models/Store";
-import { storeRepository } from "src/repositories/store-repository";
+import {useNavigate} from "react-router-dom";
+import {AppRoute} from "src/config/app-route";
+import {Store} from "src/models/Store";
+import {storeRepository} from "src/repositories/store-repository";
 
 const StoreDetail = () => {
   // Form initialization
@@ -18,7 +18,7 @@ const StoreDetail = () => {
     api.open({
       message: "Notification",
       description: message,
-      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+      icon: <SmileOutlined style={{color: "#108ee9"}}/>,
     });
   }, [api]);
   // Navigation hook
@@ -50,9 +50,9 @@ const StoreDetail = () => {
           <Form.Item
             name="code"
             label="Code"
-            rules={[{ required: true, message: "Please enter the code" }]}
+            rules={[{required: true, message: "Please enter the code"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -60,9 +60,9 @@ const StoreDetail = () => {
           <Form.Item
             name="name"
             label="Name"
-            rules={[{ required: true, message: "Please enter the name" }]}
+            rules={[{required: true, message: "Please enter the name"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
       </Row>
@@ -70,9 +70,9 @@ const StoreDetail = () => {
       <Form.Item
         name="address"
         label="Address"
-        rules={[{ required: true, message: "Please enter the address" }]}
+        rules={[{required: true, message: "Please enter the address"}]}
       >
-        <Input.TextArea />
+        <Input.TextArea/>
       </Form.Item>
       {/* Submit button */}
       <Form.Item>

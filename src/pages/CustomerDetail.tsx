@@ -1,8 +1,8 @@
-import { Button, Col, Form, Input, Row } from "antd";
-import { AppRoute } from "src/config/app-route";
-import { Customer } from "src/models/Customer";
-import { customerRepository } from "src/repositories/customer-repository";
-import { useDetails } from "src/services/use-details.ts";
+import {Button, Col, Form, Input, Row} from "antd";
+import {AppRoute} from "src/config/app-route";
+import {Customer} from "src/models/Customer";
+import {customerRepository} from "src/repositories/customer-repository";
+import {useDetails} from "src/services/use-details.ts";
 
 const CustomerDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<Customer>(
@@ -24,9 +24,9 @@ const CustomerDetail = () => {
           <Form.Item
             name="displayName"
             label="Display Name"
-            rules={[{ required: true, message: "Please enter the display name" }]}
+            rules={[{required: true, message: "Please enter the display name"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
 
@@ -37,9 +37,9 @@ const CustomerDetail = () => {
           <Form.Item
             name="email"
             label="Email"
-            rules={[{ required: true, message: "Please enter the email" }]}
+            rules={[{required: true, message: "Please enter the email"}]}
           >
-            <Input type="email" />
+            <Input type="email"/>
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -47,9 +47,9 @@ const CustomerDetail = () => {
           <Form.Item
             name="phoneNumber"
             label="Phone Number"
-            rules={[{ required: true, message: "Please enter the phone number" }]}
+            rules={[{required: true, message: "Please enter the phone number"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
         <Col span={8}>
@@ -57,9 +57,9 @@ const CustomerDetail = () => {
           <Form.Item
             name="address"
             label="Address"
-            rules={[{ required: true, message: "Please enter the address" }]}
+            rules={[{required: true, message: "Please enter the address"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
       </Row>

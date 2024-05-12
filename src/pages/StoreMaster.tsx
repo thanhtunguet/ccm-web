@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { ColumnProps } from "antd/lib/table";
-import { Store } from "src/models";
-import { Table } from "antd";
-import { useMaster } from "src/services/use-master.ts";
-import { storeRepository } from "src/repositories/store-repository.ts";
-import { FooterCount } from "src/components/FooterCount.tsx";
-import { TableHeader } from "src/components/TableHeader";
-import { AppRoute } from "src/config/app-route";
-import { useNavigate } from "react-router-dom";
+import {FC} from "react";
+import {ColumnProps} from "antd/lib/table";
+import {Store} from "src/models";
+import {Table} from "antd";
+import {useMaster} from "src/services/use-master.ts";
+import {storeRepository} from "src/repositories/store-repository.ts";
+import {FooterCount} from "src/components/FooterCount.tsx";
+import {TableHeader} from "src/components/TableHeader";
+import {AppRoute} from "src/config/app-route";
+import {useNavigate} from "react-router-dom";
 
 const columns: ColumnProps<Store>[] = [
   {
@@ -57,7 +57,7 @@ export const StoreMaster: FC = () => {
             }}
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({counts})}
       />
     </>
   );

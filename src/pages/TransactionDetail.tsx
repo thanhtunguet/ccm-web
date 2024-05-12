@@ -1,17 +1,17 @@
-import { Button, Col, Form, Input, notification, Row, Select } from "antd";
+import {Button, Col, Form, Input, notification, Row, Select} from "antd";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { AppRoute } from "src/config/app-route";
-import { Card } from "src/models/Card";
-import { Store } from "src/models/Store";
-import { Transaction } from "src/models/Transaction";
-import { cardRepository } from "src/repositories/card-repository";
-import { storeRepository } from "src/repositories/store-repository";
-import { transactionRepository } from "src/repositories/transaction-repository";
-import { useMaster } from "src/services/use-master.ts";
-import { SmileOutlined } from "@ant-design/icons";
+import {useNavigate} from "react-router-dom";
+import {AppRoute} from "src/config/app-route";
+import {Card} from "src/models/Card";
+import {Store} from "src/models/Store";
+import {Transaction} from "src/models/Transaction";
+import {cardRepository} from "src/repositories/card-repository";
+import {storeRepository} from "src/repositories/store-repository";
+import {transactionRepository} from "src/repositories/transaction-repository";
+import {useMaster} from "src/services/use-master.ts";
+import {SmileOutlined} from "@ant-design/icons";
 
-const { Option } = Select;
+const {Option} = Select;
 
 const TransactionDetail = () => {
   const [form] = Form.useForm<Transaction>();
@@ -25,7 +25,7 @@ const TransactionDetail = () => {
     api.open({
       message: "Notification",
       description: message,
-      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+      icon: <SmileOutlined style={{color: "#108ee9"}}/>,
     });
   }, [api]);
 
@@ -63,9 +63,9 @@ const TransactionDetail = () => {
           <Form.Item
             name="code"
             label="Code"
-            rules={[{ required: true, message: "Please enter the code" }]}
+            rules={[{required: true, message: "Please enter the code"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -77,7 +77,7 @@ const TransactionDetail = () => {
           <Form.Item
             name="storeId"
             label="Store"
-            rules={[{ required: true, message: "Please select the store" }]}
+            rules={[{required: true, message: "Please select the store"}]}
           >
             <Select>
               {stores.map((store) => (<Option key={store.id} value={store.id}>{store.name}</Option>))}
@@ -88,7 +88,7 @@ const TransactionDetail = () => {
           <Form.Item
             name="cardId"
             label="Card ID"
-            rules={[{ required: true, message: "Please select the card ID" }]}
+            rules={[{required: true, message: "Please select the card ID"}]}
           >
             <Select>
               {cards.map((card) => (<Option key={card.id} value={card.id}>{card.name}</Option>))}
@@ -102,18 +102,18 @@ const TransactionDetail = () => {
           <Form.Item
             name="amount"
             label="Amount"
-            rules={[{ required: true, message: "Please enter the amount" }]}
+            rules={[{required: true, message: "Please enter the amount"}]}
           >
-            <Input type="number" step="0.01" />
+            <Input type="number" step="0.01"/>
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
             name={nameof(Transaction.prototype.transactionFee)}
             label="Fee"
-            rules={[{ required: true, message: "Please enter the fee" }]}
+            rules={[{required: true, message: "Please enter the fee"}]}
           >
-            <Input type="number" step="0.01" />
+            <Input type="number" step="0.01"/>
           </Form.Item>
         </Col>
       </Row>

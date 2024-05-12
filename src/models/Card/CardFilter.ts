@@ -1,5 +1,6 @@
-import { DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter } from "react3l";
+import {AutoModel, DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter} from "react3l";
 
+@AutoModel()
 export class CardFilter extends ModelFilter {
   @ObjectField(IdFilter)
   public id?: IdFilter = new IdFilter();

@@ -100,7 +100,7 @@ const CardClassDetail = () => {
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+          Submit
         </Button>
       </Form.Item>
     </Form>

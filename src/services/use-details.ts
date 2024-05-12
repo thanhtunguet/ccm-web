@@ -1,8 +1,8 @@
-import { Model } from "react3l";
-import { finalize, Observable } from "rxjs";
-import { useLocation, useNavigate } from "react-router-dom";
+import {Model} from "react3l";
+import {finalize, Observable} from "rxjs";
+import {useLocation, useNavigate} from "react-router-dom";
 import React from "react";
-import { Form, FormInstance } from "antd";
+import {Form, FormInstance} from "antd";
 
 export function useDetails<T extends Model>(
   getDetails: (id: number) => Observable<T>,
@@ -14,7 +14,7 @@ export function useDetails<T extends Model>(
   boolean,
   (values: T) => void,
 ] {
-  const { search } = useLocation();
+  const {search} = useLocation();
   const navigate = useNavigate();
 
   const [form] = Form.useForm<T>();
@@ -45,7 +45,7 @@ export function useDetails<T extends Model>(
 
   const handleCreate = React.useCallback((values: T) => {
     setIsLoading(true);
-    (typeof id === "number" ? doUpdate({ ...values, id }) : doCreate(values))
+    (typeof id === "number" ? doUpdate({...values, id}) : doCreate(values))
       .pipe(
         finalize(() => {
           setIsLoading(false);

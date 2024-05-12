@@ -1,16 +1,16 @@
-import { Button, Popconfirm, Table } from "antd";
-import { ColumnProps } from "antd/lib/table";
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { FooterCount } from "src/components/FooterCount.tsx";
-import { TableHeader } from "src/components/TableHeader";
-import { AppRoute } from "src/config/app-route";
-import { CardClass } from "src/models";
-import { cardClassRepository } from "src/repositories/card-class-repository.ts";
-import { useMaster } from "src/services/use-master.ts";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { useDelete } from "src/services/use-delete.ts";
-import { getNextDate } from "src/helpers/date.ts";
+import {Button, Popconfirm, Table} from "antd";
+import {ColumnProps} from "antd/lib/table";
+import {FC} from "react";
+import {useNavigate} from "react-router-dom";
+import {FooterCount} from "src/components/FooterCount.tsx";
+import {TableHeader} from "src/components/TableHeader";
+import {AppRoute} from "src/config/app-route";
+import {CardClass} from "src/models";
+import {cardClassRepository} from "src/repositories/card-class-repository.ts";
+import {useMaster} from "src/services/use-master.ts";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {useDelete} from "src/services/use-delete.ts";
+import {getNextDate} from "src/helpers/date.ts";
 
 export const CardClassMaster: FC = () => {
   const [banks, counts, isLoading] = useMaster<CardClass>(
@@ -73,12 +73,12 @@ export const CardClassMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
             navigate({
               pathname: AppRoute.CARD_CLASS_CREATE,
               search: `?id=${id}`,
             });
-          }} />
+          }}/>
           <Popconfirm
             title="Delete this?"
             description="Are you sure to delete this?"
@@ -90,7 +90,7 @@ export const CardClassMaster: FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
           </Popconfirm>
 
         </>;
@@ -112,7 +112,7 @@ export const CardClassMaster: FC = () => {
             }}
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({counts})}
       />
     </>
   );

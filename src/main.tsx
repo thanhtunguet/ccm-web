@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
-import { AppRoute } from "src/config/app-route.ts";
+import {createBrowserRouter, RouteObject, RouterProvider} from "react-router-dom";
+import {AppRoute} from "src/config/app-route.ts";
 import BankMaster from "src/pages/BankMaster.tsx";
 import CardClassMaster from "src/pages/CardClassMaster.tsx";
 import CardMaster from "src/pages/CardMaster.tsx";
@@ -21,55 +21,55 @@ import CardClassDetail from "src/pages/CardClassDetail.tsx";
 export const routes: RouteObject[] = [
   {
     path: AppRoute.HOME,
-    element: <App />,
+    element: <App/>,
     children: [
       {
         path: AppRoute.BANK,
-        element: <BankMaster />,
+        element: <BankMaster/>,
       },
       {
         path: AppRoute.BANK_CREATE,
-        element: <BankDetail />,
+        element: <BankDetail/>,
       },
       {
         path: AppRoute.CARD_CLASSES,
-        element: <CardClassMaster />,
+        element: <CardClassMaster/>,
       },
       {
         path: AppRoute.CARD_CLASS_CREATE,
-        element: <CardClassDetail />,
+        element: <CardClassDetail/>,
       },
       {
         path: AppRoute.CUSTOMER,
-        element: <CustomerMaster />,
+        element: <CustomerMaster/>,
       },
       {
         path: AppRoute.CUSTOMER_CREATE,
-        element: <CustomerDetail />,
+        element: <CustomerDetail/>,
       },
       {
         path: AppRoute.CARD,
-        element: <CardMaster />,
+        element: <CardMaster/>,
       },
       {
         path: AppRoute.CARD_CREATE,
-        element: <CardDetail />,
+        element: <CardDetail/>,
       },
       {
         path: AppRoute.STORE,
-        element: <StoreMaster />,
+        element: <StoreMaster/>,
       },
       {
         path: AppRoute.STORE_CREATE,
-        element: <StoreDetail />,
+        element: <StoreDetail/>,
       },
       {
         path: AppRoute.TRANSACTION,
-        element: <TransactionMaster />,
+        element: <TransactionMaster/>,
       },
       {
         path: AppRoute.TRANSACTION_CREATE,
-        element: <TransactionDetail />,
+        element: <TransactionDetail/>,
       },
       {
         path: AppRoute.HOME,
@@ -86,6 +86,6 @@ const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router}/>
   </React.StrictMode>,
 );

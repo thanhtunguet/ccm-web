@@ -1,7 +1,7 @@
 export interface OptionType {
-    label?: JSX.Element;
+  label?: JSX.Element;
 
-    value?: string | number;
+  value?: string | number;
 
-    searchValue?: string;
+  searchValue?: string;
 }

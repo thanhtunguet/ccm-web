@@ -1,11 +1,9 @@
-import { Field, Model, MomentField } from "react3l";
+import {AutoModel, Field, Model, MomentField} from "react3l";
+import {TransactionStatus} from "src/models/TransactionStatus";
+import {Store} from "src/models/Store";
+import type {Moment} from 'moment';
 
-import type { Moment } from "moment";
-
-import { TransactionStatus } from "src/models/TransactionStatus";
-
-import { Store } from "src/models/Store";
-
+@AutoModel()
 export class Transaction extends Model {
   @Field(Number)
   public id?: number;

@@ -1,5 +1,6 @@
-import { Field, Model } from "react3l";
+import {AutoModel, Field, Model} from "react3l";
 
+@AutoModel()
 export class TransactionStatus extends Model {
   @Field(Number)
   public id?: number;

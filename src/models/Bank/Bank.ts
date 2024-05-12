@@ -1,7 +1,7 @@
-import { Field, Model, MomentField } from "react3l";
+import {AutoModel, Field, Model, MomentField} from "react3l";
+import type {Moment} from "moment";
 
-import type { Moment } from "moment";
-
+@AutoModel()
 export class Bank extends Model {
   @Field(Number)
   public id?: number;

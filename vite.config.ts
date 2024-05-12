@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import babel from "vite-plugin-babel";
+import {defineConfig} from "vite";
 import path from "path";
+import ts from "vite-plugin-ts";
 import tsNameof from "vite-plugin-ts-nameof";
 
 export default defineConfig({
@@ -11,30 +11,20 @@ export default defineConfig({
     },
   },
   plugins: [
+    ts(),
     tsNameof(),
-    babel({
-      babelConfig: {
-        babelrc: false,
-        configFile: false,
-        presets: ["@babel/preset-typescript", "@babel/preset-react"],
-        plugins: [
-          [
-            "@babel/plugin-proposal-decorators",
-            {
-              loose: true,
-              decoratorsBeforeExport: true,
-            },
-          ],
-        ],
-      },
-    }),
   ],
   server: {
     proxy: {
       // Using the proxy instance
       "/api": {
-        target: "http://localhost:3000",
-        // target: "https://ccm-dev.thanhtunguet.info",
+        // target: "http://localhost:3000",
+        target: "https://ccm-dev.thanhtunguet.info",
+        changeOrigin: true,
+      },
+      "/swagger": {
+        // target: "http://localhost:3000",
+        target: "https://ccm-dev.thanhtunguet.info",
         changeOrigin: true,
       },
     },

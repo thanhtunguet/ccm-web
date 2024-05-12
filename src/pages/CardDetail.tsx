@@ -67,7 +67,7 @@ const CardDetail = () => {
         <Col span={8}>
           {/* Card Number field */}
           <Form.Item
-            name="cardNumber"
+            name="number"
             label="Card Number"
             rules={[{required: true, message: "Please enter the card number"}]}
           >
@@ -159,7 +159,7 @@ const CardDetail = () => {
                       onKeyDown={(e) => e.stopPropagation()}
                     />
                     <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCustomer}>Add
-                                            customer</Button>
+                      customer</Button>
                   </Space>
                 </>
               )}
@@ -189,7 +189,7 @@ const CardDetail = () => {
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+          Submit
         </Button>
       </Form.Item>
     </Form>

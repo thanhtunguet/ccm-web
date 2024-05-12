@@ -1,5 +1,5 @@
-import { Model, Repository } from "react3l";
-import { Observable } from "rxjs";
+import {Model, Repository} from "react3l";
+import {Observable} from "rxjs";
 
 export abstract class BaseRepository<T extends Model> extends Repository {
   protected constructor(private TClass: typeof Model) {
@@ -8,23 +8,19 @@ export abstract class BaseRepository<T extends Model> extends Repository {
   }
 
   public readonly list: () => Observable<T[]> = () => {
-    return this.http.get("/list").pipe(
+    return this.http.post("/list").pipe(
       Repository.responseMapToList<T>(this.TClass),
     );
   };
 
   public readonly count: () => Observable<number> = () => {
-    return this.http.get("/count").pipe(
+    return this.http.post("/count").pipe(
       Repository.responseDataMapper<number>(),
     );
   };
 
   public readonly get: (id: number) => Observable<T> = (id: number) => {
-    return this.http.get(`/get`, {
-      params: {
-        id,
-      },
-    }).pipe(
+    return this.http.post(`/get/${id}`).pipe(
       Repository.responseMapToModel<T>(this.TClass),
     );
   };
@@ -36,17 +32,13 @@ export abstract class BaseRepository<T extends Model> extends Repository {
   };
 
   public readonly update: (model: T) => Observable<T> = (model: T) => {
-    return this.http.put("/update", model).pipe(
+    return this.http.post(`/update/${model.id}`, model).pipe(
       Repository.responseMapToModel<T>(this.TClass),
     );
   };
 
   public readonly delete: (model: T) => Observable<T> = (model: T) => {
-    return this.http.delete("/delete", {
-      params: {
-        id: model.id,
-      },
-    }).pipe(
+    return this.http.post(`/delete/${model.id}`).pipe(
       Repository.responseMapToModel<T>(this.TClass),
     );
   };

@@ -1,14 +1,14 @@
-import { Layout, Menu } from "antd";
+import {Layout, Menu} from "antd";
 import React from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { menu } from "./config/menu";
-import { AppRoute } from "./config/app-route";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
+import {menu} from "./config/menu";
+import {AppRoute} from "./config/app-route";
 
-const { Header, Content, Footer } = Layout;
+const {Header, Content, Footer} = Layout;
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const {pathname} = useLocation();
 
   React.useEffect(() => {
     if (pathname === "/") {
@@ -19,7 +19,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Header className="d-flex align-items-center">
-        <div className="demo-logo" />
+        <div className="demo-logo"/>
         <Menu
           theme="dark"
           mode="horizontal"
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         />
       </Header>
       <Content className="m-2 flex-grow-1">
-        <Outlet />
+        <Outlet/>
       </Content>
       <Footer className="text-center">
         Ant Design ©{new Date().getFullYear()} Created by Ant UED

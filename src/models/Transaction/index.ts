@@ -1,10 +1,7 @@
-import { Transaction } from "./Transaction";
-
-import { ObjectField } from "react3l";
-
-import { TransactionStatus } from "src/models/TransactionStatus";
-
-import { Store } from "src/models/Store";
+import {Transaction} from "./Transaction";
+import {ObjectField} from "react3l";
+import {TransactionStatus} from "src/models/TransactionStatus";
+import {Store} from "src/models/Store";
 
 ObjectField(TransactionStatus)(Transaction.prototype, nameof(Transaction.prototype.status));
 

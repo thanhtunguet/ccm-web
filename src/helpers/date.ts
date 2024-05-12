@@ -1,4 +1,4 @@
-import moment, { Moment } from "moment";
+import moment, {Moment} from "moment";
 
 export function getNextDate(dayOfMonth: number): Moment {
   const currentDate = new Date();
@@ -27,5 +27,5 @@ export function getNextDate(dayOfMonth: number): Moment {
   }
 
   // Return the next date in the format "Month day, Year"
-  return moment(nextDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }));
+  return moment(nextDate.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"}));
 }

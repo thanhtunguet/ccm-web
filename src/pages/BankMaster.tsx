@@ -1,15 +1,15 @@
-import { Button, Popconfirm, Table } from "antd";
-import { ColumnProps } from "antd/lib/table";
-import React, { FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { FooterCount } from "src/components/FooterCount.tsx";
-import { TableHeader } from "src/components/TableHeader";
-import { AppRoute } from "src/config/app-route";
-import { Bank } from "src/models";
-import { bankRepository } from "src/repositories/bank-repository.ts";
-import { useMaster } from "src/services/use-master.ts";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { useDelete } from "src/services/use-delete.ts";
+import {Button, Popconfirm, Table} from "antd";
+import {ColumnProps} from "antd/lib/table";
+import React, {FC} from "react";
+import {useNavigate} from "react-router-dom";
+import {FooterCount} from "src/components/FooterCount.tsx";
+import {TableHeader} from "src/components/TableHeader";
+import {AppRoute} from "src/config/app-route";
+import {Bank} from "src/models";
+import {bankRepository} from "src/repositories/bank-repository.ts";
+import {useMaster} from "src/services/use-master.ts";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {useDelete} from "src/services/use-delete.ts";
 
 export const BankMaster: FC = () => {
   const [banks, counts, isLoading] = useMaster<Bank>(
@@ -61,12 +61,12 @@ export const BankMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
             navigate({
               pathname: AppRoute.BANK_CREATE,
               search: `?id=${id}`,
             });
-          }} />
+          }}/>
           <Popconfirm
             title="Delete this?"
             description="Are you sure to delete this?"
@@ -78,7 +78,7 @@ export const BankMaster: FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
           </Popconfirm>
 
         </>;
@@ -100,7 +100,7 @@ export const BankMaster: FC = () => {
             }}
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({counts})}
       />
     </>
   );

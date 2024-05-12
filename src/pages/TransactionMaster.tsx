@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { ColumnProps } from "antd/lib/table";
-import { Transaction } from "src/models";
-import { Table, Tag } from "antd";
-import { useMaster } from "src/services/use-master.ts";
-import { transactionRepository } from "src/repositories/transaction-repository.ts";
-import { FooterCount } from "src/components/FooterCount.tsx";
-import { useNavigate } from "react-router-dom";
-import { TableHeader } from "src/components/TableHeader.tsx";
-import { AppRoute } from "src/config/app-route.ts";
+import {FC} from "react";
+import {ColumnProps} from "antd/lib/table";
+import {Transaction} from "src/models";
+import {Table, Tag} from "antd";
+import {useMaster} from "src/services/use-master.ts";
+import {transactionRepository} from "src/repositories/transaction-repository.ts";
+import {FooterCount} from "src/components/FooterCount.tsx";
+import {useNavigate} from "react-router-dom";
+import {TableHeader} from "src/components/TableHeader.tsx";
+import {AppRoute} from "src/config/app-route.ts";
 
 const columns: ColumnProps<Transaction>[] = [
   {
@@ -73,7 +73,7 @@ export const TransactionMaster: FC = () => {
             }}
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({counts})}
       />
     </>
   );
