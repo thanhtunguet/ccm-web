@@ -29,6 +29,7 @@ const App: React.FC = () => {
           }}
           items={menu}
           className="d-flex w-100"
+      
         />
       </Header>
       <Content className="m-2 flex-grow-1">

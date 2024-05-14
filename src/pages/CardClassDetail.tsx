@@ -29,7 +29,6 @@ const CardClassDetail = () => {
     >
       <Row gutter={12}>
         <Col span={8}>
-          {/* Display name field */}
           <Form.Item
             name={nameof(CardClass.prototype.bankId)}
             label="Bank"
@@ -45,7 +44,6 @@ const CardClassDetail = () => {
           </Form.Item>
         </Col>
         <Col span={8}>
-          {/* Display name field */}
           <Form.Item
             name={nameof(CardClass.prototype.code)}
             label="CardClass code"
@@ -55,7 +53,6 @@ const CardClassDetail = () => {
           </Form.Item>
         </Col>
         <Col span={8}>
-          {/* First name field */}
           <Form.Item
             name={nameof(CardClass.prototype.name)}
             label="Name"
@@ -67,7 +64,6 @@ const CardClassDetail = () => {
       </Row>
       <Row gutter={12}>
         <Col span={8}>
-          {/* Last name field */}
           <Form.Item
             name={nameof(CardClass.prototype.statementDate)}
             label="Statement Date"
@@ -77,7 +73,6 @@ const CardClassDetail = () => {
           </Form.Item>
         </Col>
         <Col span={8}>
-          {/* Email field */}
           <Form.Item
             name={nameof(CardClass.prototype.dueDate)}
             label="Due date"
@@ -97,7 +92,18 @@ const CardClassDetail = () => {
           </Form.Item>
         </Col>
       </Row>
-      {/* Submit button */}
+      <Row gutter={12}>
+        <Col span={8}>
+          <Form.Item
+            name={nameof(CardClass.prototype.bin)}
+            label="BIN"
+            rules={[{required: true, message: "Please enter the bin"}]}
+          >
+            <Input className="w-100"/>
+          </Form.Item>
+        </Col>
+        
+      </Row>
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
           Submit

@@ -2,6 +2,10 @@ import {AutoModel, Field, Model} from "react3l";
 
 @AutoModel()
 export class TransactionStatus extends Model {
+  public static readonly DONE = 2;
+
+  public static readonly PENDING = 1;
+
   @Field(Number)
   public id?: number;
 

@@ -1,12 +1,14 @@
-import {Button, Col, Form, Input, Row, Select} from "antd";
-import {AppRoute} from "src/config/app-route";
-import {Transaction} from "src/models/Transaction";
-import {transactionRepository} from "src/repositories/transaction-repository";
-import {useDetails} from "src/services/use-details.ts";
-import {useMaster} from "src/services/use-master.ts";
-import {Card, Store} from "src/models";
-import {cardRepository} from "src/repositories/card-repository.ts";
-import {storeRepository} from "src/repositories/store-repository.ts";
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Col, Divider, Form, Input, Row, Select, Space } from "antd";
+import { AppRoute } from "src/config/app-route";
+import { Card, Store } from "src/models";
+import { Transaction } from "src/models/Transaction";
+import { cardRepository } from "src/repositories/card-repository.ts";
+import { storeRepository } from "src/repositories/store-repository.ts";
+import { transactionRepository } from "src/repositories/transaction-repository";
+import { useDetails } from "src/services/use-details.ts";
+import { useMaster } from "src/services/use-master.ts";
+import { useQuickCreate } from "src/services/use-quick-create";
 
 const {Option} = Select;
 
@@ -18,14 +20,34 @@ const TransactionDetail = () => {
     AppRoute.TRANSACTION,
   );
 
-  const [cards] = useMaster<Card>(
+  const [cards,,,handleRefreshCard] = useMaster<Card>(
     cardRepository.list,
     cardRepository.count,
   );
 
-  const [stores] = useMaster<Store>(
+  const [stores, , , handleRefreshStore] = useMaster<Store>(
     storeRepository.list,
     storeRepository.count,
+  );
+
+  const [cardNumber, handleChangeCardNumber, handleCreateCard] = useQuickCreate<Card>(
+    cardRepository.create,
+    (value) =>  {
+      const card = Card.create<Card>();
+      card.number = value;
+      return card;
+    },
+    handleRefreshCard,
+  );
+
+  const [storeName, handleChangeStoreName, handleCreateStore] = useQuickCreate<Store>(
+    storeRepository.create,
+    (value) =>  {
+      const store = Store.create<Store>();
+      store.name = value;
+      return store;
+    },
+    handleRefreshStore,
   );
 
   return (
@@ -55,7 +77,26 @@ const TransactionDetail = () => {
             label="Store"
             rules={[{required: true, message: "Please select the store"}]}
           >
-            <Select>
+            <Select 
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  <Divider className="my-2"/>
+                  <Space className="my-1 mx-2 d-flex w-100">
+                    <Input
+                      placeholder="Please enter store name"
+                      value={storeName}
+                      className="flex-grow-1 justify-content-start"
+                      onChange={handleChangeStoreName}
+                      onKeyDown={(e) => e.stopPropagation()}
+                    />
+                    <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateStore}>
+                                            Add store
+                    </Button>
+                  </Space>
+                </>
+              )}
+            >
               {stores.map((store) => (<Option key={store.id} value={store.id}>{store.name}</Option>))}
             </Select>
           </Form.Item>
@@ -66,8 +107,27 @@ const TransactionDetail = () => {
             label="Card ID"
             rules={[{required: true, message: "Please select the card ID"}]}
           >
-            <Select>
-              {cards.map((card) => (<Option key={card.id} value={card.id}>{card.name}</Option>))}
+            <Select
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  <Divider className="my-2"/>
+                  <Space className="my-1 mx-2 d-flex w-100">
+                    <Input
+                      placeholder="Please enter card number"
+                      value={cardNumber}
+                      className="flex-grow-1 justify-content-start"
+                      onChange={handleChangeCardNumber}
+                      onKeyDown={(e) => e.stopPropagation()}
+                    />
+                    <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCard}>
+                                          Add card
+                    </Button>
+                  </Space>
+                </>
+              )}
+            >
+              {cards.map((card) => (<Option key={card.id} value={card.id}>{card.name ?? "Chưa có tên"} - {card.number}</Option>))}
             </Select>
           </Form.Item>
         </Col>

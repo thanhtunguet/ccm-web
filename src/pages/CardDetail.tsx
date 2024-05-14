@@ -11,6 +11,7 @@ import {cardClassRepository} from "src/repositories/card-class-repository.ts";
 import {filterFunc} from "src/helpers/select.ts";
 import React from "react";
 import {PlusOutlined} from "@ant-design/icons";
+import { useQuickCreate } from "src/services/use-quick-create";
 
 const CardDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<Card>(
@@ -44,18 +45,15 @@ const CardDetail = () => {
     return true;
   }), [selectedBankId, cardClasses]);
 
-  const [customerName, setCustomerName] = React.useState<string>('');
-
-  const handleCreateCustomer = React.useCallback(() => {
-    const customer = Customer.create<Customer>();
-    customer.displayName = customerName;
-    customerRepository.create(customer).pipe()
-      .subscribe({
-        next() {
-          handleRefreshCustomer();
-        },
-      });
-  }, [customerName, handleRefreshCustomer]);
+  const [customerName, handleChangeCustomerName, handleCreateCustomer] = useQuickCreate<Customer>(
+    customerRepository.create,
+    (value) =>  {
+      const customer = Customer.create<Customer>();
+      customer.displayName = value;
+      return customer;
+    },
+    handleRefreshCustomer,
+  );
 
   return (
     <Form
@@ -146,9 +144,7 @@ const CardDetail = () => {
                       placeholder="Please enter customer name"
                       value={customerName}
                       className="flex-grow-1 justify-content-start"
-                      onChange={(event) => {
-                        setCustomerName(event.target.value);
-                      }}
+                      onChange={handleChangeCustomerName}
                       onKeyDown={(e) => e.stopPropagation()}
                     />
                     <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCustomer}>
