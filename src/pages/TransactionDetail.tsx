@@ -44,7 +44,7 @@ const TransactionDetail = () => {
     storeRepository.create,
     (value) =>  {
       const store = Store.create<Store>();
-      store.name = value;
+      store.code = value;
       return store;
     },
     handleRefreshStore,
@@ -84,7 +84,7 @@ const TransactionDetail = () => {
                   <Divider className="my-2"/>
                   <Space className="my-1 mx-2 d-flex w-100">
                     <Input
-                      placeholder="Please enter store name"
+                      placeholder="Please enter store TID"
                       value={storeName}
                       className="flex-grow-1 justify-content-start"
                       onChange={handleChangeStoreName}
@@ -97,7 +97,7 @@ const TransactionDetail = () => {
                 </>
               )}
             >
-              {stores.map((store) => (<Option key={store.id} value={store.id}>{store.name}</Option>))}
+              {stores.map((store) => (<Option key={store.id} value={store.id}>{store.name} ({store.code})</Option>))}
             </Select>
           </Form.Item>
         </Col>
