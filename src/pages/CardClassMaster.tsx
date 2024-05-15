@@ -1,6 +1,6 @@
 import {Button, Popconfirm, Table} from "antd";
 import {ColumnProps} from "antd/lib/table";
-import {FC} from "react";
+import React, {FC} from "react";
 import {useNavigate} from "react-router-dom";
 import {FooterCount} from "src/components/FooterCount.tsx";
 import {TableHeader} from "src/components/TableHeader";
@@ -11,9 +11,11 @@ import {useMaster} from "src/services/use-master.ts";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useDelete} from "src/services/use-delete.ts";
 import {getNextDate} from "src/helpers/date.ts";
+import { first, firstValueFrom } from "rxjs";
+import readExcelFile from "src/helpers/file";
 
 export const CardClassMaster: FC = () => {
-  const [banks, counts, isLoading] = useMaster<CardClass>(
+  const [banks, counts, isLoading, handleRefresh] = useMaster<CardClass>(
     cardClassRepository.list,
     cardClassRepository.count,
   );
@@ -98,6 +100,18 @@ export const CardClassMaster: FC = () => {
     },
   ];
 
+  const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {files} = event.target;
+    if (files!.length > 0 ) {
+      const file = files![0];
+      const data: CardClass[] =  await readExcelFile(file);
+      for (const record of data) {
+        await firstValueFrom(cardClassRepository.create(record));
+      }
+    }
+    handleRefresh();
+  },[handleRefresh]);
+
   return (
     <>
       <Table showHeader={true}
@@ -110,6 +124,9 @@ export const CardClassMaster: FC = () => {
             onAdd={() => {
               navigate(AppRoute.CARD_CLASS_CREATE);
             }}
+
+            onImport={handleImportFile}
+            template="/card-class-template.xlsx"
           />
         )}
         footer={() => FooterCount({counts})}

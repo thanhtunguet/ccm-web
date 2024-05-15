@@ -10,9 +10,11 @@ import {bankRepository} from "src/repositories/bank-repository.ts";
 import {useMaster} from "src/services/use-master.ts";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useDelete} from "src/services/use-delete.ts";
+import readExcelFile from "src/helpers/file";
+import { firstValueFrom } from "rxjs";
 
 export const BankMaster: FC = () => {
-  const [banks, counts, isLoading] = useMaster<Bank>(
+  const [banks, counts, isLoading, handleRefresh] = useMaster<Bank>(
     bankRepository.list,
     bankRepository.count,
   );
@@ -81,6 +83,18 @@ export const BankMaster: FC = () => {
     },
   ], [handleDelete, navigate]);
 
+  const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {files} = event.target;
+    if (files!.length > 0 ) {
+      const file = files![0];
+      const data: Bank[] =  await readExcelFile(file);
+      for (const record of data) {
+        await firstValueFrom(bankRepository.create(record));
+      }
+    }
+    handleRefresh();
+  },[handleRefresh]);
+
   return (
     <>
       <Table showHeader={true}
@@ -93,6 +107,8 @@ export const BankMaster: FC = () => {
             onAdd={() => {
               navigate(AppRoute.BANK_CREATE);
             }}
+            onImport={handleImportFile}
+            template="/bank-template.xlsx"
           />
         )}
         footer={() => FooterCount({counts})}
