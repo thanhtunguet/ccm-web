@@ -17,12 +17,12 @@ export const menu: Array<{
     label: "Khách hàng",
   },
   {
-    key: AppRoute.CARD,
-    label: "Thẻ",
-  },
-  {
     key: AppRoute.STORE,
     label: "Cửa hàng",
+  },
+  {
+    key: AppRoute.CARD,
+    label: "Thẻ",
   },
   {
     key: AppRoute.TRANSACTION,

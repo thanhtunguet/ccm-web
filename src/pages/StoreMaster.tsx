@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {ColumnProps} from "antd/lib/table";
 import {Customer, Store} from "src/models";
 import {Button, Popconfirm, Table} from "antd";
@@ -10,9 +10,11 @@ import {AppRoute} from "src/config/app-route";
 import {useNavigate} from "react-router-dom";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useDelete} from "src/services/use-delete.ts";
+import readExcelFile from "src/helpers/file";
+import { firstValueFrom } from "rxjs";
 
 export const StoreMaster: FC = () => {
-  const [stores, counts, isLoading] = useMaster<Store>(
+  const [stores, counts, isLoading, handleRefresh] = useMaster<Store>(
     storeRepository.list,
     storeRepository.count,
   );
@@ -75,6 +77,18 @@ export const StoreMaster: FC = () => {
     },
   ];
 
+  const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {files} = event.target;
+    if (files!.length > 0 ) {
+      const file = files![0];
+      const data: Store[] =  await readExcelFile(file);
+      for (const record of data) {
+        await firstValueFrom(storeRepository.create(record));
+      }
+    }
+    handleRefresh();
+  },[handleRefresh]);
+
   return (
     <>
       <Table showHeader={true}
@@ -87,6 +101,8 @@ export const StoreMaster: FC = () => {
             onAdd={() => {
               navigate(AppRoute.STORE_CREATE);
             }}
+            onImport={handleImportFile}
+            template="/store-template.xlsx"
           />
         )}
         footer={() => FooterCount({counts})}
