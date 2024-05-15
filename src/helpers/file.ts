@@ -10,7 +10,7 @@ const readExcelFile = (file: File): Promise<any[]> => {
       const firstSheetName = workbook.SheetNames[0]; // Get the name of the first sheet
       const worksheet = workbook.Sheets[firstSheetName]; // Get the first sheet
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Convert sheet to JSON with headers
-      const headers = jsonData.shift(); // Remove headers from data and store them separately
+      const headers: string[] = jsonData.shift() as string[]; // Remove headers from data and store them separately
       const dataList = jsonData.map((row: any) => { // Map each row to an object with headers as keys
         const rowData: { [key: string]: any } = {};
         headers.forEach((header: string, index: number) => {
