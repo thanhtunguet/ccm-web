@@ -1,4 +1,5 @@
 import {AutoModel, Field, Model} from "react3l";
+import { CardClass } from "../CardClass";
 
 @AutoModel()
 export class Bank extends Model {
@@ -16,4 +17,6 @@ export class Bank extends Model {
 
     @Field(String)
     public shortName?: string;
+
+    public cardClasses?: CardClass[];
 }

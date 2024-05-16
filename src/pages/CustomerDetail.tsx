@@ -2,7 +2,6 @@ import { Button, Col, Form, Input, Row } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { Table } from "antd/lib";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { FooterCount } from "src/components/FooterCount";
 import { AppRoute } from "src/config/app-route";
 import { Card } from "src/models";
@@ -108,14 +107,14 @@ const CustomerDetail = () => {
         </Form.Item>
       </Form>
 
-      {cards?.length > 0 && (
+      {cards?.length !== null && cards?.length !== 0 && (
         <Table showHeader={true}
           loading={isLoading}
           columns={columns}
           dataSource={cards}
           rowKey="id"
       
-          footer={() => FooterCount({counts: cards.length})}
+          footer={() => FooterCount({counts: cards!.length})}
         />
       )}
     </>

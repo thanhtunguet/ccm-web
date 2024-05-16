@@ -5,11 +5,12 @@ import {useNavigate} from "react-router-dom";
 import {FooterCount} from "src/components/FooterCount.tsx";
 import {TableHeader} from "src/components/TableHeader";
 import {AppRoute} from "src/config/app-route";
-import {Card} from "src/models";
+import {Card, CardClass} from "src/models";
 import {cardRepository} from "src/repositories/card-repository.ts";
 import {useMaster} from "src/services/use-master.ts";
 import {useDelete} from "src/services/use-delete.ts";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import { getNextDate } from "src/helpers/date";
 
 export const CardMaster: FC = () => {
   const [cards, counts, isLoading] = useMaster<Card>(
@@ -52,6 +53,22 @@ export const CardMaster: FC = () => {
       title: "Tên thẻ",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "Ngày thanh toán",
+      dataIndex: "cardClass",
+      key: "cardClass.dueDate",
+      render(cardClass: CardClass) {
+        return cardClass?.dueDate ? getNextDate(cardClass?.dueDate).format('DD/MM/YYYY') : '';
+      },
+    },
+    {
+      title: "Ngày sao kê",
+      dataIndex: "cardClass",
+      key: "cardClass.statementDate",
+      render(cardClass: CardClass) {
+        return cardClass?.statementDate ? getNextDate(cardClass?.statementDate).format('DD/MM/YYYY') : '';
+      },
     },
     {
       title: "Mô tả",
