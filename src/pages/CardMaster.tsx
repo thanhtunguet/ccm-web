@@ -29,6 +29,21 @@ export const CardMaster: FC = () => {
       },
     },
     {
+      title: "Khách hàng",
+      dataIndex: "customer",
+      key: "customer",
+      render(customer) {
+        return <a role="button" href="#" onClick={() => {
+          navigate({
+            pathname: AppRoute.CUSTOMER_CREATE,
+            search: `?id=${customer?.id}`,
+          });
+        }}>
+          {customer?.displayName}
+        </a>;
+      },
+    },
+    {
       title: "Số thẻ",
       dataIndex: "number",
       key: "number",

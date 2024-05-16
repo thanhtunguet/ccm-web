@@ -1,24 +1,28 @@
-import {Model} from "react3l";
-import {finalize, Observable} from "rxjs";
-import {useLocation, useNavigate} from "react-router-dom";
+import { Form, FormInstance } from "antd";
 import React from "react";
-import {Form, FormInstance} from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Model } from "react3l";
+import { finalize, Observable } from "rxjs";
 
 export function useDetails<T extends Model>(
   getDetails: (id: number) => Observable<T>,
   doCreate: (t: T) => Observable<T>,
   doUpdate: (t: T) => Observable<T>,
   routeGoBack: string,
+  ModelClass?: any,
 ): [
   FormInstance<T>,
   boolean,
   (values: T) => void,
+  T | undefined,
 ] {
   const {search} = useLocation();
   const navigate = useNavigate();
 
   const [form] = Form.useForm<T>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const [t, setT] = React.useState<T | undefined>(ModelClass && ModelClass.create());
 
   const id = React.useMemo(() => {
     const params = new URLSearchParams(search);
@@ -37,6 +41,7 @@ export function useDetails<T extends Model>(
         )
         .subscribe({
           next(values: any) {
+            setT(values);
             form.setFieldsValue(values);
           },
         });
@@ -63,5 +68,6 @@ export function useDetails<T extends Model>(
     form,
     isLoading,
     handleCreate,
+    t,
   ];
 }

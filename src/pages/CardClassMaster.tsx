@@ -34,6 +34,21 @@ export const CardClassMaster: FC = () => {
       },
     },
     {
+      title: "Ngân hàng",
+      dataIndex: "bank",
+      key: "bank",
+      render(bank) {
+        return <a role="button" href="#" onClick={() => {
+          navigate({
+            pathname: AppRoute.BANK_CREATE,
+            search: `?id=${bank?.id}`,
+          });
+        }}>
+          {bank?.name}
+        </a>;
+      },
+    },
+    {
       title: "Tên",
       dataIndex: "name",
       key: "name",

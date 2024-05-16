@@ -1,5 +1,6 @@
 import {AutoModel, Field, Model, MomentField} from "react3l";
 import type {Moment} from "moment";
+import { Customer } from "../Customer";
 
 @AutoModel()
 export class Card extends Model {
@@ -38,4 +39,6 @@ export class Card extends Model {
 
     @MomentField()
     public deletedAt?: Moment;
+
+    public customer?: Customer;
 }
