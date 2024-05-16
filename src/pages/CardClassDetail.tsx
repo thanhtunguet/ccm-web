@@ -1,12 +1,12 @@
-import {Button, Col, Form, Input, InputNumber, Row, Select} from "antd";
-import {AppRoute} from "src/config/app-route";
-import {CardClass} from "src/models/CardClass";
-import {useDetails} from "src/services/use-details.ts";
-import {cardClassRepository} from "src/repositories/card-class-repository.ts";
-import {useMaster} from "src/services/use-master.ts";
-import {Bank} from "src/models";
-import {bankRepository} from "src/repositories/bank-repository.ts";
-import {filterFunc} from "src/helpers/select.ts";
+import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
+import { AppRoute } from "src/config/app-route";
+import { CardClass } from "src/models/CardClass";
+import { useDetails } from "src/services/use-details.ts";
+import { cardClassRepository } from "src/repositories/card-class-repository.ts";
+import { useMaster } from "src/services/use-master.ts";
+import { Bank } from "src/models";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { filterFunc } from "src/helpers/select.ts";
 
 const CardClassDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<CardClass>(
@@ -31,10 +31,10 @@ const CardClassDetail = () => {
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.bankId)}
-            label="Bank"
-            rules={[{required: true, message: "Please select the bank"}]}
+            label="Ngân hàng"
+            rules={[{ required: true, message: "Vui lòng chọn ngân hàng" }]}
           >
-            <Select showSearch={true} filterOption={filterFunc} placeholder="Search by short name">
+            <Select showSearch={true} filterOption={filterFunc} placeholder="Tìm kiếm theo tên ngắn">
               {banks.map((bank) => (
                 <Select.Option key={bank.id} value={bank.id} searchValue={bank.shortName}>
                   {bank.shortName} - {bank.name}
@@ -46,19 +46,19 @@ const CardClassDetail = () => {
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.code)}
-            label="CardClass code"
-            rules={[{required: true, message: "Please enter the cardClass code"}]}
+            label="Mã lớp thẻ"
+            rules={[{ required: true, message: "Vui lòng nhập mã lớp thẻ" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.name)}
-            label="Name"
-            rules={[{required: true, message: "Please enter the name"}]}
+            label="Tên"
+            rules={[{ required: true, message: "Vui lòng nhập tên" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
         </Col>
       </Row>
@@ -66,29 +66,29 @@ const CardClassDetail = () => {
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.statementDate)}
-            label="Statement Date"
-            rules={[{required: true, message: "Please enter the statement date"}]}
+            label="Ngày sao kê"
+            rules={[{ required: true, message: "Vui lòng nhập ngày sao kê" }]}
           >
-            <InputNumber className="w-100"/>
+            <InputNumber className="w-100" />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.dueDate)}
-            label="Due date"
-            rules={[{required: true, message: "Please enter the due date"}]}
+            label="Ngày đến hạn"
+            rules={[{ required: true, message: "Vui lòng nhập ngày đến hạn" }]}
           >
-            <InputNumber className="w-100"/>
+            <InputNumber className="w-100" />
           </Form.Item>
         </Col>
         <Col span={8}>
           <Form.Item
             name={nameof(CardClass.prototype.freePeriod)}
-            label="Free period (days)"
-            rules={[{required: true, message: "Please enter the free period"}]}
+            label="Thời gian miễn lãi (ngày)"
+            rules={[{ required: true, message: "Vui lòng nhập thời gian miễn lãi" }]}
             initialValue={45}
           >
-            <InputNumber className="w-100"/>
+            <InputNumber className="w-100" />
           </Form.Item>
         </Col>
       </Row>
@@ -97,16 +97,15 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.bin)}
             label="BIN"
-            rules={[{required: true, message: "Please enter the bin"}]}
+            rules={[{ required: true, message: "Vui lòng nhập BIN" }]}
           >
-            <Input className="w-100"/>
+            <Input className="w-100" />
           </Form.Item>
         </Col>
-        
       </Row>
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+          Gửi
         </Button>
       </Form.Item>
     </Form>

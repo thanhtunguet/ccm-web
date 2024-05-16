@@ -18,7 +18,7 @@ const CustomerDetail = () => {
     Customer,
   );
 
-  const cards = React.useMemo(() => customer?.cards, [customer]);
+  const cards = React.useMemo(() => customer?.cards ?? [], [customer]);
 
   const columns: ColumnProps<Card>[] = [
     {
@@ -29,19 +29,18 @@ const CustomerDetail = () => {
         return index + 1;
       },
     },
-    
     {
-      title: "Số thẻ",
+      title: "Số thẻ",
       dataIndex: "number",
       key: "number",
     },
     {
-      title: "Tên thẻ",
+      title: "Tên thẻ",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Mô tả",
+      title: "Mô tả",
       dataIndex: "description",
       key: "description",
     },
@@ -59,13 +58,12 @@ const CustomerDetail = () => {
             {/* Display name field */}
             <Form.Item
               name="displayName"
-              label="Display Name"
-              rules={[{required: true, message: "Please enter the display name"}]}
+              label="Tên hiển thị"
+              rules={[{required: true, message: "Vui lòng nhập tên hiển thị"}]}
             >
               <Input/>
             </Form.Item>
           </Col>
-
         </Row>
         <Row gutter={12}>
           <Col span={8}>
@@ -73,7 +71,7 @@ const CustomerDetail = () => {
             <Form.Item
               name="email"
               label="Email"
-              rules={[{required: true, message: "Please enter the email"}]}
+              rules={[{required: true, message: "Vui lòng nhập email"}]}
             >
               <Input type="email"/>
             </Form.Item>
@@ -82,8 +80,8 @@ const CustomerDetail = () => {
             {/* Phone number field */}
             <Form.Item
               name="phoneNumber"
-              label="Phone Number"
-              rules={[{required: true, message: "Please enter the phone number"}]}
+              label="Số điện thoại"
+              rules={[{required: true, message: "Vui lòng nhập số điện thoại"}]}
             >
               <Input/>
             </Form.Item>
@@ -92,8 +90,8 @@ const CustomerDetail = () => {
             {/* Address field */}
             <Form.Item
               name="address"
-              label="Address"
-              rules={[{required: true, message: "Please enter the address"}]}
+              label="Địa chỉ"
+              rules={[{required: true, message: "Vui lòng nhập địa chỉ"}]}
             >
               <Input/>
             </Form.Item>
@@ -102,18 +100,17 @@ const CustomerDetail = () => {
         {/* Submit button */}
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+            Nộp
           </Button>
         </Form.Item>
       </Form>
 
-      {cards?.length !== null && cards?.length !== 0 && (
+      {cards?.length > 0 && (
         <Table showHeader={true}
           loading={isLoading}
           columns={columns}
           dataSource={cards}
           rowKey="id"
-      
           footer={() => FooterCount({counts: cards!.length})}
         />
       )}

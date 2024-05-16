@@ -19,7 +19,6 @@ const BankDetail = () => {
     Bank,
   );
 
-
   const columns: ColumnProps<CardClass>[] = [
     {
       title: "STT",
@@ -29,7 +28,6 @@ const BankDetail = () => {
         return index + 1;
       },
     },
-   
     {
       title: "Tên",
       dataIndex: "name",
@@ -57,7 +55,7 @@ const BankDetail = () => {
       key: "freePeriod",
       render(freePeriod) {
         return (
-          <span>{freePeriod} days</span>
+          <span>{freePeriod} ngày</span>
         );
       },
     },
@@ -79,53 +77,52 @@ const BankDetail = () => {
       >
         <Row gutter={12}>
           <Col span={8}>
-            {/* Display name field */}
+            {/* Mã ngân hàng */}
             <Form.Item
               name={nameof(Bank.prototype.code)}
-              label="Bank code"
-              rules={[{required: true, message: "Please enter the bank code"}]}
+              label="Mã ngân hàng"
+              rules={[{required: true, message: "Vui lòng nhập mã ngân hàng"}]}
             >
               <Input/>
             </Form.Item>
           </Col>
-
         </Row>
         <Row gutter={12}>
           <Col span={8}>
-            {/* Email field */}
+            {/* Tên ngắn */}
             <Form.Item
               name={nameof(Bank.prototype.shortName)}
-              label="Short name"
-              rules={[{required: true, message: "Please enter the short name"}]}
+              label="Tên ngắn"
+              rules={[{required: true, message: "Vui lòng nhập tên ngắn"}]}
             >
               <Input type="text"/>
             </Form.Item>
           </Col>
           <Col span={8}>
-            {/* First name field */}
+            {/* Tên ngân hàng */}
             <Form.Item
               name={nameof(Bank.prototype.name)}
-              label="Bank Name"
-              rules={[{required: true, message: "Please enter the bank name"}]}
+              label="Tên ngân hàng"
+              rules={[{required: true, message: "Vui lòng nhập tên ngân hàng"}]}
             >
               <Input/>
             </Form.Item>
           </Col>
           <Col span={8}>
-            {/* Last name field */}
+            {/* Tên tiếng Anh */}
             <Form.Item
               name={nameof(Bank.prototype.englishName)}
-              label="English Name"
-              rules={[{required: true, message: "Please enter the English name"}]}
+              label="Tên tiếng Anh"
+              rules={[{required: true, message: "Vui lòng nhập tên tiếng Anh"}]}
             >
               <Input/>
             </Form.Item>
           </Col>
         </Row>
-        {/* Submit button */}
+        {/* Nút gửi */}
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+            Gửi
           </Button>
         </Form.Item>
       </Form>
@@ -135,7 +132,6 @@ const BankDetail = () => {
           columns={columns}
           dataSource={bank?.cardClasses}
           rowKey="id"
-        
           footer={() => FooterCount({counts: bank!.cardClasses!.length})}
         />
       )}

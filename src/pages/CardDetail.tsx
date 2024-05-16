@@ -1,16 +1,16 @@
-import {Button, Col, Divider, Form, Input, Row, Select, Space, Tag} from "antd";
-import {AppRoute} from "src/config/app-route";
-import {Card} from "src/models/Card";
-import {cardRepository} from "src/repositories/card-repository";
-import {useDetails} from "src/services/use-details.ts";
-import {useMaster} from "src/services/use-master.ts";
-import {Bank, CardClass, Customer, Transaction} from "src/models";
-import {bankRepository} from "src/repositories/bank-repository.ts";
-import {customerRepository} from "src/repositories/customer-repository.ts";
-import {cardClassRepository} from "src/repositories/card-class-repository.ts";
-import {filterFunc} from "src/helpers/select.ts";
+import { Button, Col, Divider, Form, Input, Row, Select, Space, Tag } from "antd";
+import { AppRoute } from "src/config/app-route";
+import { Card } from "src/models/Card";
+import { cardRepository } from "src/repositories/card-repository";
+import { useDetails } from "src/services/use-details.ts";
+import { useMaster } from "src/services/use-master.ts";
+import { Bank, CardClass, Customer, Transaction } from "src/models";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { customerRepository } from "src/repositories/customer-repository.ts";
+import { cardClassRepository } from "src/repositories/card-class-repository.ts";
+import { filterFunc } from "src/helpers/select.ts";
 import React from "react";
-import {PlusOutlined} from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { useQuickCreate } from "src/services/use-quick-create";
 import { ColumnProps } from "antd/es/table";
 import { Table } from "antd/lib";
@@ -69,43 +69,42 @@ const CardDetail = () => {
       },
     },
     {
-      title: "Mã giao dịch",
+      title: "Mã giao dịch",
       dataIndex: "code",
       key: "code",
     },
     {
-      title: "ID thẻ",
+      title: "ID thẻ",
       dataIndex: "cardId",
       key: "cardId",
     },
     {
-      title: "Số tiền",
+      title: "Số tiền",
       dataIndex: "amount",
       key: "amount",
     },
     {
-      title: "Phí chuyển",
+      title: "Phí chuyển",
       dataIndex: "fee",
       key: "fee",
     },
     {
-      title: "Trạng thái",
+      title: "Trạng thái",
       dataIndex: "statusId",
       key: "statusId",
       render(statusId: number) {
         if (statusId === 1) {
-          return <Tag color="green">Đã nhận tiền</Tag>;
+          return <Tag color="green">Đã nhận tiền</Tag>;
         }
-        return <Tag color="yellow">Chưa nhận tiền</Tag>;
+        return <Tag color="yellow">Chưa nhận tiền</Tag>;
       },
-    }, 
+    },
   ];
 
-  const transactions = React.useMemo(() => card?.transactions?? [], [card]);
+  const transactions = React.useMemo(() => card?.transactions ?? [], [card]);
 
   return (
     <>
-    
       <Form
         form={form}
         layout="vertical"
@@ -116,29 +115,29 @@ const CardDetail = () => {
             {/* Card Number field */}
             <Form.Item
               name="number"
-              label="Card Number"
-              rules={[{required: true, message: "Please enter the card number"}]}
+              label="Số thẻ"
+              rules={[{ required: true, message: "Vui lòng nhập số thẻ" }]}
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Col>
           <Col span={8}>
             {/* Name field */}
             <Form.Item
               name="name"
-              label="Name"
-              rules={[{required: true, message: "Please enter the name"}]}
+              label="Tên"
+              rules={[{ required: true, message: "Vui lòng nhập tên" }]}
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Col>
           <Col span={8}>
             {/* Sample Link field */}
             <Form.Item
               name="sampleLink"
-              label="Sample Link"
+              label="Link mẫu"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Col>
         </Row>
@@ -147,8 +146,8 @@ const CardDetail = () => {
             {/* Bank ID field */}
             <Form.Item
               name="bankId"
-              label="Bank"
-              rules={[{required: true, message: "Please enter the bank ID"}]}
+              label="Ngân hàng"
+              rules={[{ required: true, message: "Vui lòng nhập mã ngân hàng" }]}
             >
               <Select showSearch={true} filterOption={filterFunc}
                 onChange={(bankId) => setSelectedBankId(bankId)}>
@@ -164,8 +163,8 @@ const CardDetail = () => {
             {/* Card Class ID field */}
             <Form.Item
               name={nameof(Card.prototype.cardClassId)}
-              label="Card Class"
-              rules={[{required: true, message: "Please enter the card class ID"}]}
+              label="Lớp thẻ"
+              rules={[{ required: true, message: "Vui lòng nhập mã lớp thẻ" }]}
             >
               <Select showSearch={true} filterOption={filterFunc} disabled={!selectedBankId}>
                 {filteredCardClasses.map((cardClass) => (
@@ -180,25 +179,25 @@ const CardDetail = () => {
             {/* Customer ID field */}
             <Form.Item
               name="customerId"
-              label="Customer"
+              label="Khách hàng"
 
             >
               <Select
-                placeholder="Select or create new customer"
+                placeholder="Chọn hoặc tạo khách hàng mới"
                 dropdownRender={(menu) => (
                   <>
                     {menu}
-                    <Divider className="my-2"/>
+                    <Divider className="my-2" />
                     <Space className="my-1 mx-2 d-flex w-100">
                       <Input
-                        placeholder="Please enter customer name"
+                        placeholder="Vui lòng nhập tên khách hàng"
                         value={customerName}
                         className="flex-grow-1 justify-content-start"
                         onChange={handleChangeCustomerName}
                         onKeyDown={(e) => e.stopPropagation()}
                       />
-                      <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCustomer}>
-                                            Add customer
+                      <Button type="text" icon={<PlusOutlined />} onClick={handleCreateCustomer}>
+                        Thêm khách hàng
                       </Button>
                     </Space>
                   </>
@@ -218,9 +217,9 @@ const CardDetail = () => {
             {/* Description field */}
             <Form.Item
               name={nameof(Card.prototype.description)}
-              label="Description"
+              label="Mô tả"
             >
-              <Input.TextArea/>
+              <Input.TextArea />
             </Form.Item>
           </Col>
 
@@ -228,7 +227,7 @@ const CardDetail = () => {
         {/* Submit button */}
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+            Gửi
           </Button>
         </Form.Item>
       </Form>
@@ -239,8 +238,7 @@ const CardDetail = () => {
           columns={columns}
           dataSource={card?.transactions}
           rowKey="id"
-          
-          footer={() => FooterCount({counts: transactions!.length})}
+          footer={() => FooterCount({ counts: transactions!.length })}
         />
       )}
     </>

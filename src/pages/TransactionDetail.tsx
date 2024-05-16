@@ -60,8 +60,8 @@ const TransactionDetail = () => {
         <Col span={12}>
           <Form.Item
             name="code"
-            label="Code"
-            rules={[{required: true, message: "Please enter the code"}]}
+            label="Mã"
+            rules={[{required: true, message: "Vui lòng nhập mã"}]}
           >
             <Input/>
           </Form.Item>
@@ -74,8 +74,8 @@ const TransactionDetail = () => {
         <Col span={12}>
           <Form.Item
             name="storeId"
-            label="Store"
-            rules={[{required: true, message: "Please select the store"}]}
+            label="Cửa hàng"
+            rules={[{required: true, message: "Vui lòng chọn cửa hàng"}]}
           >
             <Select 
               dropdownRender={(menu) => (
@@ -84,14 +84,14 @@ const TransactionDetail = () => {
                   <Divider className="my-2"/>
                   <Space className="my-1 mx-2 d-flex w-100">
                     <Input
-                      placeholder="Please enter store TID"
+                      placeholder="Vui lòng nhập mã cửa hàng"
                       value={storeName}
                       className="flex-grow-1 justify-content-start"
                       onChange={handleChangeStoreName}
                       onKeyDown={(e) => e.stopPropagation()}
                     />
                     <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateStore}>
-                                            Add store
+                      Thêm cửa hàng
                     </Button>
                   </Space>
                 </>
@@ -104,8 +104,8 @@ const TransactionDetail = () => {
         <Col span={12}>
           <Form.Item
             name="cardId"
-            label="Card ID"
-            rules={[{required: true, message: "Please select the card ID"}]}
+            label="Mã thẻ"
+            rules={[{required: true, message: "Vui lòng chọn mã thẻ"}]}
           >
             <Select
               dropdownRender={(menu) => (
@@ -114,14 +114,14 @@ const TransactionDetail = () => {
                   <Divider className="my-2"/>
                   <Space className="my-1 mx-2 d-flex w-100">
                     <Input
-                      placeholder="Please enter card number"
+                      placeholder="Vui lòng nhập số thẻ"
                       value={cardNumber}
                       className="flex-grow-1 justify-content-start"
                       onChange={handleChangeCardNumber}
                       onKeyDown={(e) => e.stopPropagation()}
                     />
                     <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCard}>
-                                          Add card
+                      Thêm thẻ
                     </Button>
                   </Space>
                 </>
@@ -137,8 +137,8 @@ const TransactionDetail = () => {
         <Col span={12}>
           <Form.Item
             name="amount"
-            label="Amount"
-            rules={[{required: true, message: "Please enter the amount"}]}
+            label="Số tiền"
+            rules={[{required: true, message: "Vui lòng nhập số tiền"}]}
           >
             <Input type="number" step="0.01"/>
           </Form.Item>
@@ -146,8 +146,8 @@ const TransactionDetail = () => {
         <Col span={12}>
           <Form.Item
             name={nameof(Transaction.prototype.fee)}
-            label="Fee"
-            rules={[{required: true, message: "Please enter the fee"}]}
+            label="Phí"
+            rules={[{required: true, message: "Vui lòng nhập phí"}]}
           >
             <Input type="number" step="0.01"/>
           </Form.Item>
@@ -155,7 +155,7 @@ const TransactionDetail = () => {
       </Row>
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+          Nhập
         </Button>
       </Form.Item>
     </Form>

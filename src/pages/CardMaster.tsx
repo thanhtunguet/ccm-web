@@ -1,6 +1,6 @@
 import {Button, Popconfirm, Table} from "antd";
 import {ColumnProps} from "antd/lib/table";
-import {FC} from "react";
+import React, {FC} from "react";
 import {useNavigate} from "react-router-dom";
 import {FooterCount} from "src/components/FooterCount.tsx";
 import {TableHeader} from "src/components/TableHeader";
@@ -11,9 +11,12 @@ import {useMaster} from "src/services/use-master.ts";
 import {useDelete} from "src/services/use-delete.ts";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import { getNextDate } from "src/helpers/date";
+import readExcelFile from "src/helpers/file";
+import { firstValueFrom } from "rxjs";
+import { useBoolean } from "react3l";
 
 export const CardMaster: FC = () => {
-  const [cards, counts, isLoading] = useMaster<Card>(
+  const [cards, counts, isLoading, handleRefresh] = useMaster<Card>(
     cardRepository.list,
     cardRepository.count,
   );
@@ -106,6 +109,27 @@ export const CardMaster: FC = () => {
     },
   ];
 
+  const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {files} = event.target;
+    if (files!.length > 0 ) {
+      const file = files![0];
+      const data: CardClass[] =  await readExcelFile(file);
+      for (const record of data) {
+        await firstValueFrom(cardRepository.create(record));
+      }
+    }
+    handleRefresh();
+  },[handleRefresh]);
+
+  const [binLoading, toggleBinLoading] = useBoolean(false);
+
+  const handleSyncBin= React.useCallback(async () => {
+    toggleBinLoading();
+    await firstValueFrom(cardRepository.syncBin());
+    toggleBinLoading();
+
+  },[toggleBinLoading]);
+
   return (
     <>
       <Table showHeader={true}
@@ -114,11 +138,22 @@ export const CardMaster: FC = () => {
         dataSource={cards}
         rowKey="id"
         title={() => (
-          <TableHeader
-            onAdd={() => {
-              navigate(AppRoute.CARD_CREATE);
-            }}
-          />
+          <>
+            <Button loading={binLoading} type="primary" onClick={() => {
+              handleSyncBin();
+            }}>
+          Đồng bộ theo BIN
+            </Button>
+            <TableHeader
+              onAdd={() => {
+                navigate(AppRoute.CARD_CREATE);
+              }}
+
+              onImport={handleImportFile}
+              template="/card-template.xlsx"
+            />
+          
+          </>
         )}
         footer={() => FooterCount({counts})}
       />

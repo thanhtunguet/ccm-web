@@ -32,22 +32,22 @@ export const StoreMaster: FC = () => {
       },
     },
     {
-      title: "Code",
+      title: "Mã",
       dataIndex: "code",
       key: "code",
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Address",
+      title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
     },
     {
-      title: "Actions",
+      title: "Hành động",
       dataIndex: nameof(Customer.prototype.id),
       key: "actions",
       render(id, record) {
@@ -59,19 +59,18 @@ export const StoreMaster: FC = () => {
             });
           }}/>
           <Popconfirm
-            title="Delete this?"
-            description="Are you sure to delete this?"
+            title="Xóa mục này?"
+            description="Bạn có chắc chắn muốn xóa mục này không?"
             onConfirm={() => {
               handleDelete(record)();
             }}
             onCancel={() => {
             }}
-            okText="Yes"
-            cancelText="No"
+            okText="Có"
+            cancelText="Không"
           >
             <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
           </Popconfirm>
-
         </>;
       },
     },

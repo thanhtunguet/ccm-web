@@ -1,18 +1,21 @@
-import {FC} from "react";
-import {ColumnProps} from "antd/lib/table";
-import {Customer, Transaction} from "src/models";
-import {Button, Popconfirm, Table, Tag} from "antd";
-import {useMaster} from "src/services/use-master.ts";
-import {transactionRepository} from "src/repositories/transaction-repository.ts";
-import {FooterCount} from "src/components/FooterCount.tsx";
-import {useNavigate} from "react-router-dom";
-import {TableHeader} from "src/components/TableHeader.tsx";
-import {AppRoute} from "src/config/app-route.ts";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {useDelete} from "src/services/use-delete.ts";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Input, Modal, Popconfirm, Table, Tag } from "antd";
+import { ColumnProps } from "antd/lib/table";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { useBoolean } from "react3l";
+import { finalize, firstValueFrom } from "rxjs";
+import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader.tsx";
+import { AppRoute } from "src/config/app-route.ts";
+import readExcelFile from "src/helpers/file";
+import { Customer, Transaction } from "src/models";
+import { transactionRepository } from "src/repositories/transaction-repository.ts";
+import { useDelete } from "src/services/use-delete.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 export const TransactionMaster: FC = () => {
-  const [transactions, counts, isLoading] = useMaster<Transaction>(
+  const [transactions, counts, isLoading, handleRefresh] = useMaster<Transaction>(
     transactionRepository.list,
     transactionRepository.count,
   );
@@ -35,9 +38,38 @@ export const TransactionMaster: FC = () => {
       key: "code",
     },
     {
-      title: "ID thẻ",
-      dataIndex: "cardId",
-      key: "cardId",
+      title: "Thẻ",
+      dataIndex: "card",
+      key: "card",
+      render(card) {
+        return (
+          <Button type="link" onClick={() => {
+            navigate({
+              pathname: AppRoute.CARD_CREATE,
+              search: `?id=${card?.id}`,
+            });
+          }}>
+            {card?.name}
+          </Button>
+        );
+      },
+    },
+    {
+      title: "Cửa hàng",
+      dataIndex: "store",
+      key: "store",
+      render(store) {
+        return (
+          <Button type="link" onClick={() => {
+            navigate({
+              pathname: AppRoute.STORE_CREATE,
+              search: `?id=${store?.id}`,
+            });
+          }}>
+            {store?.name}
+          </Button>
+        );
+      },
     },
     {
       title: "Số tiền",
@@ -54,7 +86,7 @@ export const TransactionMaster: FC = () => {
       dataIndex: "statusId",
       key: "statusId",
       render(statusId: number) {
-        if (statusId === 1) {
+        if (statusId === 2) {
           return <Tag color="green">Đã nhận tiền</Tag>;
         }
         return <Tag color="yellow">Chưa nhận tiền</Tag>;
@@ -91,6 +123,21 @@ export const TransactionMaster: FC = () => {
     },
   ];
 
+  const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {files} = event.target;
+    if (files!.length > 0 ) {
+      const file = files![0];
+      const data: Transaction[] =  await readExcelFile(file);
+      for (const record of data) {
+        await firstValueFrom(transactionRepository.create(record));
+      }
+    }
+    handleRefresh();
+  },[handleRefresh]);
+
+  const [modalOpen, toggleModal, , closeModal] = useBoolean(false);
+  const [statementString, setStatementString] = React.useState<string[]>([]);
+  const [modalLoading, toggleModalLoading] = useBoolean(false);
 
   return (
     <>
@@ -100,11 +147,46 @@ export const TransactionMaster: FC = () => {
         dataSource={transactions}
         rowKey="id"
         title={() => (
-          <TableHeader
-            onAdd={() => {
-              navigate(AppRoute.TRANSACTION_CREATE);
-            }}
-          />
+          <>
+            <Button type="primary" onClick={() => {
+              toggleModal();
+            }}>
+            Nhập sao kê VPBank
+            </Button>
+            <Modal confirmLoading={modalLoading} title="Nhập sao kê VPBank" open={modalOpen} onOk={() => {
+              console.log(statementString);
+              toggleModalLoading();
+              transactionRepository.updateVpBankLog(statementString).pipe(
+                finalize(() => {
+                  toggleModalLoading();
+                  closeModal();
+                  handleRefresh();
+                }),
+              ).subscribe({
+                next() {
+
+                }, 
+                error(error) {
+                  console.log(error);
+                },
+              });
+            }} onCancel={closeModal}>
+              <Input.TextArea rows={10}
+                onChange={(event) => {
+                  setStatementString(event.target.value.split("\n"));
+                }}
+                placeholder="TT MC CHO TID R1430747 NGAY GD 24/04/30 07.52.28 SO THE 524394...1742 CODE 886172 SO TIEN 32596000 VND (1) PHI 391152VND VAT 39115VND TG 1 RRN 412189474136
+TT MC CHO TID R1430747 NGAY GD 24/04/30 07.56.00 SO THE 524394...1742 CODE 886173 SO TIEN 12004000 VND (1) PHI 144048VND VAT 14405VND TG 1 RRN 412189474456"></Input.TextArea>
+            </Modal>
+          
+            <TableHeader
+              onAdd={() => {
+                navigate(AppRoute.TRANSACTION_CREATE);
+              }}
+              onImport={handleImportFile}
+              template="/transaction-template.xlsx"
+            />
+          </>
         )}
         footer={() => FooterCount({counts})}
       />

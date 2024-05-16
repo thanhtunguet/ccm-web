@@ -23,8 +23,8 @@ const StoreDetail = () => {
           {/* Code field */}
           <Form.Item
             name="code"
-            label="Code"
-            rules={[{required: true, message: "Please enter the code"}]}
+            label="Mã"
+            rules={[{required: true, message: "Vui lòng nhập mã"}]}
           >
             <Input/>
           </Form.Item>
@@ -33,8 +33,8 @@ const StoreDetail = () => {
           {/* Name field */}
           <Form.Item
             name="name"
-            label="Name"
-            rules={[{required: true, message: "Please enter the name"}]}
+            label="Tên"
+            rules={[{required: true, message: "Vui lòng nhập tên"}]}
           >
             <Input/>
           </Form.Item>
@@ -43,15 +43,14 @@ const StoreDetail = () => {
       {/* Address field */}
       <Form.Item
         name="address"
-        label="Address"
-        rules={[{required: true, message: "Please enter the address"}]}
+        label="Địa chỉ"
       >
         <Input.TextArea/>
       </Form.Item>
       {/* Submit button */}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Submit
+          Nộp
         </Button>
       </Form.Item>
     </Form>
