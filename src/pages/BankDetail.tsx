@@ -93,7 +93,6 @@ const BankDetail = () => {
             <Form.Item
               name={nameof(Bank.prototype.shortName)}
               label="Tên ngắn"
-              rules={[{required: true, message: "Vui lòng nhập tên ngắn"}]}
             >
               <Input type="text"/>
             </Form.Item>
@@ -113,7 +112,6 @@ const BankDetail = () => {
             <Form.Item
               name={nameof(Bank.prototype.englishName)}
               label="Tên tiếng Anh"
-              rules={[{required: true, message: "Vui lòng nhập tên tiếng Anh"}]}
             >
               <Input/>
             </Form.Item>

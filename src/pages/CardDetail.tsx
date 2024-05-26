@@ -126,7 +126,6 @@ const CardDetail = () => {
             <Form.Item
               name="name"
               label="Tên"
-              rules={[{ required: true, message: "Vui lòng nhập tên" }]}
             >
               <Input />
             </Form.Item>
@@ -147,7 +146,6 @@ const CardDetail = () => {
             <Form.Item
               name="bankId"
               label="Ngân hàng"
-              rules={[{ required: true, message: "Vui lòng nhập mã ngân hàng" }]}
             >
               <Select showSearch={true} filterOption={filterFunc}
                 onChange={(bankId) => setSelectedBankId(bankId)}>
@@ -164,7 +162,6 @@ const CardDetail = () => {
             <Form.Item
               name={nameof(Card.prototype.cardClassId)}
               label="Lớp thẻ"
-              rules={[{ required: true, message: "Vui lòng nhập mã lớp thẻ" }]}
             >
               <Select showSearch={true} filterOption={filterFunc} disabled={!selectedBankId}>
                 {filteredCardClasses.map((cardClass) => (

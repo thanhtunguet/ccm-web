@@ -32,7 +32,6 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.bankId)}
             label="Ngân hàng"
-            rules={[{ required: true, message: "Vui lòng chọn ngân hàng" }]}
           >
             <Select showSearch={true} filterOption={filterFunc} placeholder="Tìm kiếm theo tên ngắn">
               {banks.map((bank) => (
@@ -67,7 +66,6 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.statementDate)}
             label="Ngày sao kê"
-            rules={[{ required: true, message: "Vui lòng nhập ngày sao kê" }]}
           >
             <InputNumber className="w-100" />
           </Form.Item>
@@ -76,7 +74,6 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.dueDate)}
             label="Ngày đến hạn"
-            rules={[{ required: true, message: "Vui lòng nhập ngày đến hạn" }]}
           >
             <InputNumber className="w-100" />
           </Form.Item>
@@ -85,7 +82,6 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.freePeriod)}
             label="Thời gian miễn lãi (ngày)"
-            rules={[{ required: true, message: "Vui lòng nhập thời gian miễn lãi" }]}
             initialValue={45}
           >
             <InputNumber className="w-100" />
@@ -97,7 +93,6 @@ const CardClassDetail = () => {
           <Form.Item
             name={nameof(CardClass.prototype.bin)}
             label="BIN"
-            rules={[{ required: true, message: "Vui lòng nhập BIN" }]}
           >
             <Input className="w-100" />
           </Form.Item>

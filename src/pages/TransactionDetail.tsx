@@ -75,7 +75,6 @@ const TransactionDetail = () => {
           <Form.Item
             name="storeId"
             label="Cửa hàng"
-            rules={[{required: true, message: "Vui lòng chọn cửa hàng"}]}
           >
             <Select 
               dropdownRender={(menu) => (
@@ -105,7 +104,6 @@ const TransactionDetail = () => {
           <Form.Item
             name="cardId"
             label="Mã thẻ"
-            rules={[{required: true, message: "Vui lòng chọn mã thẻ"}]}
           >
             <Select
               dropdownRender={(menu) => (
@@ -138,7 +136,6 @@ const TransactionDetail = () => {
           <Form.Item
             name="amount"
             label="Số tiền"
-            rules={[{required: true, message: "Vui lòng nhập số tiền"}]}
           >
             <Input type="number" step="0.01"/>
           </Form.Item>
@@ -147,7 +144,6 @@ const TransactionDetail = () => {
           <Form.Item
             name={nameof(Transaction.prototype.fee)}
             label="Phí"
-            rules={[{required: true, message: "Vui lòng nhập phí"}]}
           >
             <Input type="number" step="0.01"/>
           </Form.Item>

@@ -71,7 +71,6 @@ const CustomerDetail = () => {
             <Form.Item
               name="email"
               label="Email"
-              rules={[{required: true, message: "Vui lòng nhập email"}]}
             >
               <Input type="email"/>
             </Form.Item>
@@ -81,7 +80,6 @@ const CustomerDetail = () => {
             <Form.Item
               name="phoneNumber"
               label="Số điện thoại"
-              rules={[{required: true, message: "Vui lòng nhập số điện thoại"}]}
             >
               <Input/>
             </Form.Item>
@@ -91,7 +89,6 @@ const CustomerDetail = () => {
             <Form.Item
               name="address"
               label="Địa chỉ"
-              rules={[{required: true, message: "Vui lòng nhập địa chỉ"}]}
             >
               <Input/>
             </Form.Item>

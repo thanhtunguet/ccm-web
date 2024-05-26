@@ -34,7 +34,6 @@ const StoreDetail = () => {
           <Form.Item
             name="name"
             label="Tên"
-            rules={[{required: true, message: "Vui lòng nhập tên"}]}
           >
             <Input/>
           </Form.Item>
