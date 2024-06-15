@@ -2,10 +2,11 @@ import {defineConfig} from "vite";
 import path from "path";
 import ts from "vite-plugin-ts";
 import tsNameof from "vite-plugin-ts-nameof";
+import Markdown from "vite-plugin-react-markdown";
 
 const proxyConfig = {
-  // target: "http://localhost:5231",
-  target: "https://ccm-dev.thanhtunguet.info",
+  target: "http://localhost:5231",
+  // target: "https://ccm-dev.thanhtunguet.info",
   changeOrigin: true,
 };
 
@@ -17,6 +18,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    Markdown(),
     ts(),
     tsNameof(),
   ],

@@ -12,6 +12,7 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useDelete} from "src/services/use-delete.ts";
 import readExcelFile from "src/helpers/file";
 import { firstValueFrom } from "rxjs";
+import StoreHelp from './StoreHelp.md';
 
 export const StoreMaster: FC = () => {
   const [stores, counts, isLoading, handleRefresh] = useMaster<Store>(
@@ -106,6 +107,7 @@ export const StoreMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
+      <StoreHelp />
     </>
   );
 };

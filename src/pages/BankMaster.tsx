@@ -12,6 +12,7 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useDelete} from "src/services/use-delete.ts";
 import readExcelFile from "src/helpers/file";
 import { firstValueFrom } from "rxjs";
+import BankHelp from './BankHelp.md';
 
 export const BankMaster: FC = () => {
   const [banks, counts, isLoading, handleRefresh] = useMaster<Bank>(
@@ -113,6 +114,8 @@ export const BankMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
+
+      <BankHelp />
     </>
   );
 };

@@ -10,3 +10,28 @@
     overflow-y: auto;
   }
 }
+
+@mixin tableCell() {
+  border: 1px solid #CCCCCC;
+  padding: 0.5rem 0.5rem;
+}
+
+.vite-plugin-react-markdown {
+  table {
+    thead {
+      tr {
+        th {
+          @include tableCell();
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          @include tableCell();
+        }
+      }
+    }
+  }
+}

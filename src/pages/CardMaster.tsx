@@ -14,6 +14,21 @@ import { getNextDate } from "src/helpers/date";
 import readExcelFile from "src/helpers/file";
 import { firstValueFrom } from "rxjs";
 import { useBoolean } from "react3l";
+import CardHelp from './CardClassHelp.md';
+import Title from "antd/es/typography/Title";
+import moment, { Moment } from "moment";
+
+// Import moment.js if using ES modules or if not using CDN
+// import moment from 'moment';
+
+function isToday(momentDate: Moment) {
+  // Get current date without time part
+  const today = moment().startOf('day');
+  
+  // Check if momentDate is equal to today's date
+  return momentDate.isSame(today, 'day');
+}
+
 
 export const CardMaster: FC = () => {
   const [cards, counts, isLoading, handleRefresh] = useMaster<Card>(
@@ -130,8 +145,46 @@ export const CardMaster: FC = () => {
 
   },[toggleBinLoading]);
 
+  const statementCards = React.useMemo(() => cards.filter((card) => {
+    if (!card.cardClass?.statementDate) {
+      return false;
+    }
+    const nextDate = getNextDate(card.cardClass?.statementDate);
+    return isToday(nextDate);
+  }),[cards]);
+
+  const dueCards = React.useMemo(() => cards.filter((card) => {
+    if (!card.cardClass?.statementDate) {
+      return false;
+    }
+    const nextDate = getNextDate(card.cardClass.dueDate!);
+    return isToday(nextDate);
+  }), [cards]);
+
   return (
     <>
+      <Title>Thẻ đến hạn sao kê </Title>
+      {statementCards.length > 0 && (<Table showHeader={true}
+        loading={isLoading}
+        columns={columns}
+        dataSource={statementCards}
+        rowKey="id"
+      />)}
+
+      <Title>Thẻ đến hạn thanh toán </Title>
+      {dueCards.length > 0 && (
+        <Table showHeader={true}
+          loading={isLoading}
+          columns={columns}
+          dataSource={dueCards}
+          rowKey="id"
+        />
+      )}
+
+      <Title>
+        Toàn bộ thẻ
+      </Title>
+
       <Table showHeader={true}
         loading={isLoading}
         columns={columns}
@@ -157,6 +210,8 @@ export const CardMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
+
+      <CardHelp />
     </>
   );
 };

@@ -13,6 +13,7 @@ import { CardClass } from "src/models";
 import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
+import CardClassHelp from './CardClassHelp.md';
 
 export const CardClassMaster: FC = () => {
   const [banks, counts, isLoading, handleRefresh] = useMaster<CardClass>(
@@ -146,6 +147,8 @@ export const CardClassMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
+
+      <CardClassHelp />
     </>
   );
 };

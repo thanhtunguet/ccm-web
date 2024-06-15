@@ -13,6 +13,7 @@ import { Customer, Transaction } from "src/models";
 import { transactionRepository } from "src/repositories/transaction-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
+import TransactionHelp from './TransactionHelp.md';
 
 export const TransactionMaster: FC = () => {
   const [transactions, counts, isLoading, handleRefresh] = useMaster<Transaction>(
@@ -190,6 +191,8 @@ TT MC CHO TID R1430747 NGAY GD 24/04/30 07.56.00 SO THE 524394...1742 CODE 88617
         )}
         footer={() => FooterCount({counts})}
       />
+
+      <TransactionHelp />
     </>
   );
 };

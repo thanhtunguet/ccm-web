@@ -2,6 +2,7 @@ import {AutoModel, Field, Model, MomentField} from "react3l";
 import type {Moment} from "moment";
 import { Customer } from "../Customer";
 import { Transaction } from "../Transaction";
+import { CardClass } from "../CardClass";
 
 @AutoModel()
 export class Card extends Model {
@@ -28,6 +29,8 @@ export class Card extends Model {
 
     @Field(Number)
     public cardClassId?: number;
+
+    public cardClass?: CardClass;
 
     @Field(Number)
     public customerId?: number;

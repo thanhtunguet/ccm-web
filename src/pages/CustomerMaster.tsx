@@ -12,6 +12,7 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {useDelete} from "src/services/use-delete.ts";
 import readExcelFile from "src/helpers/file";
 import { firstValueFrom } from "rxjs";
+import CustomerHelp from './CustomerHelp.md';
 
 export const CustomerMaster: FC = () => {
   const [customers, counts, isLoading, handleRefresh] = useMaster<Customer>(
@@ -112,6 +113,7 @@ export const CustomerMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
+      <CustomerHelp />
     </>
   );
 };
