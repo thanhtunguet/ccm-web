@@ -1,32 +1,40 @@
-import {Button, Popconfirm, Table} from "antd";
-import {ColumnProps} from "antd/lib/table";
-import React, {FC} from "react";
-import {useNavigate} from "react-router-dom";
-import {FooterCount} from "src/components/FooterCount.tsx";
-import {TableHeader} from "src/components/TableHeader";
-import {AppRoute} from "src/config/app-route";
-import {Card, CardClass} from "src/models";
-import {cardRepository} from "src/repositories/card-repository.ts";
-import {useMaster} from "src/services/use-master.ts";
-import {useDelete} from "src/services/use-delete.ts";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Table } from "antd";
+import Title from "antd/es/typography/Title";
+import { ColumnProps } from "antd/lib/table";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { useBoolean } from "react3l";
+import { firstValueFrom } from "rxjs";
+import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
 import { getNextDate } from "src/helpers/date";
 import readExcelFile from "src/helpers/file";
-import { firstValueFrom } from "rxjs";
-import { useBoolean } from "react3l";
+import { Card, CardClass } from "src/models";
+import { cardRepository } from "src/repositories/card-repository.ts";
+import { useDelete } from "src/services/use-delete.ts";
+import { useMaster } from "src/services/use-master.ts";
 import CardHelp from './CardClassHelp.md';
-import Title from "antd/es/typography/Title";
-import moment, { Moment } from "moment";
 
 // Import moment.js if using ES modules or if not using CDN
 // import moment from 'moment';
 
-function isToday(momentDate: Moment) {
+function isTodayOrTomorrow(date: Date) {
   // Get current date without time part
-  const today = moment().startOf('day');
-  
-  // Check if momentDate is equal to today's date
-  return momentDate.isSame(today, 'day');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to beginning of today
+
+  // Get tomorrow's date without time part
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0); // Set to beginning of tomorrow
+
+  // Convert input date to Date object if it's not already
+  const inputDate = new Date(date);
+
+  // Check if inputDate is either today or tomorrow
+  return inputDate.getTime() >= today.getTime() && inputDate.getTime() < tomorrow.getTime();
 }
 
 
@@ -150,7 +158,7 @@ export const CardMaster: FC = () => {
       return false;
     }
     const nextDate = getNextDate(card.cardClass?.statementDate);
-    return isToday(nextDate);
+    return isTodayOrTomorrow(nextDate.toDate());
   }),[cards]);
 
   const dueCards = React.useMemo(() => cards.filter((card) => {
@@ -158,7 +166,7 @@ export const CardMaster: FC = () => {
       return false;
     }
     const nextDate = getNextDate(card.cardClass.dueDate!);
-    return isToday(nextDate);
+    return isTodayOrTomorrow(nextDate.toDate());
   }), [cards]);
 
   return (
