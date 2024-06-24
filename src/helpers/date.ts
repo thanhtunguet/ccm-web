@@ -1,4 +1,4 @@
-import moment, {Moment} from "moment";
+import moment, { Moment } from "moment";
 
 export function getNextDate(dayOfMonth: number): Moment {
   const currentDate = new Date();
@@ -14,7 +14,7 @@ export function getNextDate(dayOfMonth: number): Moment {
   let nextDate: Date;
 
   // Check if the given day has already passed or is today
-  if (dayOfMonth <= currentDay) {
+  if (dayOfMonth < currentDay) {
     // If current month is December, wrap to January of the next year
     if (currentMonth === 11) {
       nextDate = new Date(currentYear + 1, 0, dayOfMonth);
