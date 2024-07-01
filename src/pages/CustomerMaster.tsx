@@ -1,21 +1,20 @@
-import React, {FC} from "react";
-import {ColumnProps} from "antd/lib/table";
-import {Customer} from "src/models";
-import {Button, Popconfirm, Table} from "antd";
-import {useMaster} from "src/services/use-master.ts";
-import {customerRepository} from "src/repositories/customer-repository.ts";
-import {FooterCount} from "src/components/FooterCount.tsx";
-import {TableHeader} from "src/components/TableHeader";
-import {useNavigate} from "react-router-dom";
-import {AppRoute} from "src/config/app-route";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {useDelete} from "src/services/use-delete.ts";
-import readExcelFile from "src/helpers/file";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Table } from "antd";
+import { ColumnProps } from "antd/lib/table";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { firstValueFrom } from "rxjs";
-import CustomerHelp from './CustomerHelp.md';
+import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import readExcelFile from "src/helpers/file";
+import { Customer } from "src/models";
+import { customerRepository } from "src/repositories/customer-repository.ts";
+import { useDelete } from "src/services/use-delete.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 export const CustomerMaster: FC = () => {
-  const [customers, counts, isLoading, handleRefresh] = useMaster<Customer>(
+  const [customers, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Customer>(
     customerRepository.list,
     customerRepository.count,
   );
@@ -102,6 +101,7 @@ export const CustomerMaster: FC = () => {
         columns={columns}
         dataSource={customers}
         rowKey="id"
+        pagination={pagination}
         title={() => (
           <TableHeader
             onAdd={() => {
@@ -113,7 +113,6 @@ export const CustomerMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
-      <CustomerHelp />
     </>
   );
 };

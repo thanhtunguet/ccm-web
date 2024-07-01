@@ -1,4 +1,4 @@
-import {AppRoute} from "./app-route";
+import { AppRoute } from "./app-route";
 
 export const menu: Array<{
     label: string;
@@ -27,5 +27,9 @@ export const menu: Array<{
   {
     key: AppRoute.TRANSACTION,
     label: "Giao dịch",
+  },
+  {
+    key: AppRoute.HELP,
+    label: "Hướng dẫn",
   },
 ];

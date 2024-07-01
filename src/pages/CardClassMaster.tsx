@@ -13,10 +13,9 @@ import { CardClass } from "src/models";
 import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
-import CardClassHelp from './CardClassHelp.md';
 
 export const CardClassMaster: FC = () => {
-  const [banks, counts, isLoading, handleRefresh] = useMaster<CardClass>(
+  const [banks, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] = useMaster<CardClass>(
     cardClassRepository.list,
     cardClassRepository.count,
   );
@@ -91,12 +90,12 @@ export const CardClassMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
             navigate({
               pathname: AppRoute.CARD_CLASS_CREATE,
               search: `?id=${id}`,
             });
-          }}/>
+          }} />
           <Popconfirm
             title="Delete this?"
             description="Are you sure to delete this?"
@@ -108,7 +107,7 @@ export const CardClassMaster: FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
           </Popconfirm>
 
         </>;
@@ -117,16 +116,16 @@ export const CardClassMaster: FC = () => {
   ];
 
   const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = event.target;
-    if (files!.length > 0 ) {
+    const { files } = event.target;
+    if (files!.length > 0) {
       const file = files![0];
-      const data: CardClass[] =  await readExcelFile(file);
+      const data: CardClass[] = await readExcelFile(file);
       for (const record of data) {
         await firstValueFrom(cardClassRepository.create(record));
       }
     }
     handleRefresh();
-  },[handleRefresh]);
+  }, [handleRefresh]);
 
   return (
     <>
@@ -135,6 +134,7 @@ export const CardClassMaster: FC = () => {
         columns={columns}
         dataSource={banks}
         rowKey="id"
+        pagination={pagination}
         title={() => (
           <TableHeader
             onAdd={() => {
@@ -145,10 +145,9 @@ export const CardClassMaster: FC = () => {
             template="/card-class-template.xlsx"
           />
         )}
-        footer={() => FooterCount({counts})}
+        footer={() => FooterCount({ counts })}
       />
 
-      <CardClassHelp />
     </>
   );
 };

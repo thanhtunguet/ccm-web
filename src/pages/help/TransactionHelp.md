@@ -1,4 +1,4 @@
-### Hướng dẫn Import
+### Hướng dẫn import giao dịch
 
 | STT | Tên trường | Giải thích                                                                   | Ví dụ      |
 |-----|------------|------------------------------------------------------------------------------|------------|
@@ -9,6 +9,7 @@
 | 5   | amount     | Số tiền giao dịch, dạng số thực (VD: 1000.00)                                | 500.50     |
 | 6   | fee        | Phí giao dịch, dạng số thực (VD: 10.00)                                      | 5.00       |
 | 7   | statusId   | ID trạng thái giao dịch, dạng số nguyên (Đối chiếu với danh sách trạng thái) | 2          |
+
 
 ### Sao kê VPBank
 

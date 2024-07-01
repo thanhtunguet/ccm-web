@@ -5,9 +5,9 @@ import ts from "vite-plugin-ts";
 import tsNameof from "vite-plugin-ts-nameof";
 
 const proxyConfig = {
-  // target: "http://localhost:5231",
+  target: "http://localhost:5231",
   // target: "https://ccm-dev.thanhtunguet.info",
-  target: 'http://207.148.69.200',
+  // target: 'http://207.148.69.200',
   changeOrigin: true,
 };
 

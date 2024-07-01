@@ -1,21 +1,20 @@
-import React, {FC} from "react";
-import {ColumnProps} from "antd/lib/table";
-import {Customer, Store} from "src/models";
-import {Button, Popconfirm, Table} from "antd";
-import {useMaster} from "src/services/use-master.ts";
-import {storeRepository} from "src/repositories/store-repository.ts";
-import {FooterCount} from "src/components/FooterCount.tsx";
-import {TableHeader} from "src/components/TableHeader";
-import {AppRoute} from "src/config/app-route";
-import {useNavigate} from "react-router-dom";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {useDelete} from "src/services/use-delete.ts";
-import readExcelFile from "src/helpers/file";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Table } from "antd";
+import { ColumnProps } from "antd/lib/table";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { firstValueFrom } from "rxjs";
-import StoreHelp from './StoreHelp.md';
+import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import readExcelFile from "src/helpers/file";
+import { Customer, Store } from "src/models";
+import { storeRepository } from "src/repositories/store-repository.ts";
+import { useDelete } from "src/services/use-delete.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 export const StoreMaster: FC = () => {
-  const [stores, counts, isLoading, handleRefresh] = useMaster<Store>(
+  const [stores, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Store>(
     storeRepository.list,
     storeRepository.count,
   );
@@ -96,6 +95,7 @@ export const StoreMaster: FC = () => {
         columns={columns}
         dataSource={stores}
         rowKey="id"
+        pagination={pagination}
         title={() => (
           <TableHeader
             onAdd={() => {
@@ -107,7 +107,6 @@ export const StoreMaster: FC = () => {
         )}
         footer={() => FooterCount({counts})}
       />
-      <StoreHelp />
     </>
   );
 };

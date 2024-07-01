@@ -1,21 +1,20 @@
-import {Button, Popconfirm, Table} from "antd";
-import {ColumnProps} from "antd/lib/table";
-import React, {FC} from "react";
-import {useNavigate} from "react-router-dom";
-import {FooterCount} from "src/components/FooterCount.tsx";
-import {TableHeader} from "src/components/TableHeader";
-import {AppRoute} from "src/config/app-route";
-import {Bank} from "src/models";
-import {bankRepository} from "src/repositories/bank-repository.ts";
-import {useMaster} from "src/services/use-master.ts";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {useDelete} from "src/services/use-delete.ts";
-import readExcelFile from "src/helpers/file";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Table } from "antd";
+import { ColumnProps } from "antd/lib/table";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { firstValueFrom } from "rxjs";
-import BankHelp from './BankHelp.md';
+import { FooterCount } from "src/components/FooterCount.tsx";
+import { TableHeader } from "src/components/TableHeader";
+import { AppRoute } from "src/config/app-route";
+import readExcelFile from "src/helpers/file";
+import { Bank } from "src/models";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { useDelete } from "src/services/use-delete.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 export const BankMaster: FC = () => {
-  const [banks, counts, isLoading, handleRefresh] = useMaster<Bank>(
+  const [banks, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] = useMaster<Bank>(
     bankRepository.list,
     bankRepository.count,
   );
@@ -59,12 +58,12 @@ export const BankMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
             navigate({
               pathname: AppRoute.BANK_CREATE,
               search: `?id=${id}`,
             });
-          }}/>
+          }} />
           <Popconfirm
             title="Delete this?"
             description="Are you sure to delete this?"
@@ -76,7 +75,7 @@ export const BankMaster: FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
           </Popconfirm>
 
         </>;
@@ -85,16 +84,16 @@ export const BankMaster: FC = () => {
   ], [handleDelete, navigate]);
 
   const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = event.target;
-    if (files!.length > 0 ) {
+    const { files } = event.target;
+    if (files!.length > 0) {
       const file = files![0];
-      const data: Bank[] =  await readExcelFile(file);
+      const data: Bank[] = await readExcelFile(file);
       for (const record of data) {
         await firstValueFrom(bankRepository.create(record));
       }
     }
     handleRefresh();
-  },[handleRefresh]);
+  }, [handleRefresh]);
 
   return (
     <>
@@ -103,6 +102,7 @@ export const BankMaster: FC = () => {
         columns={columns}
         dataSource={banks}
         rowKey="id"
+        pagination={pagination}
         title={() => (
           <TableHeader
             onAdd={() => {
@@ -112,10 +112,9 @@ export const BankMaster: FC = () => {
             template="/bank-template.xlsx"
           />
         )}
-        footer={() => FooterCount({counts})}
+        footer={() => FooterCount({ counts })}
       />
 
-      <BankHelp />
     </>
   );
 };

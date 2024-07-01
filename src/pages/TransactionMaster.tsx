@@ -13,10 +13,9 @@ import { Customer, Transaction } from "src/models";
 import { transactionRepository } from "src/repositories/transaction-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
-import TransactionHelp from './TransactionHelp.md';
 
 export const TransactionMaster: FC = () => {
-  const [transactions, counts, isLoading, handleRefresh] = useMaster<Transaction>(
+  const [transactions, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Transaction>(
     transactionRepository.list,
     transactionRepository.count,
   );
@@ -76,11 +75,19 @@ export const TransactionMaster: FC = () => {
       title: "Số tiền",
       dataIndex: "amount",
       key: "amount",
+      className: "text-right",
+      render(content: number) {
+        return content?.toLocaleString();
+      },
     },
     {
       title: "Phí chuyển",
       dataIndex: "fee",
       key: "fee",
+      className: "text-right",
+      render(content: number) {
+        return (content ?? 0)?.toLocaleString();
+      },
     },
     {
       title: "Trạng thái",
@@ -147,6 +154,7 @@ export const TransactionMaster: FC = () => {
         columns={columns}
         dataSource={transactions}
         rowKey="id"
+        pagination={pagination}
         title={() => (
           <>
             <Button type="primary" onClick={() => {
@@ -192,7 +200,6 @@ TT MC CHO TID R1430747 NGAY GD 24/04/30 07.56.00 SO THE 524394...1742 CODE 88617
         footer={() => FooterCount({counts})}
       />
 
-      <TransactionHelp />
     </>
   );
 };

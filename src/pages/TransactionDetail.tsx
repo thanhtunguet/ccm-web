@@ -10,7 +10,7 @@ import { useDetails } from "src/services/use-details.ts";
 import { useMaster } from "src/services/use-master.ts";
 import { useQuickCreate } from "src/services/use-quick-create";
 
-const {Option} = Select;
+const { Option } = Select;
 
 const TransactionDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<Transaction>(
@@ -20,7 +20,7 @@ const TransactionDetail = () => {
     AppRoute.TRANSACTION,
   );
 
-  const [cards,,,handleRefreshCard] = useMaster<Card>(
+  const [cards, , , handleRefreshCard] = useMaster<Card>(
     cardRepository.list,
     cardRepository.count,
   );
@@ -32,7 +32,7 @@ const TransactionDetail = () => {
 
   const [cardNumber, handleChangeCardNumber, handleCreateCard] = useQuickCreate<Card>(
     cardRepository.create,
-    (value) =>  {
+    (value) => {
       const card = Card.create<Card>();
       card.number = value;
       return card;
@@ -42,7 +42,7 @@ const TransactionDetail = () => {
 
   const [storeName, handleChangeStoreName, handleCreateStore] = useQuickCreate<Store>(
     storeRepository.create,
-    (value) =>  {
+    (value) => {
       const store = Store.create<Store>();
       store.code = value;
       return store;
@@ -61,9 +61,9 @@ const TransactionDetail = () => {
           <Form.Item
             name="code"
             label="Mã"
-            rules={[{required: true, message: "Vui lòng nhập mã"}]}
+            rules={[{ required: true, message: "Vui lòng nhập mã" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -76,11 +76,11 @@ const TransactionDetail = () => {
             name="storeId"
             label="Cửa hàng"
           >
-            <Select 
+            <Select
               dropdownRender={(menu) => (
                 <>
                   {menu}
-                  <Divider className="my-2"/>
+                  <Divider className="my-2" />
                   <Space className="my-1 mx-2 d-flex w-100">
                     <Input
                       placeholder="Vui lòng nhập mã cửa hàng"
@@ -89,7 +89,7 @@ const TransactionDetail = () => {
                       onChange={handleChangeStoreName}
                       onKeyDown={(e) => e.stopPropagation()}
                     />
-                    <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateStore}>
+                    <Button type="text" icon={<PlusOutlined />} onClick={handleCreateStore}>
                       Thêm cửa hàng
                     </Button>
                   </Space>
@@ -109,7 +109,7 @@ const TransactionDetail = () => {
               dropdownRender={(menu) => (
                 <>
                   {menu}
-                  <Divider className="my-2"/>
+                  <Divider className="my-2" />
                   <Space className="my-1 mx-2 d-flex w-100">
                     <Input
                       placeholder="Vui lòng nhập số thẻ"
@@ -118,7 +118,7 @@ const TransactionDetail = () => {
                       onChange={handleChangeCardNumber}
                       onKeyDown={(e) => e.stopPropagation()}
                     />
-                    <Button type="text" icon={<PlusOutlined/>} onClick={handleCreateCard}>
+                    <Button type="text" icon={<PlusOutlined />} onClick={handleCreateCard}>
                       Thêm thẻ
                     </Button>
                   </Space>
@@ -137,7 +137,7 @@ const TransactionDetail = () => {
             name="amount"
             label="Số tiền"
           >
-            <Input type="number" step="0.01"/>
+            <Input type="number" step="0.01" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -145,10 +145,32 @@ const TransactionDetail = () => {
             name={nameof(Transaction.prototype.fee)}
             label="Phí"
           >
-            <Input type="number" step="0.01"/>
+            <Input type="number" step="0.01" />
           </Form.Item>
         </Col>
       </Row>
+
+      <Row gutter={12}>
+        <Col span={12}>
+          <Form.Item
+            name="statusId"
+            label="Trạng thái"
+          >
+            <Select>
+              <Select.Option value={2} >
+                Đã nhận tiền
+              </Select.Option>
+              <Select.Option value={1} >
+                Chưa nhận tiền
+              </Select.Option>
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+
+        </Col>
+      </Row>
+
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
           Nhập

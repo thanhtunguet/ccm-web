@@ -1,5 +1,5 @@
-import {Model, Repository} from "react3l";
-import {Observable} from "rxjs";
+import { Model, ModelFilter, Repository } from "react3l";
+import { Observable } from "rxjs";
 
 export abstract class BaseRepository<T extends Model & {id?: number;}> extends Repository {
   protected constructor(private TClass: typeof Model) {
@@ -7,14 +7,14 @@ export abstract class BaseRepository<T extends Model & {id?: number;}> extends R
     this.baseURL = window.location.origin;
   }
 
-  public readonly list: () => Observable<T[]> = () => {
-    return this.http.post("/list").pipe(
+  public readonly list: (filter: ModelFilter) => Observable<T[]> = (filter: ModelFilter = {}) => {
+    return this.http.post("/list", filter).pipe(
       Repository.responseMapToList<T>(this.TClass),
     );
   };
 
-  public readonly count: () => Observable<number> = () => {
-    return this.http.post("/count").pipe(
+  public readonly count: (filter: ModelFilter) => Observable<number> = (filter: ModelFilter = {}) => {
+    return this.http.post("/count", filter).pipe(
       Repository.responseDataMapper<number>(),
     );
   };

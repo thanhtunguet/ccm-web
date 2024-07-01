@@ -15,7 +15,6 @@ import { Card, CardClass } from "src/models";
 import { cardRepository } from "src/repositories/card-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
-import CardHelp from './CardClassHelp.md';
 
 // Import moment.js if using ES modules or if not using CDN
 // import moment from 'moment';
@@ -39,7 +38,7 @@ function isTodayOrTomorrow(date: Date) {
 
 
 export const CardMaster: FC = () => {
-  const [cards, counts, isLoading, handleRefresh] = useMaster<Card>(
+  const [cards, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Card>(
     cardRepository.list,
     cardRepository.count,
   );
@@ -198,6 +197,7 @@ export const CardMaster: FC = () => {
         columns={columns}
         dataSource={cards}
         rowKey="id"
+        pagination={pagination}
         title={() => (
           <>
             <Button loading={binLoading} type="primary" onClick={() => {
@@ -219,7 +219,6 @@ export const CardMaster: FC = () => {
         footer={() => FooterCount({counts})}
       />
 
-      <CardHelp />
     </>
   );
 };
