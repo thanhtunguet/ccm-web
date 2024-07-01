@@ -15,7 +15,7 @@ import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const TransactionMaster: FC = () => {
-  const [transactions, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Transaction>(
+  const [transactions, counts, isLoading, handleRefresh, , , pagination] = useMaster<Transaction>(
     transactionRepository.list,
     transactionRepository.count,
   );
@@ -106,12 +106,12 @@ export const TransactionMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
             navigate({
               pathname: AppRoute.TRANSACTION_CREATE,
               search: `?id=${id}`,
             });
-          }}/>
+          }} />
           <Popconfirm
             title="Delete this?"
             description="Are you sure to delete this?"
@@ -123,7 +123,7 @@ export const TransactionMaster: FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
           </Popconfirm>
 
         </>;
@@ -132,16 +132,16 @@ export const TransactionMaster: FC = () => {
   ];
 
   const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = event.target;
-    if (files!.length > 0 ) {
+    const { files } = event.target;
+    if (files!.length > 0) {
       const file = files![0];
-      const data: Transaction[] =  await readExcelFile(file);
+      const data: Transaction[] = await readExcelFile(file);
       for (const record of data) {
         await firstValueFrom(transactionRepository.create(record));
       }
     }
     handleRefresh();
-  },[handleRefresh]);
+  }, [handleRefresh]);
 
   const [modalOpen, toggleModal, , closeModal] = useBoolean(false);
   const [statementString, setStatementString] = React.useState<string[]>([]);
@@ -160,7 +160,7 @@ export const TransactionMaster: FC = () => {
             <Button type="primary" onClick={() => {
               toggleModal();
             }}>
-            Nhập sao kê VPBank
+              Nhập sao kê VPBank
             </Button>
             <Modal confirmLoading={modalLoading} title="Nhập sao kê VPBank" open={modalOpen} onOk={() => {
               console.log(statementString);
@@ -174,7 +174,7 @@ export const TransactionMaster: FC = () => {
               ).subscribe({
                 next() {
 
-                }, 
+                },
                 error(error) {
                   console.log(error);
                 },
@@ -187,7 +187,7 @@ export const TransactionMaster: FC = () => {
                 placeholder="TT MC CHO TID R1430747 NGAY GD 24/04/30 07.52.28 SO THE 524394...1742 CODE 886172 SO TIEN 32596000 VND (1) PHI 391152VND VAT 39115VND TG 1 RRN 412189474136
 TT MC CHO TID R1430747 NGAY GD 24/04/30 07.56.00 SO THE 524394...1742 CODE 886173 SO TIEN 12004000 VND (1) PHI 144048VND VAT 14405VND TG 1 RRN 412189474456"></Input.TextArea>
             </Modal>
-          
+
             <TableHeader
               onAdd={() => {
                 navigate(AppRoute.TRANSACTION_CREATE);
@@ -197,7 +197,7 @@ TT MC CHO TID R1430747 NGAY GD 24/04/30 07.56.00 SO THE 524394...1742 CODE 88617
             />
           </>
         )}
-        footer={() => FooterCount({counts})}
+        footer={() => FooterCount({ counts })}
       />
 
     </>

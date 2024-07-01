@@ -14,7 +14,7 @@ import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const BankMaster: FC = () => {
-  const [banks, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] = useMaster<Bank>(
+  const [banks, counts, isLoading, handleRefresh, , , pagination] = useMaster<Bank>(
     bankRepository.list,
     bankRepository.count,
   );

@@ -30,7 +30,7 @@ module.exports = {
         "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
         "semi": ["error", "always"],
         "comma-dangle": ["error", "always-multiline"],
-        "indent": ["error", 2],
+        "indent": ["error", 2]
       },
     },
     {

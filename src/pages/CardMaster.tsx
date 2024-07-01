@@ -38,7 +38,7 @@ function isTodayOrTomorrow(date: Date) {
 
 
 export const CardMaster: FC = () => {
-  const [cards, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Card>(
+  const [cards, counts, isLoading, handleRefresh, , , pagination] = useMaster<Card>(
     cardRepository.list,
     cardRepository.count,
   );
@@ -106,12 +106,12 @@ export const CardMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
             navigate({
               pathname: AppRoute.CARD_CREATE,
               search: `?id=${id}`,
             });
-          }}/>
+          }} />
           <Popconfirm
             title="Delete this?"
             description="Are you sure to delete this?"
@@ -123,7 +123,7 @@ export const CardMaster: FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
           </Popconfirm>
 
         </>;
@@ -132,25 +132,25 @@ export const CardMaster: FC = () => {
   ];
 
   const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = event.target;
-    if (files!.length > 0 ) {
+    const { files } = event.target;
+    if (files!.length > 0) {
       const file = files![0];
-      const data: CardClass[] =  await readExcelFile(file);
+      const data: CardClass[] = await readExcelFile(file);
       for (const record of data) {
         await firstValueFrom(cardRepository.create(record));
       }
     }
     handleRefresh();
-  },[handleRefresh]);
+  }, [handleRefresh]);
 
   const [binLoading, toggleBinLoading] = useBoolean(false);
 
-  const handleSyncBin= React.useCallback(async () => {
+  const handleSyncBin = React.useCallback(async () => {
     toggleBinLoading();
     await firstValueFrom(cardRepository.syncBin());
     toggleBinLoading();
 
-  },[toggleBinLoading]);
+  }, [toggleBinLoading]);
 
   const statementCards = React.useMemo(() => cards.filter((card) => {
     if (!card.cardClass?.statementDate) {
@@ -158,7 +158,7 @@ export const CardMaster: FC = () => {
     }
     const nextDate = getNextDate(card.cardClass?.statementDate);
     return isTodayOrTomorrow(nextDate.toDate());
-  }),[cards]);
+  }), [cards]);
 
   const dueCards = React.useMemo(() => cards.filter((card) => {
     if (!card.cardClass?.statementDate) {
@@ -203,7 +203,7 @@ export const CardMaster: FC = () => {
             <Button loading={binLoading} type="primary" onClick={() => {
               handleSyncBin();
             }}>
-          Đồng bộ theo BIN
+              Đồng bộ theo BIN
             </Button>
             <TableHeader
               onAdd={() => {
@@ -213,10 +213,10 @@ export const CardMaster: FC = () => {
               onImport={handleImportFile}
               template="/card-template.xlsx"
             />
-          
+
           </>
         )}
-        footer={() => FooterCount({counts})}
+        footer={() => FooterCount({ counts })}
       />
 
     </>

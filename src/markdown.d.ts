@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 declare module "*.md" {
     import React from "react";
     const ReactComponent: React.VFC;

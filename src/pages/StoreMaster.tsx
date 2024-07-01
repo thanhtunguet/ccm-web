@@ -14,7 +14,7 @@ import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const StoreMaster: FC = () => {
-  const [stores, counts, isLoading, handleRefresh, filter, handleChangePage, pagination] =useMaster<Store>(
+  const [stores, counts, isLoading, handleRefresh, , , pagination] = useMaster<Store>(
     storeRepository.list,
     storeRepository.count,
   );
@@ -52,12 +52,12 @@ export const StoreMaster: FC = () => {
       key: "actions",
       render(id, record) {
         return <>
-          <Button className="mx-1" type="default" icon={<EditOutlined/>} onClick={() => {
+          <Button className="mx-1" type="default" icon={<EditOutlined />} onClick={() => {
             navigate({
               pathname: AppRoute.STORE_CREATE,
               search: `?id=${id}`,
             });
-          }}/>
+          }} />
           <Popconfirm
             title="Xóa mục này?"
             description="Bạn có chắc chắn muốn xóa mục này không?"
@@ -69,7 +69,7 @@ export const StoreMaster: FC = () => {
             okText="Có"
             cancelText="Không"
           >
-            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger"/>}/>
+            <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />
           </Popconfirm>
         </>;
       },
@@ -77,16 +77,16 @@ export const StoreMaster: FC = () => {
   ];
 
   const handleImportFile = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = event.target;
-    if (files!.length > 0 ) {
+    const { files } = event.target;
+    if (files!.length > 0) {
       const file = files![0];
-      const data: Store[] =  await readExcelFile(file);
+      const data: Store[] = await readExcelFile(file);
       for (const record of data) {
         await firstValueFrom(storeRepository.create(record));
       }
     }
     handleRefresh();
-  },[handleRefresh]);
+  }, [handleRefresh]);
 
   return (
     <>
@@ -105,7 +105,7 @@ export const StoreMaster: FC = () => {
             template="/store-template.xlsx"
           />
         )}
-        footer={() => FooterCount({counts})}
+        footer={() => FooterCount({ counts })}
       />
     </>
   );

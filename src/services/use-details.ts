@@ -2,14 +2,16 @@ import { Form, FormInstance } from "antd";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Model } from "react3l";
-import { finalize, Observable } from "rxjs";
+import { Observable, finalize } from "rxjs";
+
+type SetFieldsValueArg = Parameters<FormInstance['setFieldsValue']>[0];
 
 export function useDetails<T extends Model>(
   getDetails: (id: number) => Observable<T>,
-  doCreate: (t: T) => Observable<T>,
-  doUpdate: (t: T) => Observable<T>,
+  doCreate: (t: Partial<T>) => Observable<Partial<T>>,
+  doUpdate: (t: Partial<T>) => Observable<Partial<T>>,
   routeGoBack: string,
-  ModelClass?: any,
+  ModelClass?: (new () => T) & {create(): T;},
 ): [
   FormInstance<T>,
   boolean,
@@ -40,9 +42,9 @@ export function useDetails<T extends Model>(
           }),
         )
         .subscribe({
-          next(values: any) {
+          next(values: T) {
             setT(values);
-            form.setFieldsValue(values);
+            form.setFieldsValue(values as SetFieldsValueArg);
           },
         });
     }
@@ -57,8 +59,8 @@ export function useDetails<T extends Model>(
         }),
       )
       .subscribe({
-        next(values: any) {
-          form.setFieldsValue(values);
+        next(values) {
+          form.setFieldsValue(values as SetFieldsValueArg);
           navigate(routeGoBack);
         },
       });
