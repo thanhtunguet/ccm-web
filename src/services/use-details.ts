@@ -8,8 +8,8 @@ type SetFieldsValueArg = Parameters<FormInstance['setFieldsValue']>[0];
 
 export function useDetails<T extends Model>(
   getDetails: (id: number) => Observable<T>,
-  doCreate: (t: Partial<T>) => Observable<Partial<T>>,
-  doUpdate: (t: Partial<T>) => Observable<Partial<T>>,
+  doCreate: (t: T) => Observable<T>,
+  doUpdate: (t: T) => Observable<T>,
   routeGoBack: string,
   ModelClass?: (new () => T) & {create(): T;},
 ): [
