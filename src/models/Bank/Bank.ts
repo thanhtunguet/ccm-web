@@ -1,7 +1,7 @@
-import {AutoModel, Field, Model} from "react3l";
+import { Field, Model } from "react3l";
 import { CardClass } from "../CardClass";
 
-@AutoModel()
+
 export class Bank extends Model {
     @Field(Number)
   public id?: number;

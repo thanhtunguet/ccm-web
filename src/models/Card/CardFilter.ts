@@ -1,6 +1,6 @@
-import {AutoModel, DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter} from "react3l";
+import { DateFilter, IdFilter, ModelFilter, ObjectField, StringFilter } from "react3l";
 
-@AutoModel()
+
 export class CardFilter extends ModelFilter {
   @ObjectField(IdFilter)
   public id?: IdFilter = new IdFilter();
@@ -38,5 +38,5 @@ export class CardFilter extends ModelFilter {
   @ObjectField(DateFilter)
   public updatedAt?: DateFilter = new DateFilter();
 
-  
+  public cardTypeId?: number;  
 }

@@ -10,14 +10,16 @@ import { AppRoute } from "src/config/app-route";
 import { getNextDate } from "src/helpers/date.ts";
 import readExcelFile from "src/helpers/file";
 import { CardClass } from "src/models";
+import { CardClassFilter } from "src/models/CardClass";
 import { cardClassRepository } from "src/repositories/card-class-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const CardClassMaster: FC = () => {
-  const [banks, counts, isLoading, handleRefresh, , , pagination] = useMaster<CardClass>(
+  const [banks, counts, isLoading, handleRefresh, , , pagination] = useMaster<CardClass, CardClassFilter>(
     cardClassRepository.list,
     cardClassRepository.count,
+    new CardClassFilter(),
   );
 
   const navigate = useNavigate();
@@ -134,9 +136,10 @@ export const CardClassMaster: FC = () => {
         columns={columns}
         dataSource={banks}
         rowKey="id"
-        pagination={pagination}
+        pagination={false}
         title={() => (
           <TableHeader
+            pagination={pagination}
             onAdd={() => {
               navigate(AppRoute.CARD_CLASS_CREATE);
             }}
@@ -145,7 +148,7 @@ export const CardClassMaster: FC = () => {
             template="/card-class-template.xlsx"
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({ counts, pagination })}
       />
 
     </>

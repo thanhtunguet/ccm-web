@@ -1,12 +1,13 @@
 import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import { AppRoute } from "src/config/app-route";
-import { CardClass } from "src/models/CardClass";
-import { useDetails } from "src/services/use-details.ts";
-import { cardClassRepository } from "src/repositories/card-class-repository.ts";
-import { useMaster } from "src/services/use-master.ts";
-import { Bank } from "src/models";
-import { bankRepository } from "src/repositories/bank-repository.ts";
 import { filterFunc } from "src/helpers/select.ts";
+import { Bank } from "src/models";
+import { BankFilter } from "src/models/Bank";
+import { CardClass } from "src/models/CardClass";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { cardClassRepository } from "src/repositories/card-class-repository.ts";
+import { useDetails } from "src/services/use-details.ts";
+import { useMaster } from "src/services/use-master.ts";
 
 const CardClassDetail = () => {
   const [form, isLoading, handleCreate] = useDetails<CardClass>(
@@ -16,9 +17,10 @@ const CardClassDetail = () => {
     AppRoute.CARD_CLASSES,
   );
 
-  const [banks] = useMaster<Bank>(
+  const [banks] = useMaster<Bank, BankFilter>(
     bankRepository.list,
     bankRepository.count,
+    new BankFilter(),
   );
 
   return (

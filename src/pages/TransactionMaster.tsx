@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Input, Modal, Popconfirm, Table, Tag } from "antd";
+import { Button, Popconfirm, Table, Tag } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,17 +7,20 @@ import { useBoolean } from "react3l";
 import { finalize, firstValueFrom } from "rxjs";
 import { FooterCount } from "src/components/FooterCount.tsx";
 import { TableHeader } from "src/components/TableHeader.tsx";
+import { VpBankStatementModal } from "src/components/VpBankStatementModal";
 import { AppRoute } from "src/config/app-route.ts";
 import readExcelFile from "src/helpers/file";
 import { Customer, Transaction } from "src/models";
+import { TransactionFilter } from "src/models/Transaction";
 import { transactionRepository } from "src/repositories/transaction-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const TransactionMaster: FC = () => {
-  const [transactions, counts, isLoading, handleRefresh, , , pagination] = useMaster<Transaction>(
+  const [transactions, counts, isLoading, handleRefresh, , , pagination] = useMaster<Transaction, TransactionFilter>(
     transactionRepository.list,
     transactionRepository.count,
+    new TransactionFilter(),
   );
 
   const navigate = useNavigate();
@@ -154,50 +157,54 @@ export const TransactionMaster: FC = () => {
         columns={columns}
         dataSource={transactions}
         rowKey="id"
-        pagination={pagination}
+        pagination={false}
         title={() => (
           <>
-            <Button type="primary" onClick={() => {
-              toggleModal();
-            }}>
-              Nhập sao kê VPBank
-            </Button>
-            <Modal confirmLoading={modalLoading} title="Nhập sao kê VPBank" open={modalOpen} onOk={() => {
-              console.log(statementString);
-              toggleModalLoading();
-              transactionRepository.updateVpBankLog(statementString).pipe(
-                finalize(() => {
-                  toggleModalLoading();
-                  closeModal();
-                  handleRefresh();
-                }),
-              ).subscribe({
-                next() {
-
-                },
-                error(error) {
-                  console.log(error);
-                },
-              });
-            }} onCancel={closeModal}>
-              <Input.TextArea rows={10}
-                onChange={(event) => {
+            <VpBankStatementModal 
+              open={modalOpen}
+              onCancel={closeModal}
+              confirmLoading={modalLoading}
+              onOk={() => {
+                toggleModalLoading();
+                transactionRepository.updateVpBankLog(statementString).pipe(
+                  finalize(() => {
+                    toggleModalLoading();
+                    closeModal();
+                    handleRefresh();
+                  }),
+                ).subscribe({
+                  next() {
+                    handleRefresh();
+                  },
+                  error(error: Error) {
+                    console.log(error);
+                  },
+                });
+              }} 
+              onChange={
+                (event) => {
                   setStatementString(event.target.value.split("\n"));
-                }}
-                placeholder="TT MC CHO TID R1430747 NGAY GD 24/04/30 07.52.28 SO THE 524394...1742 CODE 886172 SO TIEN 32596000 VND (1) PHI 391152VND VAT 39115VND TG 1 RRN 412189474136
-TT MC CHO TID R1430747 NGAY GD 24/04/30 07.56.00 SO THE 524394...1742 CODE 886173 SO TIEN 12004000 VND (1) PHI 144048VND VAT 14405VND TG 1 RRN 412189474456"></Input.TextArea>
-            </Modal>
+                }
+              }
+            />
 
             <TableHeader
+              pagination={pagination}
               onAdd={() => {
                 navigate(AppRoute.TRANSACTION_CREATE);
               }}
               onImport={handleImportFile}
               template="/transaction-template.xlsx"
-            />
+            >
+              <Button type="primary" onClick={() => {
+                toggleModal();
+              }}>
+                Nhập sao kê VPBank
+              </Button>
+            </TableHeader>
           </>
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({ counts, pagination })}
       />
 
     </>

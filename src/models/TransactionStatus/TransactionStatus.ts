@@ -1,6 +1,6 @@
-import {AutoModel, Field, Model} from "react3l";
+import { Field, Model } from "react3l";
 
-@AutoModel()
+
 export class TransactionStatus extends Model {
   public static readonly DONE = 2;
 

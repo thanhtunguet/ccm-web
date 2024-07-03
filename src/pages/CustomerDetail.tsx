@@ -59,9 +59,9 @@ const CustomerDetail = () => {
             <Form.Item
               name="displayName"
               label="Tên hiển thị"
-              rules={[{required: true, message: "Vui lòng nhập tên hiển thị"}]}
+              rules={[{ required: true, message: "Vui lòng nhập tên hiển thị" }]}
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Col>
         </Row>
@@ -72,7 +72,7 @@ const CustomerDetail = () => {
               name="email"
               label="Email"
             >
-              <Input type="email"/>
+              <Input type="email" />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -81,7 +81,7 @@ const CustomerDetail = () => {
               name="phoneNumber"
               label="Số điện thoại"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -90,7 +90,7 @@ const CustomerDetail = () => {
               name="address"
               label="Địa chỉ"
             >
-              <Input/>
+              <Input />
             </Form.Item>
           </Col>
         </Row>
@@ -108,7 +108,7 @@ const CustomerDetail = () => {
           columns={columns}
           dataSource={cards}
           rowKey="id"
-          footer={() => FooterCount({counts: cards!.length})}
+          footer={() => FooterCount({ counts: cards!.length, pagination: false })}
         />
       )}
     </>

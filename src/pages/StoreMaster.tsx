@@ -9,14 +9,16 @@ import { TableHeader } from "src/components/TableHeader";
 import { AppRoute } from "src/config/app-route";
 import readExcelFile from "src/helpers/file";
 import { Customer, Store } from "src/models";
+import { StoreFilter } from "src/models/Store";
 import { storeRepository } from "src/repositories/store-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const StoreMaster: FC = () => {
-  const [stores, counts, isLoading, handleRefresh, , , pagination] = useMaster<Store>(
+  const [stores, counts, isLoading, handleRefresh, , , pagination] = useMaster<Store, StoreFilter>(
     storeRepository.list,
     storeRepository.count,
+    new StoreFilter(),
   );
 
   const navigate = useNavigate();
@@ -95,9 +97,10 @@ export const StoreMaster: FC = () => {
         columns={columns}
         dataSource={stores}
         rowKey="id"
-        pagination={pagination}
+        pagination={false}
         title={() => (
           <TableHeader
+            pagination={pagination}
             onAdd={() => {
               navigate(AppRoute.STORE_CREATE);
             }}
@@ -105,7 +108,7 @@ export const StoreMaster: FC = () => {
             template="/store-template.xlsx"
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({ counts, pagination })}
       />
     </>
   );

@@ -130,7 +130,7 @@ const BankDetail = () => {
           columns={columns}
           dataSource={bank?.cardClasses}
           rowKey="id"
-          footer={() => FooterCount({counts: bank!.cardClasses!.length})}
+          footer={() => FooterCount({counts: bank!.cardClasses!.length, pagination: false})}
         />
       )}
     </>

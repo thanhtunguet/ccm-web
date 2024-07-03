@@ -1,6 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Table } from "antd";
-import Title from "antd/es/typography/Title";
+import { Button, Popconfirm, Radio, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,35 +11,22 @@ import { AppRoute } from "src/config/app-route";
 import { getNextDate } from "src/helpers/date";
 import readExcelFile from "src/helpers/file";
 import { Card, CardClass } from "src/models";
+import { CardFilter } from "src/models/Card";
 import { cardRepository } from "src/repositories/card-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
-// Import moment.js if using ES modules or if not using CDN
-// import moment from 'moment';
-
-function isTodayOrTomorrow(date: Date) {
-  // Get current date without time part
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Set to beginning of today
-
-  // Get tomorrow's date without time part
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 0, 0, 0); // Set to beginning of tomorrow
-
-  // Convert input date to Date object if it's not already
-  const inputDate = new Date(date);
-
-  // Check if inputDate is either today or tomorrow
-  return inputDate.getTime() >= today.getTime() && inputDate.getTime() < tomorrow.getTime();
+enum CardType {
+  ALL = 1,
+  STATEMENT_DATE = 2,
+  DUE_DATE = 3,
 }
 
-
 export const CardMaster: FC = () => {
-  const [cards, counts, isLoading, handleRefresh, , , pagination] = useMaster<Card>(
-    cardRepository.list,
-    cardRepository.count,
+  const [cards, counts, isLoading, handleRefresh, filter, setFilter, pagination] = useMaster<Card, CardFilter>(
+    cardRepository.listByType,
+    cardRepository.countByType,
+    {...new CardFilter(), cardTypeId: CardType.ALL},
   );
 
   const navigate = useNavigate();
@@ -152,73 +138,43 @@ export const CardMaster: FC = () => {
 
   }, [toggleBinLoading]);
 
-  const statementCards = React.useMemo(() => cards.filter((card) => {
-    if (!card.cardClass?.statementDate) {
-      return false;
-    }
-    const nextDate = getNextDate(card.cardClass?.statementDate);
-    return isTodayOrTomorrow(nextDate.toDate());
-  }), [cards]);
-
-  const dueCards = React.useMemo(() => cards.filter((card) => {
-    if (!card.cardClass?.statementDate) {
-      return false;
-    }
-    const nextDate = getNextDate(card.cardClass.dueDate!);
-    return isTodayOrTomorrow(nextDate.toDate());
-  }), [cards]);
-
   return (
     <>
-      <Title>Thẻ đến hạn sao kê </Title>
-      {statementCards.length > 0 && (<Table showHeader={true}
-        loading={isLoading}
-        columns={columns}
-        dataSource={statementCards}
-        rowKey="id"
-      />)}
-
-      <Title>Thẻ đến hạn thanh toán </Title>
-      {dueCards.length > 0 && (
-        <Table showHeader={true}
-          loading={isLoading}
-          columns={columns}
-          dataSource={dueCards}
-          rowKey="id"
-        />
-      )}
-
-      <Title>
-        Toàn bộ thẻ
-      </Title>
-
-      <Table showHeader={true}
+      <Table
+        showHeader={true}
         loading={isLoading}
         columns={columns}
         dataSource={cards}
         rowKey="id"
-        pagination={pagination}
+        pagination={false}
         title={() => (
-          <>
-            <Button loading={binLoading} type="primary" onClick={() => {
-              handleSyncBin();
+          <TableHeader
+            pagination={pagination}
+            onAdd={() => {
+              navigate(AppRoute.CARD_CREATE);
+            }}
+            onImport={handleImportFile}
+            template="/card-template.xlsx"
+          >
+            <Button loading={binLoading} className="mx-2" type="primary" onClick={async () => {
+              await handleSyncBin();
             }}>
               Đồng bộ theo BIN
             </Button>
-            <TableHeader
-              onAdd={() => {
-                navigate(AppRoute.CARD_CREATE);
-              }}
-
-              onImport={handleImportFile}
-              template="/card-template.xlsx"
-            />
-
-          </>
+            <Radio.Group value={filter.cardTypeId} className="ml-2" onChange={(event) => {
+              setFilter({
+                ...filter,
+                cardTypeId: event.target.value,
+              });
+            }}>
+              <Radio.Button value={CardType.ALL}>Tất cả</Radio.Button>
+              <Radio.Button value={CardType.STATEMENT_DATE}>Hạn sao kê</Radio.Button>
+              <Radio.Button value={CardType.DUE_DATE}>Hạn thanh toán</Radio.Button>
+            </Radio.Group>
+          </TableHeader>
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({ counts, pagination })}
       />
-
     </>
   );
 };

@@ -2,6 +2,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Divider, Form, Input, Row, Select, Space } from "antd";
 import { AppRoute } from "src/config/app-route";
 import { Card, Store } from "src/models";
+import { CardFilter } from 'src/models/Card';
+import { StoreFilter } from 'src/models/Store';
 import { Transaction } from "src/models/Transaction";
 import { cardRepository } from "src/repositories/card-repository.ts";
 import { storeRepository } from "src/repositories/store-repository.ts";
@@ -20,14 +22,16 @@ const TransactionDetail = () => {
     AppRoute.TRANSACTION,
   );
 
-  const [cards, , , handleRefreshCard] = useMaster<Card>(
+  const [cards, , , handleRefreshCard] = useMaster<Card, CardFilter>(
     cardRepository.list,
     cardRepository.count,
+    new CardFilter(),
   );
 
-  const [stores, , , handleRefreshStore] = useMaster<Store>(
+  const [stores, , , handleRefreshStore] = useMaster<Store, StoreFilter>(
     storeRepository.list,
     storeRepository.count,
+    new StoreFilter(),
   );
 
   const [cardNumber, handleChangeCardNumber, handleCreateCard] = useQuickCreate<Card>(

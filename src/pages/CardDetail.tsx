@@ -1,20 +1,23 @@
-import { Button, Col, Divider, Form, Input, Row, Select, Space, Tag } from "antd";
-import { AppRoute } from "src/config/app-route";
-import { Card } from "src/models/Card";
-import { cardRepository } from "src/repositories/card-repository";
-import { useDetails } from "src/services/use-details.ts";
-import { useMaster } from "src/services/use-master.ts";
-import { Bank, CardClass, Customer, Transaction } from "src/models";
-import { bankRepository } from "src/repositories/bank-repository.ts";
-import { customerRepository } from "src/repositories/customer-repository.ts";
-import { cardClassRepository } from "src/repositories/card-class-repository.ts";
-import { filterFunc } from "src/helpers/select.ts";
-import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { useQuickCreate } from "src/services/use-quick-create";
+import { Button, Col, Divider, Form, Input, Row, Select, Space, Tag } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { Table } from "antd/lib";
+import React from "react";
 import { FooterCount } from "src/components/FooterCount";
+import { AppRoute } from "src/config/app-route";
+import { filterFunc } from "src/helpers/select.ts";
+import { Bank, CardClass, Customer, Transaction } from "src/models";
+import { BankFilter } from "src/models/Bank";
+import { Card } from "src/models/Card";
+import { CardClassFilter } from "src/models/CardClass";
+import { CustomerFilter } from "src/models/Customer";
+import { bankRepository } from "src/repositories/bank-repository.ts";
+import { cardClassRepository } from "src/repositories/card-class-repository.ts";
+import { cardRepository } from "src/repositories/card-repository";
+import { customerRepository } from "src/repositories/customer-repository.ts";
+import { useDetails } from "src/services/use-details.ts";
+import { useMaster } from "src/services/use-master.ts";
+import { useQuickCreate } from "src/services/use-quick-create";
 
 const CardDetail = () => {
   const [form, isLoading, handleCreate, card] = useDetails<Card>(
@@ -25,19 +28,22 @@ const CardDetail = () => {
     Card,
   );
 
-  const [banks] = useMaster<Bank>(
+  const [banks] = useMaster<Bank, BankFilter>(
     bankRepository.list,
     bankRepository.count,
+    new BankFilter(),
   );
 
-  const [customers, , , handleRefreshCustomer] = useMaster<Customer>(
+  const [customers, , , handleRefreshCustomer] = useMaster<Customer, CustomerFilter>(
     customerRepository.list,
     customerRepository.count,
+    new CustomerFilter(),
   );
 
-  const [cardClasses] = useMaster<CardClass>(
+  const [cardClasses] = useMaster<CardClass, CardClassFilter>(
     cardClassRepository.list,
     cardClassRepository.count,
+    new CardClassFilter(),
   );
 
   const [selectedBankId, setSelectedBankId] = React.useState<number | null | undefined>();
@@ -51,7 +57,7 @@ const CardDetail = () => {
 
   const [customerName, handleChangeCustomerName, handleCreateCustomer] = useQuickCreate<Customer>(
     customerRepository.create,
-    (value) =>  {
+    (value) => {
       const customer = Customer.create<Customer>();
       customer.displayName = value;
       return customer;
@@ -235,7 +241,7 @@ const CardDetail = () => {
           columns={columns}
           dataSource={card?.transactions}
           rowKey="id"
-          footer={() => FooterCount({ counts: transactions!.length })}
+          footer={() => FooterCount({ counts: transactions!.length, pagination: false })}
         />
       )}
     </>

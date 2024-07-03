@@ -9,14 +9,16 @@ import { TableHeader } from "src/components/TableHeader";
 import { AppRoute } from "src/config/app-route";
 import readExcelFile from "src/helpers/file";
 import { Bank } from "src/models";
+import { BankFilter } from "src/models/Bank";
 import { bankRepository } from "src/repositories/bank-repository.ts";
 import { useDelete } from "src/services/use-delete.ts";
 import { useMaster } from "src/services/use-master.ts";
 
 export const BankMaster: FC = () => {
-  const [banks, counts, isLoading, handleRefresh, , , pagination] = useMaster<Bank>(
+  const [banks, counts, isLoading, handleRefresh, , , pagination] = useMaster<Bank, BankFilter>(
     bankRepository.list,
     bankRepository.count,
+    new BankFilter(),
   );
 
   const [handleDelete] = useDelete<Bank>(bankRepository.delete);
@@ -102,9 +104,10 @@ export const BankMaster: FC = () => {
         columns={columns}
         dataSource={banks}
         rowKey="id"
-        pagination={pagination}
+        pagination={false}
         title={() => (
           <TableHeader
+            pagination={pagination}
             onAdd={() => {
               navigate(AppRoute.BANK_CREATE);
             }}
@@ -112,7 +115,7 @@ export const BankMaster: FC = () => {
             template="/bank-template.xlsx"
           />
         )}
-        footer={() => FooterCount({ counts })}
+        footer={() => FooterCount({ counts, pagination })}
       />
 
     </>

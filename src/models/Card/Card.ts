@@ -1,10 +1,10 @@
-import {AutoModel, Field, Model, MomentField} from "react3l";
-import type {Moment} from "moment";
+import type { Moment } from "moment";
+import { Field, Model, MomentField } from "react3l";
+import { CardClass } from "../CardClass";
 import { Customer } from "../Customer";
 import { Transaction } from "../Transaction";
-import { CardClass } from "../CardClass";
 
-@AutoModel()
+
 export class Card extends Model {
     @Field(Number)
   public id?: number;

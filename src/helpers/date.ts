@@ -29,3 +29,20 @@ export function getNextDate(dayOfMonth: number): Moment {
   // Return the next date in the format "Month day, Year"
   return moment(nextDate.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"}));
 }
+
+export function isTodayOrTomorrow(date: Date) {
+  // Get current date without time part
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to beginning of today
+
+  // Get tomorrow's date without time part
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0); // Set to beginning of tomorrow
+
+  // Convert input date to Date object if it's not already
+  const inputDate = new Date(date);
+
+  // Check if inputDate is either today or tomorrow
+  return inputDate.getTime() >= today.getTime() && inputDate.getTime() < tomorrow.getTime();
+}
