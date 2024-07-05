@@ -20,7 +20,10 @@ const CardClassDetail = () => {
   const [banks] = useMaster<Bank, BankFilter>(
     bankRepository.list,
     bankRepository.count,
-    new BankFilter(),
+    {
+      ...new BankFilter(),
+      take: 10000,
+    },
   );
 
   return (

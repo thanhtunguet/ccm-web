@@ -25,13 +25,19 @@ const TransactionDetail = () => {
   const [cards, , , handleRefreshCard] = useMaster<Card, CardFilter>(
     cardRepository.list,
     cardRepository.count,
-    new CardFilter(),
+    {
+      ...new CardFilter(),
+      take: 10000,
+    },
   );
 
   const [stores, , , handleRefreshStore] = useMaster<Store, StoreFilter>(
     storeRepository.list,
     storeRepository.count,
-    new StoreFilter(),
+    {
+      ...new StoreFilter(),
+      take: 10000,
+    },
   );
 
   const [cardNumber, handleChangeCardNumber, handleCreateCard] = useQuickCreate<Card>(

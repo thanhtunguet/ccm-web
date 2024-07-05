@@ -31,19 +31,28 @@ const CardDetail = () => {
   const [banks] = useMaster<Bank, BankFilter>(
     bankRepository.list,
     bankRepository.count,
-    new BankFilter(),
+    {
+      ...new BankFilter(),
+      take: 10000,
+    },
   );
 
   const [customers, , , handleRefreshCustomer] = useMaster<Customer, CustomerFilter>(
     customerRepository.list,
     customerRepository.count,
-    new CustomerFilter(),
+    {
+      ...new CustomerFilter(),
+      take: 10000,
+    },
   );
 
   const [cardClasses] = useMaster<CardClass, CardClassFilter>(
     cardClassRepository.list,
     cardClassRepository.count,
-    new CardClassFilter(),
+    {
+      ...new CardClassFilter(),
+      take: 10000,
+    },
   );
 
   const [selectedBankId, setSelectedBankId] = React.useState<number | null | undefined>();
