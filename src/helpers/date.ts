@@ -1,6 +1,9 @@
 import moment, { Moment } from "moment";
 
-export function getNextDate(dayOfMonth: number): Moment {
+export function getNextDate(dayOfMonth?: number): Moment | null {
+  if (typeof dayOfMonth != 'number') {
+    return null;
+  }
   const currentDate = new Date();
   const currentDay = currentDate.getDate();
   const currentMonth = currentDate.getMonth();

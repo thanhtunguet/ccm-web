@@ -73,7 +73,7 @@ export const CardMaster: FC = () => {
       dataIndex: "cardClass",
       key: "cardClass.dueDate",
       render(cardClass: CardClass) {
-        return cardClass?.dueDate ? getNextDate(cardClass?.dueDate).format('DD/MM/YYYY') : '';
+        return cardClass?.dueDate ? getNextDate(cardClass?.dueDate)?.format('DD/MM/YYYY') : '';
       },
     },
     {
@@ -81,7 +81,7 @@ export const CardMaster: FC = () => {
       dataIndex: "cardClass",
       key: "cardClass.statementDate",
       render(cardClass: CardClass) {
-        return cardClass?.statementDate ? getNextDate(cardClass?.statementDate).format('DD/MM/YYYY') : '';
+        return cardClass?.statementDate ? getNextDate(cardClass?.statementDate)?.format('DD/MM/YYYY') : '';
       },
     },
     {
