@@ -38,7 +38,7 @@ const BankDetail = () => {
       dataIndex: "dueDate",
       key: "dueDate",
       render(date) {
-        return getNextDate(date).format('DD/MM/YYYY');
+        return getNextDate(date)?.format('DD/MM/YYYY');
       },
     },
     {
@@ -46,7 +46,7 @@ const BankDetail = () => {
       dataIndex: "statementDate",
       key: "statementDate",
       render(date) {
-        return getNextDate(date).format('DD/MM/YYYY');
+        return getNextDate(date)?.format('DD/MM/YYYY');
       },
     },
     {
