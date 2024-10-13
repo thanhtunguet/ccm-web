@@ -68,6 +68,7 @@ const HomeDashboard: React.FC = () => {
           title="Tổng quan doanh thu"
           bordered={false}>
           <RevenueDonutChart
+            title="Tổng quan doanh thu"
             completedAmount={completedAmount}
             pendingAmount={pendingAmount}
           />
@@ -86,6 +87,7 @@ const HomeDashboard: React.FC = () => {
             placeholder="Select month"
           />
           <RevenueDonutChart
+            title="Doanh thu tháng"
             completedAmount={monthlyRevenue}
             pendingAmount={pendingMonthlyRevenue}
           />

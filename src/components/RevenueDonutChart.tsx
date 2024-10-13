@@ -13,11 +13,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 interface RevenueDonutChartProps {
   completedAmount: number;
   pendingAmount: number;
+  title: string;
 }
 
 const RevenueDonutChart: React.FC<RevenueDonutChartProps> = ({
   completedAmount,
   pendingAmount,
+  title,
 }) => {
   const data = {
     labels: ['Đã chuyển tiền', 'Đang chờ'],
@@ -53,7 +55,7 @@ const RevenueDonutChart: React.FC<RevenueDonutChartProps> = ({
 
   return (
     <div style={{width: '300px', margin: 'auto'}}>
-      <h2 style={{textAlign: 'center'}}>Tổng quan doanh thu</h2>
+      <h2 style={{textAlign: 'center'}}>{title}</h2>
       <Doughnut
         data={data}
         options={options}
