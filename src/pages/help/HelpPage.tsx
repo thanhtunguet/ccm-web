@@ -1,10 +1,10 @@
-import BankHelp from './BankHelp.md';
-import CardClassHelp from './CardClassHelp.md';
-import CardHelp from './CardHelp.md';
-import CustomerHelp from './CustomerHelp.md';
+import BankHelp from '../docs/BankHelp.md';
+import CardClassHelp from '../docs/CardClassHelp.md';
+import CardHelp from '../docs/CardHelp.md';
+import CustomerHelp from '../docs/CustomerHelp.md';
+import StoreHelp from '../docs/StoreHelp.md';
+import TransactionHelp from '../docs/TransactionHelp.md';
 import './HelpPage.scss';
-import StoreHelp from './StoreHelp.md';
-import TransactionHelp from './TransactionHelp.md';
 
 const HelpPage = () => {
   return (
@@ -24,11 +24,11 @@ const HelpPage = () => {
       <div id="customer">
         <CustomerHelp />
       </div>
-      
+
       <div id="store">
         <StoreHelp />
       </div>
-      
+
       <div id="transaction">
         <TransactionHelp />
       </div>

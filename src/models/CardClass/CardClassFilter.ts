@@ -28,6 +28,4 @@ export class CardClassFilter extends ModelFilter {
 
   @ObjectField(IdFilter)
   public bankId?: IdFilter = new IdFilter();
-
-  
 }

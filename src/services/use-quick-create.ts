@@ -12,7 +12,9 @@ export function useQuickCreate<T>(
 ] {
   const [name, setName] = React.useState<string>('');
 
-  const handleChangeName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {setName(event.target.value);}, []);
+  const handleChangeName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  }, []);
 
   const handleCreateCustomer = React.useCallback(() => {
     const item = newItem(name);

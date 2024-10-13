@@ -1,6 +1,6 @@
-import {Observable} from "rxjs";
-import {Model} from "react3l";
 import React from "react";
+import { Model } from "react3l";
+import { Observable } from "rxjs";
 
 export function useDelete<T extends Model>(
   getDelete: (entity: T) => Observable<T>,

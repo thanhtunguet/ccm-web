@@ -93,6 +93,24 @@ export const TransactionMaster: FC = () => {
       },
     },
     {
+      title: "Phí máy",
+      dataIndex: "posFee",
+      key: "posFee",
+      className: "text-right",
+      render(content: number) {
+        return (content ?? 0)?.toLocaleString();
+      },
+    },
+    {
+      title: "Lợi nhuận",
+      dataIndex: "profit",
+      key: "profit",
+      className: "text-right",
+      render(content: number) {
+        return (content ?? 0)?.toLocaleString();
+      },
+    },
+    {
       title: "Trạng thái",
       dataIndex: "statusId",
       key: "statusId",
@@ -124,6 +142,7 @@ export const TransactionMaster: FC = () => {
             onCancel={() => {
             }}
             okText="Yes"
+            okType="danger"
             cancelText="No"
           >
             <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />

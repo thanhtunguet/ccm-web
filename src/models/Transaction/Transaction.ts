@@ -21,6 +21,12 @@ export class Transaction extends Model {
   public fee?: number;
 
   @Field(Number)
+  public posFee?: number;
+
+  @Field(Number)
+  public profit?: number;
+
+  @Field(Number)
   public statusId?: number;
 
   @MomentField()

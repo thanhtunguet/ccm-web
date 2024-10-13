@@ -1,8 +1,8 @@
-import {Layout, Menu} from "antd";
-import React from "react";
-import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import {menu} from "./config/menu";
-import {AppRoute} from "./config/app-route";
+import {Layout, Menu} from 'antd';
+import React from 'react';
+import {Outlet, useLocation, useNavigate} from 'react-router-dom';
+import {AppRoute} from './config/app-route';
+import {menu} from './config/menu';
 
 const {Header, Content, Footer} = Layout;
 
@@ -10,33 +10,32 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const {pathname} = useLocation();
 
-  React.useEffect(() => {
-    if (pathname === "/") {
-      window.location.href = AppRoute.TRANSACTION;
-    }
-  }, [pathname]);
-
   return (
     <Layout>
       <Header className="d-flex align-items-center">
-        <div className="demo-logo"/>
+        <div className="demo-logo">
+          <a
+            href={AppRoute.HOME}
+            className="text-white">
+            CCM
+          </a>
+        </div>
         <Menu
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={[pathname]}
-          onClick={(item: { key: string; }) => {
+          onClick={(item: {key: string}) => {
             navigate(item.key);
           }}
           items={menu}
           className="d-flex w-100"
-      
         />
       </Header>
       <Content className="m-2 flex-grow-1">
-        <Outlet/>
+        <Outlet />
       </Content>
       <Footer className="text-center">
-                Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        Ant Design ©{new Date().getFullYear()} Created by Ant UED
       </Footer>
     </Layout>
   );

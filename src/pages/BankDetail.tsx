@@ -76,7 +76,7 @@ const BankDetail = () => {
         onFinish={handleCreate}
       >
         <Row gutter={12}>
-          <Col span={8}>
+          <Col span={4}>
             {/* Mã ngân hàng */}
             <Form.Item
               name={nameof(Bank.prototype.code)}
@@ -86,9 +86,7 @@ const BankDetail = () => {
               <Input/>
             </Form.Item>
           </Col>
-        </Row>
-        <Row gutter={12}>
-          <Col span={8}>
+          <Col span={4}>
             {/* Tên ngắn */}
             <Form.Item
               name={nameof(Bank.prototype.shortName)}
@@ -97,7 +95,7 @@ const BankDetail = () => {
               <Input type="text"/>
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             {/* Tên ngân hàng */}
             <Form.Item
               name={nameof(Bank.prototype.name)}
@@ -107,7 +105,7 @@ const BankDetail = () => {
               <Input/>
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             {/* Tên tiếng Anh */}
             <Form.Item
               name={nameof(Bank.prototype.englishName)}
@@ -117,6 +115,7 @@ const BankDetail = () => {
             </Form.Item>
           </Col>
         </Row>
+       
         {/* Nút gửi */}
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={isLoading}>

@@ -44,6 +44,14 @@ export const StoreMaster: FC = () => {
       key: "name",
     },
     {
+      title: "Mức phí (%)",
+      dataIndex: "fee",
+      key: "fee",
+      render(fee) {
+        return `${fee ?? 0}%`;
+      },
+    },
+    {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
@@ -69,6 +77,7 @@ export const StoreMaster: FC = () => {
             onCancel={() => {
             }}
             okText="Có"
+            okType="danger"
             cancelText="Không"
           >
             <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />

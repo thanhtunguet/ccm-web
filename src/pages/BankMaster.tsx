@@ -75,6 +75,7 @@ export const BankMaster: FC = () => {
             onCancel={() => {
             }}
             okText="Yes"
+            okType="danger"
             cancelText="No"
           >
             <Button className="mx-1" danger icon={<DeleteOutlined className="text-danger" />} />

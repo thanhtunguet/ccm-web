@@ -1,9 +1,15 @@
 .ant-layout {
+
+
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+
+  .demo-logo {
+    margin-right: 1rem;
+  }
 
   .ant-layout-content {
     padding: 1rem 1rem;

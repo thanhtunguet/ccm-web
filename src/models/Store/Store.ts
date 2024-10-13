@@ -12,12 +12,15 @@ export class Store extends Model {
   @Field(String)
   public name?: string;
 
+  @Field(Number)
+  public fee?: number;
+
+  @Field(String)
+  public address?: string;
+
   @MomentField()
   public createdAt?: Moment;
 
   @MomentField()
   public updatedAt?: Moment;
-
-  @Field(String)
-  public address?: string;
 }
